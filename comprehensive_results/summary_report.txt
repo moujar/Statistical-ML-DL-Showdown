@@ -1,0 +1,12 @@
+COMPREHENSIVE ML vs STATISTICAL MODELS COMPARISON
+============================================================
+
+Total comparisons: 62
+Problem types: 4
+Datasets: 13
+Models: 9
+
+CATEGORY COMPARISON:
+------------------------------
+ML Models: 38 comparisons
+Statistical Models: 24 comparisons
