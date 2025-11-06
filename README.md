@@ -290,25 +290,14 @@ Additional references are available in the `paper/` directory and cited in the f
 
 ## 👥 Authors
 
-- **Abderrahmane Moujar**
-- **Oudoum Ali Houmed**
-- **Said Abolhassan Razavi**
+- **Abderrahmane Moujar 22508668**
+- **Oudoum Ali Houmed 22517914**
+- **Said Abolhassan Razavi 22517914**
 
 **Institution:** Master Paris-Saclay, Applied Statistics
 
 ---
 
-## 📄 License
-
-This project is part of academic research. Please cite appropriately if using this work.
-
----
-
-## 🤝 Contributing
-
-This is an academic research project. For questions or suggestions, please open an issue or contact the authors.
-
----
 
 ## 📝 Citation
 
@@ -320,36 +309,6 @@ Bridging the Gap: Statistical vs Machine Learning Methods -
 Performance, Cost, and Interpretability Trade-offs in the Age of Transparent AI.
 Master Paris-Saclay, Applied Statistics.
 ```
-
----
-
-## 🔍 Key Takeaways
-
-1. **No Universal Winner:** Both statistical and ML approaches have distinct advantages depending on requirements.
-
-2. **Statistical Models are Best When:**
-   - Interpretability is critical (regulatory compliance, scientific research)
-   - Real-time applications are needed (20-100x faster)
-   - Hypothesis testing and causal inference are required
-   - Small to medium datasets are available
-
-3. **ML/DL Models are Best When:**
-   - Maximum accuracy is the priority
-   - Large, complex datasets with non-linear patterns
-   - Computational resources are available
-   - Pattern discovery in high-dimensional data
-
-4. **The Optimal Choice Depends On:**
-   - Primary requirement (accuracy vs interpretability vs speed)
-   - Dataset characteristics (size, complexity, linearity)
-   - Computational constraints
-   - Regulatory requirements
-
----
-
-## 📧 Contact
-
-For questions or inquiries about this research, please contact the authors through the repository issues or via email.
 
 ---
 
