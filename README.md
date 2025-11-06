@@ -291,7 +291,7 @@ Additional references are available in the `paper/` directory and cited in the f
 ## 👥 Authors
 
 - **Abderrahmane Moujar 22508668**
-- **Oudoum Ali Houmed 22517914**
+- **Oudoum Ali Houmed 22518703**
 - **Said Abolhassan Razavi 22517914**
 
 **Institution:** Master Paris-Saclay, Applied Statistics
