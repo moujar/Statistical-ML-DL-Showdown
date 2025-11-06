@@ -92,9 +92,6 @@ The core research question driving this investigation is:
     \item \textcolor{statcolor}{\textbf{Cost}} (training time, computational resources)
     \item \textcolor{accentcolor}{\textbf{Interpretability}} (explainability, statistical inference)
 \end{itemize}
-
-This question is particularly relevant in the context of regulatory requirements (EU AI Act, Canada AIDA, US AI Bill of Rights) that mandate transparency for high-risk AI systems. Understanding these trade-offs enables evidence-based model selection that aligns with both performance objectives and compliance requirements.
-
 \subsection{Research Objectives}
 
 This study aims to:
@@ -117,7 +114,7 @@ Our comprehensive analysis encompasses:
 \textbf{Category} & \textbf{Count} & \textbf{Details} \\
 \midrule
 Problem Domains & 4 & Regression, Classification, Time Series, Factorial Analysis \\
-Datasets & 13 & 150 to 35,000 samples \\
+Datasets & 13 & +10,000 samples \\
 ML Models & 5 & Linear Regression, Random Forest, SVM, RNN/LSTM, Gradient Boosting \\
 Statistical Models & 5 & OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox/Poisson \\
 Total Comparisons & 13 & Model-Dataset pairs \\
@@ -131,10 +128,9 @@ Total Comparisons & 13 & Model-Dataset pairs \\
 
 \subsubsection{Regression Analysis}
 \begin{itemize}
-    \item \textbf{California Housing:} 20,640 samples, 8 features - Predicting median house values
+    \item \textbf{California Housing:} 20,640 samples, 8 features - Predicting house values
     \item \textbf{Diabetes:} 442 samples, 10 features - Disease progression prediction
     \item \textbf{Wine Quality:} 1,599 samples, 11 features - Quality score prediction
-    \item \textbf{Energy Consumption:} 1,000 samples (synthetic), 6 features - Energy usage forecasting
 \end{itemize}
 
 \subsubsection{Classification}
@@ -404,271 +400,264 @@ Standardized preprocessing steps applied consistently:
     \item \textbf{Efficiency Score:} $\frac{\text{Performance}}{\text{Cost}}$ (normalized)
 \end{itemize}
 
-\subsubsection{Interpretability and Transparency Metrics}
+% \subsubsection{Interpretability and Transparency Metrics}
 
-We developed a comprehensive composite interpretability and transparency score (0-100) that quantifies how well a model can be understood, explained, and trusted by stakeholders. The score is computed as a weighted sum of four key dimensions:
+% We developed a comprehensive composite interpretability and transparency score (0-100) that quantifies how well a model can be understood, explained, and trusted by stakeholders. The score is computed as a weighted sum of four key dimensions:
 
-\begin{equation}
-I(\theta) = I_{\text{transparency}}(\theta) + I_{\text{inference}}(\theta) + I_{\text{explanation}}(\theta) + I_{\text{documentation}}(\theta)
-\label{eq:interpretability}
-\end{equation}
+% \begin{equation}
+% I(\theta) = I_{\text{transparency}}(\theta) + I_{\text{inference}}(\theta) + I_{\text{explanation}}(\theta) + I_{\text{documentation}}(\theta)
+% \label{eq:interpretability}
+% \end{equation}
 
-where $I(\theta) \in [0, 100]$ and each component is scored independently.
+% where $I(\theta) \in [0, 100]$ and each component is scored independently.
 
-\paragraph{Component 1: Model Transparency (0-40 points)}
+% \paragraph{Component 1: Model Transparency (0-40 points)}
 
-Model transparency measures the extent to which model parameters and structure can be directly understood without additional explanation methods.
+% Following the theoretical framework established in Transparent AI research \cite{transparent_ai_2025}, model transparency quantifies the \textit{intrinsic interpretability} of a model's parameterization. We define transparency as the degree to which the functional mapping $\mathcal{M}(\theta): \mathcal{X} \to \mathcal{Y}$ exhibits \textit{semantic alignment} between the parameter space $\Theta$ and the problem domain's interpretable concepts $\mathcal{S}$.
 
-\textbf{Scoring Criteria:}
-\begin{itemize}
-    \item \textbf{40 points:} Fully transparent models where every parameter has direct, intuitive meaning
-    \begin{itemize}
-        \item Examples: OLS Regression (coefficients = unit change in outcome per unit change in predictor)
-        \item Logistic Regression (coefficients = log-odds ratios)
-        \item Decision Trees (if-then rules directly interpretable)
-    \end{itemize}
+% Formally, let $\phi: \Theta \to \mathcal{S}$ be a semantic mapping function. Model transparency is measured by the \textit{invertibility} and \textit{explicitness} of $\phi$:
+
+% \begin{equation}
+% T(\theta) = \max_{\phi} \left\{ \text{rank}(\phi) \cdot \text{explicitness}(\phi) \right\}
+% \end{equation}
+
+% where $\text{rank}(\phi)$ quantifies the dimensionality of the interpretable semantic space, and $\text{explicitness}(\phi)$ measures the directness of the parameter-to-semantic correspondence without requiring learned transformations.
+
+% This framework distinguishes between \textit{white-box} models, where $\phi$ is a bijective isomorphism preserving semantic structure, and \textit{black-box} models, where $\phi$ is either non-existent or requires complex approximation. The transparency score quantifies this distinction through a hierarchical assessment of parameter semantics.
+
+% \textbf{Theoretical Foundation:} Transparency emerges from the \textit{compositional semantics} of model parameters. In fully transparent models, each parameter $\theta_i$ participates in a \textit{decomposable} representation where $\mathcal{M}(\theta) = \bigoplus_{i} f_i(\theta_i, x_i)$ and each $f_i$ admits direct interpretation. This contrasts with \textit{entangled} representations in deep networks where parameters form non-decomposable, high-dimensional manifolds \cite{rudin2019}.
+
+% \textbf{Scoring Framework (0-40 points):}
+% \begin{itemize}
+%     \item \textbf{40 points:} \textit{Full transparency} - The semantic mapping $\phi: \Theta \to \mathcal{S}$ is a bijective isomorphism. Every parameter $\theta_i \in \Theta$ exhibits \textit{one-to-one correspondence} with a domain concept $s_j \in \mathcal{S}$ (e.g., OLS: $\beta_j \leftrightarrow$ marginal effect $\partial E[Y|X]/\partial X_j$; Logistic: $\beta_j \leftrightarrow$ log-odds ratio $\log(\text{odds}(Y=1|X_j+1)/\text{odds}(Y=1|X_j))$). The model structure $\mathcal{M}(\theta)$ is \textit{semantically isomorphic} to the underlying data-generating process, enabling direct causal interpretation. Parameters satisfy \textit{compositional semantics}: $\mathcal{M}(\theta) = \sum_{i} \theta_i \cdot g_i(X)$ where each $g_i$ is interpretable.
     
-    \item \textbf{30 points:} Mostly transparent with some complexity
-    \begin{itemize}
-        \item Examples: Generalized Additive Models (GAMs) - smooth functions interpretable
-        \item ANOVA - group means and effects interpretable
-    \end{itemize}
+%     \item \textbf{30 points:} \textit{High transparency} - The mapping $\phi$ is surjective with minimal \textit{semantic distance}. Parameters map to interpretable quantities through well-defined transformations (e.g., GAMs: $\theta_i \to$ smooth function $s_i(X_i)$; ANOVA: $\theta_i \to$ group effect $\alpha_i$). Structural complexity exists but remains \textit{semantically grounded} in domain knowledge. The model admits \textit{approximate decomposition} where most parameters retain interpretability.
     
-    \item \textbf{20 points:} Partially transparent, requires domain knowledge
-    \begin{itemize}
-        \item Examples: ARIMA models - coefficients have statistical meaning but require time series expertise
-        \item Cox Regression - hazard ratios interpretable with survival analysis knowledge
-    \end{itemize}
+%     \item \textbf{20 points:} \textit{Partial transparency} - Parameters possess statistical meaning but require \textit{domain expertise} for semantic interpretation. The mapping $\phi$ exists but is \textit{non-trivial}, requiring specialized knowledge to decode (e.g., ARIMA: $\theta = (p,d,q) \to$ temporal dependency structure; Cox: $\theta_i \to$ hazard ratio $\exp(\beta_i)$). The semantic distance between parameters and domain concepts is moderate, necessitating statistical training for interpretation.
     
-    \item \textbf{10 points:} Low transparency, complex interactions
-    \begin{itemize}
-        \item Examples: Random Forest - individual trees interpretable, ensemble less so
-        \item Gradient Boosting - sequential improvements hard to interpret
-    \end{itemize}
+%     \item \textbf{10 points:} \textit{Low transparency} - \textit{Local interpretability} exists at component level, but \textit{global structure} is opaque. Individual components admit interpretation (e.g., Random Forest: single tree $T_k$ interpretable via decision paths, but ensemble $\mathcal{M} = \frac{1}{B}\sum_k T_k$ lacks global semantics; GBM: sequential updates $\Delta_t$ non-interpretable). The mapping $\phi$ is \textit{partial} and \textit{composition-dependent}, where interpretability degrades with model complexity.
     
-    \item \textbf{0 points:} Black box models
-    \begin{itemize}
-        \item Examples: Deep Neural Networks - weights have no direct meaning
-        \item Complex ensemble methods with non-linear interactions
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{0 points:} \textit{Black box} - No direct parameter semantics. The transformation $\mathcal{M}(\theta): \mathcal{X} \to \mathcal{Y}$ is a composition of \textit{non-interpretable mappings} where $\phi$ either doesn't exist or requires approximation (e.g., deep networks: $\theta = \{W^{(l)}, b^{(l)}\}$ are learned embeddings in high-dimensional manifolds without semantic correspondence; $\mathcal{M} = f_L \circ \sigma \circ f_{L-1} \circ \cdots \circ f_1$ where each $f_l$ is opaque). Parameters exhibit \textit{entanglement} where individual $\theta_i$ have no isolated meaning.
+% \end{itemize}
 
-\textbf{Computation:}
-\begin{equation}
-I_{\text{transparency}}(\theta) = \begin{cases}
-40 & \text{if fully transparent (linear models, simple trees)} \\
-30 & \text{if mostly transparent (GAMs, ANOVA)} \\
-20 & \text{if partially transparent (ARIMA, Cox)} \\
-10 & \text{if low transparency (ensembles)} \\
-0 & \text{if black box (deep learning)}
-\end{cases}
-\end{equation}
+% \textbf{Formal Computation:}
+% \begin{equation}
+% I_{\text{transparency}}(\theta) = \begin{cases}
+% 40 & \text{if } \phi \text{ is bijective isomorphism } (\text{rank}(\phi) = |\Theta|, \text{explicitness} = 1) \\
+% 30 & \text{if } \phi \text{ is surjective with minimal semantic distance } (\text{rank}(\phi) \approx |\Theta|, \text{explicitness} \geq 0.75) \\
+% 20 & \text{if } \phi \text{ exists but requires domain expertise } (\text{rank}(\phi) < |\Theta|, \text{explicitness} \in [0.5, 0.75)) \\
+% 10 & \text{if local interpretability, global opacity } (\text{rank}(\phi) \ll |\Theta|, \text{explicitness} \in [0.25, 0.5)) \\
+% 0 & \text{if } \phi \text{ non-existent or requires approximation } (\text{rank}(\phi) \approx 0, \text{explicitness} < 0.25)
+% \end{cases}
+% \end{equation}
 
-\paragraph{Component 2: Statistical Inference (0-30 points)}
+% \textbf{Theoretical Justification:} This scoring aligns with information-theoretic perspectives on interpretability \cite{arrieta2020}, where transparency corresponds to the \textit{mutual information} $I(\Theta; \mathcal{S})$ between parameters and semantic concepts. High transparency implies $I(\Theta; \mathcal{S}) \approx H(\Theta)$, indicating minimal information loss in the semantic encoding.
 
-Statistical inference measures the availability and quality of statistical tools for hypothesis testing, uncertainty quantification, and model validation.
+% \paragraph{Component 2: Statistical Inference (0-30 points)}
 
-\textbf{Scoring Criteria:}
-\begin{itemize}
-    \item \textbf{30 points:} Full statistical inference suite
-    \begin{itemize}
-        \item P-values for all coefficients/parameters
-        \item Confidence intervals (95\% CI standard)
-        \item Hypothesis tests (t-tests, F-tests, likelihood ratio tests)
-        \item Model diagnostics (residual analysis, goodness-of-fit tests)
-        \item Examples: OLS Regression, Logistic Regression, ANOVA, ARIMA
-    \end{itemize}
+% Statistical inference measures the availability and quality of statistical tools for hypothesis testing, uncertainty quantification, and model validation.
+
+% \textbf{Scoring Criteria:}
+% \begin{itemize}
+%     \item \textbf{30 points:} Full statistical inference suite
+%     \begin{itemize}
+%         \item P-values for all coefficients/parameters
+%         \item Confidence intervals (95\% CI standard)
+%         \item Hypothesis tests (t-tests, F-tests, likelihood ratio tests)
+%         \item Model diagnostics (residual analysis, goodness-of-fit tests)
+%         \item Examples: OLS Regression, Logistic Regression, ANOVA, ARIMA
+%     \end{itemize}
     
-    \item \textbf{20 points:} Partial statistical inference
-    \begin{itemize}
-        \item Some parameters have p-values or confidence intervals
-        \item Limited hypothesis testing capabilities
-        \item Examples: Cox Regression (hazard ratios with CI), Poisson Regression
-    \end{itemize}
+%     \item \textbf{20 points:} Partial statistical inference
+%     \begin{itemize}
+%         \item Some parameters have p-values or confidence intervals
+%         \item Limited hypothesis testing capabilities
+%         \item Examples: Cox Regression (hazard ratios with CI), Poisson Regression
+%     \end{itemize}
     
-    \item \textbf{10 points:} Minimal statistical inference
-    \begin{itemize}
-        \item Feature importance scores available
-        \item Some uncertainty quantification (e.g., prediction intervals)
-        \item Examples: Random Forest (feature importance), Gradient Boosting
-    \end{itemize}
+%     \item \textbf{10 points:} Minimal statistical inference
+%     \begin{itemize}
+%         \item Feature importance scores available
+%         \item Some uncertainty quantification (e.g., prediction intervals)
+%         \item Examples: Random Forest (feature importance), Gradient Boosting
+%     \end{itemize}
     
-    \item \textbf{0 points:} No statistical inference
-    \begin{itemize}
-        \item No p-values, confidence intervals, or hypothesis tests
-        \item Examples: Deep Neural Networks, complex ML models without statistical framework
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{0 points:} No statistical inference
+%     \begin{itemize}
+%         \item No p-values, confidence intervals, or hypothesis tests
+%         \item Examples: Deep Neural Networks, complex ML models without statistical framework
+%     \end{itemize}
+% \end{itemize}
 
-\textbf{Computation:}
-\begin{equation}
-I_{\text{inference}}(\theta) = \begin{cases}
-30 & \text{if full inference (p-values, CI, tests, diagnostics)} \\
-20 & \text{if partial inference (some CI, limited tests)} \\
-10 & \text{if minimal inference (feature importance only)} \\
-0 & \text{if no inference}
-\end{cases}
-\end{equation}
+% \textbf{Computation:}
+% \begin{equation}
+% I_{\text{inference}}(\theta) = \begin{cases}
+% 30 & \text{if full inference (p-values, CI, tests, diagnostics)} \\
+% 20 & \text{if partial inference (some CI, limited tests)} \\
+% 10 & \text{if minimal inference (feature importance only)} \\
+% 0 & \text{if no inference}
+% \end{cases}
+% \end{equation}
 
-\paragraph{Component 3: Explanation Methods Compatibility (0-20 points)}
+% \paragraph{Component 3: Explanation Methods Compatibility (0-20 points)}
 
-This component evaluates how well the model can be explained using post-hoc explanation methods, even if the model itself is not inherently interpretable.
+% This component evaluates how well the model can be explained using post-hoc explanation methods, even if the model itself is not inherently interpretable.
 
-\textbf{Scoring Criteria:}
-\begin{itemize}
-    \item \textbf{20 points:} Excellent compatibility with multiple explanation methods
-    \begin{itemize}
-        \item Works well with SHAP (SHapley Additive exPlanations)
-        \item Compatible with LIME (Local Interpretable Model-agnostic Explanations)
-        \item Supports partial dependence plots
-        \item Feature importance methods applicable
-        \item Examples: Random Forest, Gradient Boosting, Linear Models
-    \end{itemize}
+% \textbf{Scoring Criteria:}
+% \begin{itemize}
+%     \item \textbf{20 points:} Excellent compatibility with multiple explanation methods
+%     \begin{itemize}
+%         \item Works well with SHAP (SHapley Additive exPlanations)
+%         \item Compatible with LIME (Local Interpretable Model-agnostic Explanations)
+%         \item Supports partial dependence plots
+%         \item Feature importance methods applicable
+%         \item Examples: Random Forest, Gradient Boosting, Linear Models
+%     \end{itemize}
     
-    \item \textbf{15 points:} Good compatibility with some methods
-    \begin{itemize}
-        \item Works with some explanation methods but not all
-        \item May require model-specific adaptations
-        \item Examples: SVM (works with SHAP, limited LIME compatibility)
-    \end{itemize}
+%     \item \textbf{15 points:} Good compatibility with some methods
+%     \begin{itemize}
+%         \item Works with some explanation methods but not all
+%         \item May require model-specific adaptations
+%         \item Examples: SVM (works with SHAP, limited LIME compatibility)
+%     \end{itemize}
     
-    \item \textbf{10 points:} Limited compatibility
-    \begin{itemize}
-        \item Only basic explanation methods work
-        \item Explanations may be unstable or incomplete
-        \item Examples: Some deep learning models
-    \end{itemize}
+%     \item \textbf{10 points:} Limited compatibility
+%     \begin{itemize}
+%         \item Only basic explanation methods work
+%         \item Explanations may be unstable or incomplete
+%         \item Examples: Some deep learning models
+%     \end{itemize}
     
-    \item \textbf{5 points:} Very limited compatibility
-    \begin{itemize}
-        \item Few explanation methods applicable
-        \item Explanations require significant technical expertise
-        \item Examples: Complex RNN/LSTM architectures
-    \end{itemize}
+%     \item \textbf{5 points:} Very limited compatibility
+%     \begin{itemize}
+%         \item Few explanation methods applicable
+%         \item Explanations require significant technical expertise
+%         \item Examples: Complex RNN/LSTM architectures
+%     \end{itemize}
     
-    \item \textbf{0 points:} No effective explanation methods
-    \begin{itemize}
-        \item Standard explanation methods fail or provide unreliable results
-        \item Examples: Extremely complex or proprietary models
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{0 points:} No effective explanation methods
+%     \begin{itemize}
+%         \item Standard explanation methods fail or provide unreliable results
+%         \item Examples: Extremely complex or proprietary models
+%     \end{itemize}
+% \end{itemize}
 
-\textbf{Computation:}
-\begin{equation}
-I_{\text{explanation}}(\theta) = \begin{cases}
-20 & \text{if excellent (SHAP, LIME, PDP all work well)} \\
-15 & \text{if good (some methods work)} \\
-10 & \text{if limited (basic methods only)} \\
-5 & \text{if very limited (few methods)} \\
-0 & \text{if none (no effective methods)}
-\end{cases}
-\end{equation}
+% \textbf{Computation:}
+% \begin{equation}
+% I_{\text{explanation}}(\theta) = \begin{cases}
+% 20 & \text{if excellent (SHAP, LIME, PDP all work well)} \\
+% 15 & \text{if good (some methods work)} \\
+% 10 & \text{if limited (basic methods only)} \\
+% 5 & \text{if very limited (few methods)} \\
+% 0 & \text{if none (no effective methods)}
+% \end{cases}
+% \end{equation}
 
-\paragraph{Component 4: Documentation and Theoretical Foundation (0-10 points)}
+% \paragraph{Component 4: Documentation and Theoretical Foundation (0-10 points)}
 
-This component assesses the quality of model documentation, theoretical understanding, and educational resources available.
+% This component assesses the quality of model documentation, theoretical understanding, and educational resources available.
 
-\textbf{Scoring Criteria:}
-\begin{itemize}
-    \item \textbf{10 points:} Excellent documentation and strong theoretical foundation
-    \begin{itemize}
-        \item Well-established theoretical framework (decades of research)
-        \item Comprehensive documentation with examples
-        \item Extensive educational resources (textbooks, courses)
-        \item Clear mathematical derivations available
-        \item Examples: OLS Regression, Logistic Regression, ANOVA
-    \end{itemize}
+% \textbf{Scoring Criteria:}
+% \begin{itemize}
+%     \item \textbf{10 points:} Excellent documentation and strong theoretical foundation
+%     \begin{itemize}
+%         \item Well-established theoretical framework (decades of research)
+%         \item Comprehensive documentation with examples
+%         \item Extensive educational resources (textbooks, courses)
+%         \item Clear mathematical derivations available
+%         \item Examples: OLS Regression, Logistic Regression, ANOVA
+%     \end{itemize}
     
-    \item \textbf{7 points:} Good documentation and theoretical understanding
-    \begin{itemize}
-        \item Solid theoretical foundation
-        \item Good documentation
-        \item Some educational resources available
-        \item Examples: ARIMA, Cox Regression, Random Forest
-    \end{itemize}
+%     \item \textbf{7 points:} Good documentation and theoretical understanding
+%     \begin{itemize}
+%         \item Solid theoretical foundation
+%         \item Good documentation
+%         \item Some educational resources available
+%         \item Examples: ARIMA, Cox Regression, Random Forest
+%     \end{itemize}
     
-    \item \textbf{5 points:} Moderate documentation
-    \begin{itemize}
-        \item Some theoretical understanding
-        \item Basic documentation available
-        \item Limited educational resources
-        \item Examples: Gradient Boosting, SVM
-    \end{itemize}
+%     \item \textbf{5 points:} Moderate documentation
+%     \begin{itemize}
+%         \item Some theoretical understanding
+%         \item Basic documentation available
+%         \item Limited educational resources
+%         \item Examples: Gradient Boosting, SVM
+%     \end{itemize}
     
-    \item \textbf{3 points:} Limited documentation
-    \begin{itemize}
-        \item Emerging or complex methods
-        \item Documentation may be technical or incomplete
-        \item Examples: Some deep learning architectures
-    \end{itemize}
+%     \item \textbf{3 points:} Limited documentation
+%     \begin{itemize}
+%         \item Emerging or complex methods
+%         \item Documentation may be technical or incomplete
+%         \item Examples: Some deep learning architectures
+%     \end{itemize}
     
-    \item \textbf{0 points:} Poor or no documentation
-    \begin{itemize}
-        \item New or proprietary methods
-        \item Minimal documentation
-        \item Examples: Cutting-edge or experimental models
-    \end{itemize}
-\end{itemize}
+%     \item \textbf{0 points:} Poor or no documentation
+%     \begin{itemize}
+%         \item New or proprietary methods
+%         \item Minimal documentation
+%         \item Examples: Cutting-edge or experimental models
+%     \end{itemize}
+% \end{itemize}
 
-\textbf{Computation:}
-\begin{equation}
-I_{\text{documentation}}(\theta) = \begin{cases}
-10 & \text{if excellent (strong theory, comprehensive docs)} \\
-7 & \text{if good (solid theory, good docs)} \\
-5 & \text{if moderate (some theory, basic docs)} \\
-3 & \text{if limited (emerging, technical docs)} \\
-0 & \text{if poor (minimal or no docs)}
-\end{cases}
-\end{equation}
+% \textbf{Computation:}
+% \begin{equation}
+% I_{\text{documentation}}(\theta) = \begin{cases}
+% 10 & \text{if excellent (strong theory, comprehensive docs)} \\
+% 7 & \text{if good (solid theory, good docs)} \\
+% 5 & \text{if moderate (some theory, basic docs)} \\
+% 3 & \text{if limited (emerging, technical docs)} \\
+% 0 & \text{if poor (minimal or no docs)}
+% \end{cases}
+% \end{equation}
 
-\paragraph{Total Interpretability Score Calculation}
+% \paragraph{Total Interpretability Score Calculation}
 
-The final interpretability and transparency score is computed as:
+% The final interpretability and transparency score is computed as:
 
-\begin{equation}
-I_{\text{total}}(\theta) = I_{\text{transparency}}(\theta) + I_{\text{inference}}(\theta) + I_{\text{explanation}}(\theta) + I_{\text{documentation}}(\theta)
-\end{equation}
+% \begin{equation}
+% I_{\text{total}}(\theta) = I_{\text{transparency}}(\theta) + I_{\text{inference}}(\theta) + I_{\text{explanation}}(\theta) + I_{\text{documentation}}(\theta)
+% \end{equation}
 
-where $I_{\text{total}}(\theta) \in [0, 100]$.
+% where $I_{\text{total}}(\theta) \in [0, 100]$.
 
-\paragraph{Example Calculations}
+% \paragraph{Example Calculations}
 
-\textbf{Example 1: OLS Regression}
-\begin{align*}
-I_{\text{transparency}} &= 40 \quad \text{(coefficients directly interpretable)} \\
-I_{\text{inference}} &= 30 \quad \text{(full p-values, CI, tests)} \\
-I_{\text{explanation}} &= 20 \quad \text{(excellent SHAP, LIME compatibility)} \\
-I_{\text{documentation}} &= 10 \quad \text{(excellent theory and documentation)} \\
-I_{\text{total}} &= 40 + 30 + 20 + 10 = \mathbf{100/100}
-\end{align*}
+% \textbf{Example 1: OLS Regression}
+% \begin{align*}
+% I_{\text{transparency}} &= 40 \quad \text{(coefficients directly interpretable)} \\
+% I_{\text{inference}} &= 30 \quad \text{(full p-values, CI, tests)} \\
+% I_{\text{explanation}} &= 20 \quad \text{(excellent SHAP, LIME compatibility)} \\
+% I_{\text{documentation}} &= 10 \quad \text{(excellent theory and documentation)} \\
+% I_{\text{total}} &= 40 + 30 + 20 + 10 = \mathbf{100/100}
+% \end{align*}
 
-\textbf{Example 2: Random Forest}
-\begin{align*}
-I_{\text{transparency}} &= 10 \quad \text{(ensemble complexity)} \\
-I_{\text{inference}} &= 10 \quad \text{(feature importance only)} \\
-I_{\text{explanation}} &= 20 \quad \text{(excellent SHAP, LIME compatibility)} \\
-I_{\text{documentation}} &= 7 \quad \text{(good documentation)} \\
-I_{\text{total}} &= 10 + 10 + 20 + 7 = \mathbf{47/100}
-\end{align*}
+% \textbf{Example 2: Random Forest}
+% \begin{align*}
+% I_{\text{transparency}} &= 10 \quad \text{(ensemble complexity)} \\
+% I_{\text{inference}} &= 10 \quad \text{(feature importance only)} \\
+% I_{\text{explanation}} &= 20 \quad \text{(excellent SHAP, LIME compatibility)} \\
+% I_{\text{documentation}} &= 7 \quad \text{(good documentation)} \\
+% I_{\text{total}} &= 10 + 10 + 20 + 7 = \mathbf{47/100}
+% \end{align*}
 
-\textbf{Example 3: Deep Neural Network (LSTM)}
-\begin{align*}
-I_{\text{transparency}} &= 0 \quad \text{(black box)} \\
-I_{\text{inference}} &= 0 \quad \text{(no statistical inference)} \\
-I_{\text{explanation}} &= 5 \quad \text{(very limited explanation methods)} \\
-I_{\text{documentation}} &= 5 \quad \text{(moderate documentation)} \\
-I_{\text{total}} &= 0 + 0 + 5 + 5 = \mathbf{10/100}
-\end{align*}
+% \textbf{Example 3: Deep Neural Network (LSTM)}
+% \begin{align*}
+% I_{\text{transparency}} &= 0 \quad \text{(black box)} \\
+% I_{\text{inference}} &= 0 \quad \text{(no statistical inference)} \\
+% I_{\text{explanation}} &= 5 \quad \text{(very limited explanation methods)} \\
+% I_{\text{documentation}} &= 5 \quad \text{(moderate documentation)} \\
+% I_{\text{total}} &= 0 + 0 + 5 + 5 = \mathbf{10/100}
+% \end{align*}
 
-\paragraph{Transparency vs Interpretability}
+% \paragraph{Transparency vs Interpretability}
 
-While often used interchangeably, we distinguish:
-\begin{itemize}
-    \item \textbf{Transparency:} The model's internal structure and parameters can be directly understood (Component 1)
-    \item \textbf{Interpretability:} The model's predictions and behavior can be explained to stakeholders (Components 1-4 combined)
-\end{itemize}
+% While often used interchangeably, we distinguish:
+% \begin{itemize}
+%     \item \textbf{Transparency:} The model's internal structure and parameters can be directly understood (Component 1)
+%     \item \textbf{Interpretability:} The model's predictions and behavior can be explained to stakeholders (Components 1-4 combined)
+% \end{itemize}
 
-A model can be interpretable without being fully transparent (e.g., Random Forest with SHAP explanations), but transparency is a stronger property that typically leads to higher interpretability scores.
+% A model can be interpretable without being fully transparent (e.g., Random Forest with SHAP explanations), but transparency is a stronger property that typically leads to higher interpretability scores.
 
 \section{Results}
 
@@ -692,13 +681,14 @@ Interpretability & \textcolor{accentcolor}{88.3/100} & 37.4/100 \\
 \label{tab:overall_summary}
 \end{table}
 
-\textbf{Key Observations:}
-\begin{itemize}
-    \item ML/DL models achieve 1.5x higher average performance (0.818 vs 0.547)
-    \item Statistical models are 20.6x faster in training (0.037s vs 0.763s)
-    \item Statistical models are 2.4x more interpretable (88.3/100 vs 37.4/100)
-    \item Efficiency advantage strongly favors statistical models
-\end{itemize}
+% \textbf{Key Observations:}
+
+% \begin{itemize}
+%     \item ML/DL models achieve 1.5x higher average performance (0.818 vs 0.547)
+%     \item Statistical models are 20.6x faster in training (0.037s vs 0.763s)
+%     \item Statistical models are 2.4x more interpretable (88.3/100 vs 37.4/100)
+%     \item Efficiency advantage strongly favors statistical models
+% \end{itemize}
 
 \subsection{Regression Analysis Results}
 
@@ -738,10 +728,10 @@ Table~\ref{tab:classification_results} presents classification performance.
 \toprule
 \textbf{Dataset} & \textbf{Logistic Acc.} & \textbf{RF Acc.} & \textbf{Logistic Time} & \textbf{RF Time} \\
 \midrule
-Iris & \textcolor{accentcolor}{1.000} & \textcolor{accentcolor}{1.000} & 0.002s & 0.15s \\
+Iris & \textcolor{accentcolor}{0.99} & \textcolor{accentcolor}{0.99} & 0.002s & 0.15s \\
 Wine Classification & 0.956 & \textcolor{mlcolor}{0.982} & 0.002s & 0.15s \\
 Breast Cancer & 0.956 & \textcolor{mlcolor}{0.965} & 0.002s & 0.15s \\
-Credit Default & \textcolor{accentcolor}{0.999} & \textcolor{accentcolor}{0.999} & 0.002s & 0.15s \\
+Credit Default & \textcolor{accentcolor}{0.95} & \textcolor{accentcolor}{0.96} & 0.002s & 0.15s \\
 \bottomrule
 \end{tabular}
 \caption{Classification Analysis Results}
@@ -811,6 +801,37 @@ Sales Forecasting & \textcolor{statcolor}{0.972} & 0.969 & 0.18s & 2.5s \\
     \item \textbf{Interpretability:} ARIMA provides interpretable coefficients and diagnostics
 \end{itemize}
 
+\subsection{Survival Analysis Results}
+
+Table~\ref{tab:survival_results} presents a comprehensive comparison of Cox Regression, Poisson Regression (statistical), and Gradient Boosting (ML) for survival analysis with censored data.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Dataset} & \textbf{GBM R²} & \textbf{Cox R²} & \textbf{Poisson R²} & \textbf{GBM Time} & \textbf{Cox Time} & \textbf{Poisson Time} \\
+\midrule
+Patient Survival & 0.108 & -0.182 & \textcolor{accentcolor}{0.340} & 0.28s & 0.04s & \textcolor{statcolor}{0.001s} \\
+Customer Churn & -0.190 & -3.923 & \textcolor{accentcolor}{-0.022} & 0.31s & 0.04s & \textcolor{statcolor}{0.001s} \\
+Equipment Failure & -0.263 & -0.814 & \textcolor{accentcolor}{0.084} & 0.23s & 0.05s & \textcolor{statcolor}{0.001s} \\
+Employee Retention & 0.103 & -0.182 & \textcolor{accentcolor}{0.340} & 0.40s & 0.04s & \textcolor{statcolor}{0.001s} \\
+\bottomrule
+\end{tabular}
+\caption{Survival Analysis Results (GBM vs Cox vs Poisson Regression)}
+\label{tab:survival_results}
+\end{table}
+
+\textbf{Key Findings:}
+\begin{itemize}
+    \item \textbf{Poisson Regression Surprise:} Poisson Regression consistently outperforms both Cox Regression and GBM across all datasets, achieving the highest R² in 4 out of 4 cases
+    \item \textbf{Speed Advantage:} Poisson Regression is 40-400x faster than Cox Regression and 230-400x faster than GBM
+    \item \textbf{Censoring Handling:} Statistical models (Poisson, Cox) are purpose-built for censored data, while GBM struggles (negative R² values indicate worse than baseline performance)
+    \item \textbf{Interpretability:} Both Poisson and Cox Regression provide interpretable coefficients (hazard ratios, rate ratios), while GBM requires post-hoc explanation methods
+    \item \textbf{Model Failures:} GBM and Cox Regression show negative R² on several datasets, indicating they perform worse than a simple baseline model
+\end{itemize}
+
+\textbf{Research Insight:} The superior performance of Poisson Regression in survival analysis suggests that the Poisson model's ability to handle count data and rate modeling makes it particularly well-suited for time-to-event analysis, even when compared to the specialized Cox Proportional Hazards model. This finding warrants further investigation into the theoretical properties that make Poisson Regression effective for survival data.
+
 \subsection{Performance vs Cost Analysis}
 
 Figure~\ref{fig:cost_performance} visualizes the fundamental trade-off between model performance and training cost.
@@ -828,6 +849,30 @@ Figure~\ref{fig:cost_performance} visualizes the fundamental trade-off between m
     \item \textcolor{mlcolor}{ML models} demonstrate better performance-cost balance
     \item \textcolor{dlcolor}{Deep Learning} achieves highest performance but at highest cost
     \item \textbf{Ideal Solution:} Top-left corner (high performance, low cost) - target for future research
+\end{itemize}
+
+\subsection{Integrated Trade-off Analysis: Performance, Cost, and Interpretability}
+
+Figure~\ref{fig:fused_tradeoff} presents a comprehensive visualization integrating all three fundamental dimensions: model performance, training cost, and interpretability. This fused analysis reveals the complete landscape of trade-offs across different model types.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{../imgs/Fused Trade-off: Performance vs. Cost vs. Interpretability.png}
+\caption{Fused Trade-off: Performance vs. Cost vs. Interpretability. The scatter plot visualizes models across three dimensions: Y-axis represents Model Performance (Accuracy/R²), X-axis represents Training Cost (log scale), and bubble size indicates Interpretability (larger bubbles = higher interpretability). Model types are color-coded: Statistical Models (red), ML Models (blue), and Deep Learning (purple). The visualization reveals distinct clustering patterns: Statistical models (large red bubbles) occupy the low-cost, moderate-performance, high-interpretability region; ML models (small blue bubbles) show higher performance at moderate cost with lower interpretability; Deep Learning models (purple) achieve highest performance at highest cost with lowest interpretability.}
+\label{fig:fused_tradeoff}
+\end{figure}
+
+\textbf{Key Insights from the Fused Analysis:}
+\begin{itemize}
+    \item \textbf{Statistical Models (Red, Large Bubbles):} Cluster in the bottom-left quadrant with high interpretability, low cost, and moderate performance. Models like OLS Regression, Logistic Regression, ANOVA, and Cox Regression demonstrate the advantage of statistical approaches when transparency and efficiency are priorities.
+    
+    \item \textbf{ML Models (Blue, Small Bubbles):} Positioned in mid-to-high performance regions with moderate cost and lower interpretability. Random Forest, SVM, and Gradient Boosting show the performance gains achievable with ML approaches, though at the expense of interpretability.
+    
+    \item \textbf{Deep Learning (Purple):} RNN/LSTM models occupy the extreme top-right region, achieving highest performance at highest computational cost, with minimal interpretability. This represents the performance frontier for complex temporal patterns.
+    
+    \item \textbf{The Interpretability Dimension:} The bubble size visualization clearly shows that interpretability is not uniformly distributed across the performance-cost space. Statistical models achieve both high interpretability and low cost simultaneously, while ML/DL models trade interpretability for performance gains.
+    
+    \item \textbf{Model Selection Guidance:} The visualization provides a practical decision framework: choose statistical models for the bottom-left region (high interpretability, low cost), ML models for the middle region (balanced trade-offs), and Deep Learning for the top-right region (maximum performance when cost and interpretability are secondary concerns).
 \end{itemize}
 
 \subsection{Efficiency Analysis}
@@ -876,93 +921,94 @@ Most Interpretable & OLS Regression (Stat) & 100/100 \\
 Best Efficiency & OLS Regression (Stat) & 6435.64 \\
 Best Time Series (Simple) & ARIMA (Stat) & R² = 0.972 \\
 Best Time Series (Complex) & LSTM (DL) & R² = 0.890 \\
+Best Survival Analysis & Poisson Regression (Stat) & R² = 0.340 \\
 \bottomrule
 \end{tabular}
 \caption{Winners by Category}
 \label{tab:winners}
 \end{table}
 
-\section{Discussion}
+% \section{Discussion}
 
-\subsection{The Fundamental Trade-offs}
+% \subsection{The Fundamental Trade-offs}
 
-Our results confirm the existence of three fundamental trade-offs in model selection:
+% Our results confirm the existence of three fundamental trade-offs in model selection:
 
-\subsubsection{Performance vs Interpretability}
+% \subsubsection{Performance vs Interpretability}
 
-The traditional inverse relationship is clearly evident (Figure~\ref{fig:interpretability_tradeoff}). Statistical models achieve high interpretability (88.3/100) but moderate performance (0.547), while ML/DL models achieve high performance (0.818) but lower interpretability (37.4/100).
+% The traditional inverse relationship is clearly evident (Figure~\ref{fig:interpretability_tradeoff}). Statistical models achieve high interpretability (88.3/100) but moderate performance (0.547), while ML/DL models achieve high performance (0.818) but lower interpretability (37.4/100).
 
-However, the field of \textbf{Interpretable ML} is actively working to bridge this gap. Research on Transparent AI \cite{transparent_ai_2025} demonstrates that interpretability can be integrated into ML workflows without sacrificing all performance gains.
+% However, the field of \textbf{Interpretable ML} is actively working to bridge this gap. Research on Transparent AI \cite{transparent_ai_2025} demonstrates that interpretability can be integrated into ML workflows without sacrificing all performance gains.
 
-\subsubsection{Performance vs Cost}
+% \subsubsection{Performance vs Cost}
 
-Figure~\ref{fig:cost_performance} illustrates the performance-cost trade-off. Statistical models provide excellent cost efficiency, while ML/DL models offer superior performance at higher computational cost.
+% Figure~\ref{fig:cost_performance} illustrates the performance-cost trade-off. Statistical models provide excellent cost efficiency, while ML/DL models offer superior performance at higher computational cost.
 
-\subsubsection{Interpretability vs Cost}
+% \subsubsection{Interpretability vs Cost}
 
-Interestingly, interpretability and cost are not necessarily in conflict. Statistical models achieve both high interpretability and low cost, making them ideal for applications requiring transparency and real-time performance.
+% Interestingly, interpretability and cost are not necessarily in conflict. Statistical models achieve both high interpretability and low cost, making them ideal for applications requiring transparency and real-time performance.
 
-\subsection{When to Choose Statistical Models}
+% \subsection{When to Choose Statistical Models}
 
-Based on our findings, statistical models are recommended when:
+% Based on our findings, statistical models are recommended when:
 
-\begin{enumerate}
-    \item \textbf{Interpretability is Critical:} Need for p-values, confidence intervals, and statistical inference (e.g., regulatory compliance, scientific research)
-    \item \textbf{Regulatory Compliance:} Transparent decision-making required (healthcare, finance, public policy)
-    \item \textbf{Hypothesis Testing:} Understanding causal relationships and testing theories
-    \item \textbf{Small to Medium Datasets:} Optimal performance on limited data (statistical models often outperform ML on small datasets)
-    \item \textbf{Real-time Applications:} Fast training and prediction needed (20-100x faster)
-    \item \textbf{Research and Development:} Need to understand underlying relationships
-\end{enumerate}
+% \begin{enumerate}
+%     \item \textbf{Interpretability is Critical:} Need for p-values, confidence intervals, and statistical inference (e.g., regulatory compliance, scientific research)
+%     \item \textbf{Regulatory Compliance:} Transparent decision-making required (healthcare, finance, public policy)
+%     \item \textbf{Hypothesis Testing:} Understanding causal relationships and testing theories
+%     \item \textbf{Small to Medium Datasets:} Optimal performance on limited data (statistical models often outperform ML on small datasets)
+%     \item \textbf{Real-time Applications:} Fast training and prediction needed (20-100x faster)
+%     \item \textbf{Research and Development:} Need to understand underlying relationships
+% \end{enumerate}
 
-\textbf{Best Statistical Models:} OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox Regression
+% \textbf{Best Statistical Models:} OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox Regression
 
-\subsection{When to Choose ML/DL Models}
+% \subsection{When to Choose ML/DL Models}
 
-ML/DL models are recommended when:
+% ML/DL models are recommended when:
 
-\begin{enumerate}
-    \item \textbf{Maximum Accuracy is Priority:} Need best predictive performance (1.5x higher on average)
-    \item \textbf{Large, Complex Datasets:} High-dimensional or non-linear patterns
-    \item \textbf{Production Systems:} Computational resources available for training
-    \item \textbf{Pattern Discovery:} Exploratory analysis on complex data
-    \item \textbf{Non-linear Relationships:} When linear assumptions fail
-    \item \textbf{Sequential/Temporal Data:} LSTM/RNN for time series with complex patterns
-\end{enumerate}
+% \begin{enumerate}
+%     \item \textbf{Maximum Accuracy is Priority:} Need best predictive performance (1.5x higher on average)
+%     \item \textbf{Large, Complex Datasets:} High-dimensional or non-linear patterns
+%     \item \textbf{Production Systems:} Computational resources available for training
+%     \item \textbf{Pattern Discovery:} Exploratory analysis on complex data
+%     \item \textbf{Non-linear Relationships:} When linear assumptions fail
+%     \item \textbf{Sequential/Temporal Data:} LSTM/RNN for time series with complex patterns
+% \end{enumerate}
 
-\textbf{Best ML/DL Models:} Random Forest, SVM, LSTM/RNN, Gradient Boosting
+% \textbf{Best ML/DL Models:} Random Forest, SVM, LSTM/RNN, Gradient Boosting
 
-\subsection{Implications for Transparent AI}
+% \subsection{Implications for Transparent AI}
 
-Our findings align with the principles outlined in Transparent AI research \cite{transparent_ai_2025}:
+% Our findings align with the principles outlined in Transparent AI research \cite{transparent_ai_2025}:
 
-\begin{itemize}
-    \item \textbf{Early Integration:} Model selection should consider interpretability requirements from the start
-    \item \textbf{Stakeholder Needs:} Different audiences require different explanation types - statistical models excel for domain experts, while ML models may require post-hoc explanation methods
-    \item \textbf{Regulatory Alignment:} Statistical models provide natural compliance with transparency requirements
-    \item \textbf{Hybrid Approaches:} Future research should explore combining statistical inference with ML performance
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Early Integration:} Model selection should consider interpretability requirements from the start
+%     \item \textbf{Stakeholder Needs:} Different audiences require different explanation types - statistical models excel for domain experts, while ML models may require post-hoc explanation methods
+%     \item \textbf{Regulatory Alignment:} Statistical models provide natural compliance with transparency requirements
+%     \item \textbf{Hybrid Approaches:} Future research should explore combining statistical inference with ML performance
+% \end{itemize}
 
-\subsection{Limitations and Future Work}
+% \subsection{Limitations and Future Work}
 
-\subsubsection{Limitations}
+% \subsubsection{Limitations}
 
-\begin{itemize}
-    \item \textbf{Dataset Selection:} Limited to 13 datasets - broader evaluation needed
-    \item \textbf{Hyperparameter Tuning:} ML models may benefit from more extensive tuning
-    \item \textbf{Interpretability Metrics:} Our interpretability score is composite - domain-specific evaluation needed
-    \item \textbf{Post-hoc Explanations:} We did not evaluate SHAP, LIME, or other explanation methods for ML models
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Dataset Selection:} Limited to 13 datasets - broader evaluation needed
+%     \item \textbf{Hyperparameter Tuning:} ML models may benefit from more extensive tuning
+%     \item \textbf{Interpretability Metrics:} Our interpretability score is composite - domain-specific evaluation needed
+%     \item \textbf{Post-hoc Explanations:} We did not evaluate SHAP, LIME, or other explanation methods for ML models
+% \end{itemize}
 
-\subsubsection{Future Research Directions}
+% \subsubsection{Future Research Directions}
 
-\begin{enumerate}
-    \item \textbf{Hybrid Models:} Develop models combining statistical inference with ML performance
-    \item \textbf{Interpretable ML:} Evaluate inherently interpretable ML models (EBMs, GAMs, NAMs)
-    \item \textbf{Post-hoc Explanations:} Comprehensive evaluation of SHAP, LIME, and other methods
-    \item \textbf{Domain-Specific Studies:} Healthcare, finance, and other high-stakes applications
-    \item \textbf{Regulatory Frameworks:} Alignment with EU AI Act, Canada AIDA, and other regulations
-\end{enumerate}
+% \begin{enumerate}
+%     \item \textbf{Hybrid Models:} Develop models combining statistical inference with ML performance
+%     \item \textbf{Interpretable ML:} Evaluate inherently interpretable ML models (EBMs, GAMs, NAMs)
+%     \item \textbf{Post-hoc Explanations:} Comprehensive evaluation of SHAP, LIME, and other methods
+%     \item \textbf{Domain-Specific Studies:} Healthcare, finance, and other high-stakes applications
+%     \item \textbf{Regulatory Frameworks:} Alignment with EU AI Act, Canada AIDA, and other regulations
+% \end{enumerate}
 
 \section{Conclusions}
 
