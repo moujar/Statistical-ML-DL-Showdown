@@ -1,0 +1,323 @@
+\documentclass[25pt, a0paper, portrait]{tikzposter}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+% Custom colors
+\definecolor{mlcolor}{RGB}{52, 152, 219}      % Blue for ML
+\definecolor{statcolor}{RGB}{231, 76, 60}     % Red for Statistical
+\definecolor{accentcolor}{RGB}{46, 204, 113}  % Green for highlights
+\definecolor{blockbg}{RGB}{255, 255, 255}     % White background
+
+% Theme settings
+\usetheme{Basic}
+\usecolorstyle{Default}
+
+\title{\textbf{A Comprehensive Comparative Analysis: Machine Learning vs. Statistical Models\\Across Multiple Problem Domains}}
+\author{Master Paris-Saclay | Applied Statistics Project}
+\institute{Statistical-ML-DL Showdown}
+
+\titlegraphic{\vspace{2cm}}
+
+\begin{document}
+
+\maketitle
+
+\begin{columns}
+\column{0.33}
+
+% Left column
+\block{Introduction \& Research Question}{
+\textbf{Background:}
+\begin{itemize}[leftmargin=*]
+    \item Fundamental divide between ML and Statistical modeling approaches
+    \item ML: Maximize predictive accuracy, complex non-linear patterns
+    \item Statistical: High interpretability, mathematical theory, hypothesis testing
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Research Objectives:}
+\begin{enumerate}[leftmargin=*]
+    \item Systematic comparison across 4 problem domains
+    \item Evaluate performance, speed, and interpretability
+    \item Provide evidence-based model selection recommendations
+\end{enumerate}
+}
+
+\block{Methodology}{
+\textbf{Problem Domains Evaluated:}
+\begin{itemize}[leftmargin=*]
+    \item \textcolor{mlcolor}{\textbf{Regression:}} California Housing, Diabetes, Wine Quality, Energy Consumption
+    \item \textcolor{mlcolor}{\textbf{Classification:}} Iris, Wine Classification, Breast Cancer, Credit Default
+    \item \textcolor{mlcolor}{\textbf{Time Series:}} Stock Prices, Temperature, Sales Forecasting
+    \item \textcolor{mlcolor}{\textbf{Survival Analysis:}} Customer Churn, Patient Survival
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Models Evaluated:}
+\begin{columns}[T, totalwidth=\textwidth]
+\column{0.48\textwidth}
+\textcolor{mlcolor}{\textbf{ML Models:}}
+\begin{itemize}[leftmargin=*]
+    \item Linear Regression
+    \item Random Forest
+    \item SVM
+    \item MLP
+\end{itemize}
+\column{0.48\textwidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}[leftmargin=*]
+    \item OLS Regression
+    \item GLM
+    \item Logistic Regression
+    \item Cox Regression
+    \item Kaplan-Meier
+\end{itemize}
+\end{columns}
+
+\vspace{0.5cm}
+\textbf{Evaluation Metrics:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Performance:} R², Accuracy, RMSE, MAE
+    \item \textbf{Efficiency:} Training/Prediction Time, Memory Usage
+    \item \textbf{Interpretability:} Explainability Score (0-100), p-values, CIs
+\end{itemize}
+}
+
+\block{Study Scope}{
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{Range} \\
+\midrule
+Total Comparisons & 62 & Model-Dataset pairs \\
+Problem Domains & 4 & Regression, Classification, Time Series, Survival \\
+Datasets & 13 & 150 to 35,000 samples \\
+ML Models & 38 & Comparisons \\
+Statistical Models & 24 & Comparisons \\
+\bottomrule
+\end{tabular}
+}
+
+\column{0.33}
+
+% Middle column
+\block{Key Results: Performance Summary}{
+\textbf{Overall Performance Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{ML Models} & \textbf{Statistical} \\
+\midrule
+Avg R² (Regression) & 0.289 & 0.317 \\
+Avg Accuracy (Class.) & 0.310 & 0.297 \\
+Avg Training Time & 1.746s & 0.061s \\
+Avg Explainability & 37.4/100 & 88.3/100 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+\textbf{Winners by Category:}
+\begin{itemize}[leftmargin=*]
+    \item \textcolor{accentcolor}{\textbf{Best Overall Accuracy:}} Random Forest (ML) - R² = 0.999
+    \item \textcolor{accentcolor}{\textbf{Fastest Training:}} Linear Regression (ML) - 0.0008s
+    \item \textcolor{accentcolor}{\textbf{Most Interpretable:}} OLS Regression (Statistical) - 100/100
+    \item \textcolor{accentcolor}{\textbf{Best Production:}} GLM (Statistical) - Score = 0.9999
+\end{itemize}
+}
+
+\block{Results: Regression Analysis}{
+\textbf{Best Performing Models by Dataset:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{Best ML} & \textbf{Best Statistical} \\
+\midrule
+California Housing & Random Forest (0.805) & OLS (0.575) \\
+Diabetes & Linear Reg. (0.453) & OLS (0.453) \\
+Wine Quality & Linear Reg. (0.787) & OLS (0.787) \\
+Energy Consumption & Random Forest (0.970) & GLM (0.811) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Key Findings:}
+\begin{itemize}[leftmargin=*]
+    \item ML models excel on complex, high-dimensional datasets
+    \item Statistical models provide faster training (32× faster)
+    \item Random Forest achieved highest R² = 0.805 on California Housing
+    \item Statistical models maintain consistent performance across datasets
+\end{itemize}
+}
+
+\block{Results: Classification Analysis}{
+\textbf{Best Performing Models by Dataset:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{Best ML} & \textbf{Best Statistical} \\
+\midrule
+Iris & Random Forest (100\%) & GLM (100\%) \\
+Wine Class. & All ML (100\%) & GLM (91.7\%) \\
+Breast Cancer & SVM (98.2\%) & Logistic (95.6\%) \\
+Credit Default & Logistic (95.7\%) & Logistic (95.7\%) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{Key Findings:}
+\begin{itemize}[leftmargin=*]
+    \item Perfect classification achieved on Iris by both approaches
+    \item ML models superior on complex datasets (Breast Cancer)
+    \item Statistical models provide interpretability with p-values
+    \item Similar accuracy, but statistical models are more transparent
+\end{itemize}
+}
+
+\block{Results: Time Series \& Survival}{
+\textbf{Time Series Analysis:}
+\begin{itemize}[leftmargin=*]
+    \item Exceptional performance: R² > 0.99 on Stock Prices
+    \item Statistical models 175× faster (GLM: 0.004s vs RF: 0.699s)
+    \item Both approaches highly accurate for time series
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Survival Analysis:}
+\begin{itemize}[leftmargin=*]
+    \item Statistical models designed for survival-specific metrics
+    \item Cox Regression and Kaplan-Meier provide domain expertise
+    \item ML models struggle with survival-specific evaluation
+    \item \textbf{Winner:} Statistical models for survival analysis
+\end{itemize}
+}
+
+\column{0.33}
+
+% Right column
+\block{Key Insights}{
+\textbf{1. Performance vs. Interpretability Trade-off:}
+\begin{itemize}[leftmargin=*]
+    \item ML Models: 2.4× higher accuracy, but 2.4× less interpretable
+    \item Statistical Models: 28.6× faster training with full interpretability
+    \item \textbf{Recommendation:} Choose based on primary requirement
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{2. Speed Analysis:}
+\begin{itemize}[leftmargin=*]
+    \item Fastest Training: Linear Regression (0.0008s)
+    \item Fastest Prediction: OLS Regression (0.00003s)
+    \item Statistical models 32× faster on average
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{3. Interpretability Gap:}
+\begin{itemize}[leftmargin=*]
+    \item ML: Avg 37.4/100 explainability score
+    \item Statistical: Avg 88.3/100 explainability score
+    \item Statistical models provide p-values, CIs, and diagnostics
+\end{itemize}
+}
+
+\block{Strategic Recommendations}{
+\textbf{Choose Statistical Models When:}
+\begin{itemize}[leftmargin=*]
+    \item \textcolor{statcolor}{✓} Hypothesis testing required
+    \item \textcolor{statcolor}{✓} Interpretability is critical
+    \item \textcolor{statcolor}{✓} Regulatory compliance needed
+    \item \textcolor{statcolor}{✓} Small to medium datasets
+    \item \textcolor{statcolor}{✓} Understanding causal relationships
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Choose ML Models When:}
+\begin{itemize}[leftmargin=*]
+    \item \textcolor{mlcolor}{✓} Maximum accuracy is priority
+    \item \textcolor{mlcolor}{✓} Large, complex datasets
+    \item \textcolor{mlcolor}{✓} Non-linear relationships expected
+    \item \textcolor{mlcolor}{✓} Production systems with resources
+    \item \textcolor{mlcolor}{✓} Handling high-dimensional data
+\end{itemize}
+}
+
+\block{Use Case Recommendations}{
+\textbf{For Production Systems:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{High-Performance:} Random Forest or SVM (Primary), GLM (Backup)
+    \item \textbf{Real-Time:} Linear Regression or GLM (Primary), OLS (Backup)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{For Regulatory Environments:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Primary:} OLS Regression, GLM, Logistic Regression
+    \item Full statistical diagnostics required
+    \item Complete model transparency needed
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Scalability Planning:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Small Scale (<1K):} Statistical models preferred
+    \item \textbf{Medium (1K-10K):} Either approach viable
+    \item \textbf{Large Scale (>10K):} ML models recommended
+\end{itemize}
+}
+
+\block{Conclusions}{
+\textbf{Key Takeaways:}
+\begin{enumerate}[leftmargin=*]
+    \item Both ML and statistical models have distinct advantages
+    \item \textcolor{statcolor}{Statistical models excel} in interpretability, speed, and regulatory compliance
+    \item \textcolor{mlcolor}{ML models excel} in accuracy, scalability, and complex patterns
+    \item \textcolor{accentcolor}{\textbf{Optimal choice} depends on balancing requirements}
+\end{enumerate}
+
+\vspace{0.5cm}
+\textbf{Strategic Recommendation:}
+Rather than choosing one approach over the other, organizations should develop expertise in both methodologies and select the appropriate tool based on specific project requirements.
+
+\vspace{0.3cm}
+\textbf{Future Research:}
+\begin{itemize}[leftmargin=*]
+    \item Hybrid approaches combining both methodologies
+    \item Automated model selection frameworks
+    \item Interpretability enhancements for ML models
+    \item Domain-specific benchmarking studies
+\end{itemize}
+}
+
+\block{Project Information}{
+\textbf{Analysis Scope:}
+\begin{itemize}[leftmargin=*]
+    \item 62 model-dataset combinations
+    \item 4 problem domains
+    \item 13 diverse datasets (150 to 35,000 samples)
+    \item Comprehensive evaluation across multiple dimensions
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Publications:}
+\begin{itemize}[leftmargin=*]
+    \item Comprehensive Research Report
+    \item Executive Summary
+    \item Technical Appendix
+    \item Full analysis available in project repository
+\end{itemize}
+}
+
+\end{columns}
+
+\end{document}
+
+

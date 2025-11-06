@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://arxiv.org/html/2507.23535v1 -->
+<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Transparent AI: The Case for Interpretability and Explainability</title>
+<!--Generated on Thu Jul 31 13:19:19 2025 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on July 31, 2025.-->
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+<link href="./Transparent AI_ The Case for Interpretability and Explainability_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="./Transparent AI_ The Case for Interpretability and Explainability_files/ar5iv.0.8.2.min.css" rel="stylesheet" type="text/css">
+<link href="./Transparent AI_ The Case for Interpretability and Explainability_files/ar5iv-fonts.0.8.2.min.css" rel="stylesheet" type="text/css">
+<link href="./Transparent AI_ The Case for Interpretability and Explainability_files/latexml_styles.0.8.2.css" rel="stylesheet" type="text/css">
+<script src="./Transparent AI_ The Case for Interpretability and Explainability_files/bootstrap.bundle.min.js"></script>
+<script src="./Transparent AI_ The Case for Interpretability and Explainability_files/html2canvas.min.js"></script>
+<script src="./Transparent AI_ The Case for Interpretability and Explainability_files/addons_new.js"></script>
+<script src="./Transparent AI_ The Case for Interpretability and Explainability_files/feedbackOverlay.js"></script>
+<!--<base href="/html/2507.23535v1/">--><base href="."><link rel="stylesheet" href="./Transparent AI_ The Case for Interpretability and Explainability_files/utz6mli.css"><link rel="icon" type="image/png" href="https://static.arxiv.org/static/browse/0.3.4/images/icons/favicon-16x16.png" sizes="16x16"><link rel="icon" type="image/png" href="https://static.arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png" sizes="32x32"></head>
+<body><header class="mob_header">
+    <div class="html-header-logo">
+      <a href="https://arxiv.org/">
+        <img alt="logo" class="logomark" role="presentation" width="100" src="./Transparent AI_ The Case for Interpretability and Explainability_files/arxiv-logomark-small-white.svg">
+        <span class="sr-only">Back to arXiv</span>
+      </a>
+    </div>
+
+    <!--TOC, dark mode, links-->
+    <div class="html-header-nav">
+      <!--back to abstract-->
+      
+        <a class="nav-link ar5iv-footer-button hover-effect" aria-label="Back to abstract page" href="https://arxiv.org/abs/2507.23535v1">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 512 512" fill="#ffffff" aria-hidden="true">
+            <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"></path>
+        </svg>
+        </a>
+      <!--dark mode-->
+      <a class="ar5iv-toggle-color-scheme" href="javascript:toggleColorScheme()" title="Toggle dark/light mode" aria-label="Dark mode">
+        <label id="automatic-tog" class="toggle-icon" title="Switch to light mode" for="__palette_3" hidden="">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"></path></svg>
+        </label>
+        <label id="light-tog" class="toggle-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+        </label>
+        <label id="dark-tog" class="toggle-icon" title="Switch to system preference" for="__palette_2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+        </label>
+      </a>
+      <!--nav-->
+      <button class="navbar-toggler ar5iv-footer-button" type="button" data-bs-theme="dark" data-bs-toggle="collapse" aria-expanded="false" data-bs-target=".ltx_page_main &gt;.ltx_TOC.mobile" aria-controls="navbarSupportedContent" aria-label="Toggle navigation" style="border:none; margin-right: 0em;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512" aria-hidden="true" role="img" fill="#ffffff"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"></path></svg>
+      </button>
+    </div>
+    </header><header class="desktop_header">
+    <div class="html-header-logo">
+      <a href="https://arxiv.org/">
+          <img alt="logo" class="logo" role="presentation" width="100" src="./Transparent AI_ The Case for Interpretability and Explainability_files/arxiv-logo-one-color-white.svg">
+          <span class="sr-only">Back to arXiv</span>
+      </a>
+    </div>
+    <div class="html-header-message" role="banner">
+        <p>This is <strong>experimental HTML</strong> to improve accessibility. We invite you to report rendering errors. <span class="sr-only">Use Alt+Y to toggle on accessible reporting links and Alt+Shift+Y to toggle off.</span> Learn more <a href="https://info.arxiv.org/about/accessible_HTML.html" target="_blank">about this project</a> and <a href="https://info.arxiv.org/help/submit_latex_best_practices.html" target="_blank">help improve conversions</a>.
+        </p>
+    </div>
+    <nav class="html-header-nav">
+      <a class="ar5iv-footer-button hover-effect" href="https://info.arxiv.org/about/accessible_HTML.html" target="_blank">Why HTML?</a>
+      <a class="ar5iv-footer-button hover-effect" target="_blank" href="https://arxiv.org/html/2507.23535v1/#myForm" onclick="event.preventDefault(); var modal = document.getElementById(&#39;myForm&#39;); modal.style.display = &#39;block&#39;; bugReportState.setInitiateWay(&#39;Header&#39;);">Report Issue</a>
+      <a class="ar5iv-footer-button hover-effect" href="https://arxiv.org/abs/2507.23535v1">Back to Abstract</a>
+      <a class="ar5iv-footer-button hover-effect" href="https://arxiv.org/pdf/2507.23535v1" target="_blank">Download PDF</a>
+      <a class="ar5iv-toggle-color-scheme" href="javascript:toggleColorScheme()" title="Toggle dark/light mode">
+        <label id="automatic-tog" class="toggle-icon" title="Switch to light mode" for="__palette_3" hidden="">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"></path></svg>
+        </label>
+        <label id="light-tog" class="toggle-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+        </label>
+        <label id="dark-tog" class="toggle-icon" title="Switch to system preference" for="__palette_2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"></path></svg>
+        </label>
+      </a>
+    </nav></header>
+
+<div class="ltx_page_main" id="main">
+<nav class="ltx_TOC active" aria-labelledby="toc_header"><h2 id="toc_header" class="sr-only">Table of Contents</h2>
+
+      <div id="listIcon" type="button" class="hide">
+          <svg width="17px" height="17px" viewBox="0 0 512 512" style="pointer-events: none;">
+          <path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z"></path>
+          </svg>
+      </div>
+      <div id="arrowIcon" type="button">
+          <svg width="17px" height="17px" viewBox="0 0 448 512" style="pointer-events: none;">
+          <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"></path>
+          </svg>
+      </div><ol class="ltx_toclist"><li class="ltx_tocentry ltx_tocentry_section">
+    <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#abstract" title="Abstract">
+      <span class="ltx_text ltx_ref_title">
+        <span class="ltx_tag ltx_tag_ref"></span>
+        Abstract
+      </span>
+    </a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Introduction</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS1" title="In 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1.1 </span>Background and Motivation</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS1.SSS0.Px1" title="In 1.1 Background and Motivation ‣ 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title">Healthcare Applications:</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS1.SSS0.Px2" title="In 1.1 Background and Motivation ‣ 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title">Financial Services:</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS1.SSS0.Px3" title="In 1.1 Background and Motivation ‣ 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title">Public Sector and Justice:</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS2" title="In 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1.2 </span>Scope and Objectives</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Fundamentals of Interpretability and Explainability</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.SS1" title="In 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2.1 </span>Definitions and Key Concepts</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.SS2" title="In 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2.2 </span>Taxonomy of Methods</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S3" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Policy Landscape and Regulatory Considerations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4 </span>Stakeholder-Specific Guidelines</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS1" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.1 </span>For Data Scientists and ML Specialists</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS2" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.2 </span>For Business Leaders and Decision Makers</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS3" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.3 </span>For Regulators and Policy Makers</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS4" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.4 </span>For End Users</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5 </span>Incorporating Interpretability into AI Development Workflow</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1 </span>Design Phase: Choosing Appropriate Models and Methods</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS1" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.1 </span>Problem Formulation and Requirements Analysis</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS2" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.2 </span>Model Architecture Selection</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS3" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.3 </span>Data Preparation Strategy</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS2" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.2 </span>Deployment Phase: Explaining AI in Production</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS3" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.3 </span>Monitoring and Maintenance</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6 </span>Standardized Reporting Framework for Interpretable Models</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS1" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.1 </span>Proposed Reporting Template</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS2" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.2 </span>Essential Elements to Document</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS3" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.3 </span>Case Study: Implementing the Reporting Framework</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS4" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.4 </span>Medical Imaging Diagnostic Support System</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S7" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">7 </span>Evaluation Methods for Model Interpretability and Explainability</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8 </span>Challenges and Limitations</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS1" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.1 </span>Technical Challenges</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS2" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.2 </span>The Interpretability-Performance Trade-off</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS3" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.3 </span>Human Factors and Cognitive Limitations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS4" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.4 </span>Organizational Barriers to Adoption</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9 </span>Interpretability Applications and Cross-Industry Learnings</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS1" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.1 </span>Interpretability Across Domains: Purpose and Practice</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS2" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.2 </span>Key Cross-Sector Observations and Insights</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS3" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.3 </span>Domain-Specific Highlights</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS4" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.4 </span>Learnings: Practical Adoption of Interpretability</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS5" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.5 </span>The Web Portal Initiative: One-Stop Resource for Interpretable AI</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS6" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.6 </span>Proposed Roadmap for Industry Adoption of Interpretability</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S10" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">10 </span>Conclusion and Recommendations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+    <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib" title="References">
+      <span class="ltx_text ltx_ref_title">
+        <span class="ltx_tag ltx_tag_ref"></span>
+        References
+      </span>
+    </a></li></ol></nav>
+
+<div class="ltx_page_content"><div class="package-alerts ltx_document" role="status" aria-label="Conversion errors have been found">
+      <button aria-label="Dismiss alert" onclick="closePopup()">
+          <span aria-hidden="true"><svg role="presentation" width="20" height="20" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+          <path d="M0.549989 4.44999L4.44999 0.549988L43.45 39.55L39.55 43.45L0.549989 4.44999Z"></path>
+          <path d="M39.55 0.549988L43.45 4.44999L4.44999 43.45L0.549988 39.55L39.55 0.549988Z"></path>
+          </svg></span>
+      </button>
+      <p>HTML conversions <a href="https://info.dev.arxiv.org/about/accessibility_html_error_messages.html" target="_blank">sometimes display errors</a> due to content that did not convert correctly from the source. This paper uses the following packages that are not yet supported by the HTML conversion tool. Feedback on these issues are not necessary; they are known and are being worked on.</p>
+          <ul arial-label="Unsupported packages used in this paper">
+              <li>failed: biblatex.sty</li>
+          </ul>
+      <p>Authors: achieve the best HTML results from your LaTeX submissions by following these <a href="https://info.arxiv.org/help/submit_latex_best_practices.html" target="_blank">best practices</a>.</p>
+    </div><div id="target-section" class="section"><a id="license-tr" href="https://info.arxiv.org/help/license/index.html#licenses-available">License: CC BY 4.0</a><div id="watermark-tr">arXiv:2507.23535v1 [cs.LG] 31 Jul 2025</div></div>
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_title_document" style="font-size:298%;"><span class="ltx_text ltx_font_bold" style="color:#00539B;">Transparent AI: The Case for Interpretability and Explainability</span></h1><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Dhanesh Ramachandram
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span></span></span>
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Himanshu Joshi
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span></span></span>
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Judy Zhu
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span></span></span>
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Dhari Gandhi
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span></span></span>
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Lucas Hartman
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span>
+<span class="ltx_contact ltx_role_affiliation">
+</span></span></span>
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ananya Raval
+</span><span class="ltx_author_notes">
+<span class="ltx_contact ltx_role_affiliation">Vector Institute for Artificial Intelligence, Toronto
+</span></span></span>
+</div><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_dates">(July 31, 2025)</div>
+<div class="ltx_abstract" id="abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<p class="ltx_p">As artificial intelligence systems increasingly inform high-stakes decisions across sectors, transparency has become foundational to responsible and trustworthy AI implementation. Leveraging our role as a leading institute in advancing AI research and enabling industry adoption, we present key insights and lessons learned from practical interpretability applications across diverse domains. This paper offers actionable strategies and implementation guidance tailored to organizations at varying stages of AI maturity, emphasizing the integration of interpretability as a core design principle rather than a retrospective add-on.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<nav class="ltx_TOC ltx_list_toc ltx_toc_toc"><h6 class="ltx_title ltx_title_contents">Contents</h6><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Introduction</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS1" title="In 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1.1 </span>Background and Motivation</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S1.SS2" title="In 1 Introduction ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1.2 </span>Scope and Objectives</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Fundamentals of Interpretability and Explainability</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.SS1" title="In 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2.1 </span>Definitions and Key Concepts</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.SS2" title="In 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2.2 </span>Taxonomy of Methods</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S3" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Policy Landscape and Regulatory Considerations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4 </span>Stakeholder-Specific Guidelines</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS1" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.1 </span>For Data Scientists and ML Specialists</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS2" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.2 </span>For Business Leaders and Decision Makers</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS3" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.3 </span>For Regulators and Policy Makers</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.SS4" title="In 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">4.4 </span>For End Users</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5 </span>Incorporating Interpretability into AI Development Workflow</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1 </span>Design Phase: Choosing Appropriate Models and Methods</span></a>
+<ol class="ltx_toclist ltx_toclist_subsection">
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS1" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.1 </span>Problem Formulation and Requirements Analysis</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS2" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.2 </span>Model Architecture Selection</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsubsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS1.SSS3" title="In 5.1 Design Phase: Choosing Appropriate Models and Methods ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.1.3 </span>Data Preparation Strategy</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS2" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.2 </span>Deployment Phase: Explaining AI in Production</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.SS3" title="In 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">5.3 </span>Monitoring and Maintenance</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6 </span>Standardized Reporting Framework for Interpretable Models</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS1" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.1 </span>Proposed Reporting Template</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS2" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.2 </span>Essential Elements to Document</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS3" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.3 </span>Case Study: Implementing the Reporting Framework</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.SS4" title="In 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">6.4 </span>Medical Imaging Diagnostic Support System</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S7" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">7 </span>Evaluation Methods for Model Interpretability and Explainability</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8 </span>Challenges and Limitations</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS1" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.1 </span>Technical Challenges</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS2" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.2 </span>The Interpretability-Performance Trade-off</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS3" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.3 </span>Human Factors and Cognitive Limitations</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.SS4" title="In 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">8.4 </span>Organizational Barriers to Adoption</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9 </span>Interpretability Applications and Cross-Industry Learnings</span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS1" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.1 </span>Interpretability Across Domains: Purpose and Practice</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS2" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.2 </span>Key Cross-Sector Observations and Insights</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS3" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.3 </span>Domain-Specific Highlights</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS4" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.4 </span>Learnings: Practical Adoption of Interpretability</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS5" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.5 </span>The Web Portal Initiative: One-Stop Resource for Interpretable AI</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.SS6" title="In 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">9.6 </span>Proposed Roadmap for Industry Adoption of Interpretability</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S10" title="In Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">10 </span>Conclusion and Recommendations</span></a></li>
+</ol></nav>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">1  Introduction</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S1.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">1.1  Background and Motivation</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S1.SS1.p1">
+<p class="ltx_p">The increasing reliance on artificial intelligence (AI) and machine learning (ML) systems in critical sectors such as healthcare, finance, and public administration highlights the importance of transparency in their decision-making processes <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx3" title="">3</a>]</cite>. A central challenge faced in deploying these technologies involves balancing model performance and interpretability. While advanced models such as deep neural networks provide exceptional predictive capabilities, their complexity often results in a lack of transparency, commonly referred to as “black box” behavior <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx11" title="">11</a>]</cite>.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S1.SS1.p2">
+<p class="ltx_p">Consider, for instance, a medical diagnostic tool that boasts a mere 2% error rate but offers no explanation of its predictions compared to a human physician whose decisions have a 15% error rate but can be fully explained. Most stakeholders would hesitate to trust a system that cannot justify its decisions despite superior performance metrics. This example underscores the critical balance between performance and interpretability, a core concern in the ethical and practical deployment of AI.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S1.SS1.p3">
+<p class="ltx_p">The demand for explainable and interpretable AI goes beyond academic interest and is being increasingly recognized as essential for the responsible and ethical use of AI in sectors directly impacting human health, safety, and legal rights. As highlighted by <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx3" title="">3</a>]</cite>, interpretability becomes especially crucial in situations where incorrect predictions have significant consequences, stakeholder justification is required, or regulatory frameworks demand transparency. Examples of such domains are as follows:</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<section class="ltx_paragraph" id="S1.SS1.SSS0.Px1">
+<h5 class="ltx_title ltx_title_paragraph">Healthcare Applications:</h5><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S1.SS1.SSS0.Px1.p1">
+<p class="ltx_p">In healthcare, the importance of interpretability cannot be overstated. Clinicians, such as radiologists employing AI tools for cancer detection, require clarity not only on the prediction itself but also on the specific factors influencing that prediction. Without this insight, healthcare professionals cannot confidently integrate AI recommendations with clinical judgment, potentially risking patient outcomes through misdiagnoses or incorrect treatments. Moreover, patients and their families possess a fundamental right to clear explanations about medical decisions affecting their care. The interpretability challenge intensifies in urgent medical scenarios.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_paragraph" id="S1.SS1.SSS0.Px2">
+<h5 class="ltx_title ltx_title_paragraph">Financial Services:</h5><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S1.SS1.SSS0.Px2.p1">
+<p class="ltx_p">In finance, interpretability addresses both regulatory compliance and ethical accountability. For example, financial institutions must justify credit decisions clearly and transparently to comply with fair lending regulations. According to <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx11" title="">11</a>]</cite>, while 58% of studies on explainable AI involve quantitative evaluations, many do not adequately meet the stringent transparency requirements imposed by financial regulations, which demand accurate, reliable, and legally defensible explanations.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_paragraph" id="S1.SS1.SSS0.Px3">
+<h5 class="ltx_title ltx_title_paragraph">Public Sector and Justice:</h5><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S1.SS1.SSS0.Px3.p1">
+<p class="ltx_p">Governmental use of algorithmic decision-making for allocating resources, determining eligibility for benefits, and criminal justice applications places interpretability at the forefront of public accountability. Citizens expect clear explanations for decisions impacting their lives, highlighting the democratic necessity of interpretable AI in the public sector. Transparency in these decisions not only supports fairness but also reinforces trust in public institutions.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_subsection" id="S1.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">1.2  Scope and Objectives</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S1.SS2.p1">
+<p class="ltx_p">Given these challenges and imperatives, this white paper provides a high-level overview of interpretability and explainable AI, outlines essential principles for achieving transparency, discusses domain-specific considerations for effective explanations, reviews suitable evaluation methods, and offers practical insights to help organizations integrate interpretable AI responsibly into their decision-making processes. Lessons learned from conducting industry-focused interpretability application on this topic with diverse participation from the Canadian AI ecosystem are also presented.
+It is hoped that this whitepaper will help drive adoption of explainability and interpretable models across various industries by providing some adoption guidelines.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">2  Fundamentals of Interpretability and Explainability</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">2.1  Definitions and Key Concepts</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S2.F1.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x1.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>Relationship Between Interpretability, Explainability, and Transparent AI</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p">Interpretability refers to how easily a human can understand the logic and decision-making processes within a machine learning model. Explainability, in contrast, pertains to the ability to provide clear and understandable reasons for specific decisions made by a model after those decisions have been made (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.F1" title="Figure 1 ‣ 2.1 Definitions and Key Concepts ‣ 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">1</span></a>).</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S2.SS1.p2">
+<p class="ltx_p">In practical terms:</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<ul class="ltx_itemize" id="S2.I1">
+<li class="ltx_item" id="S2.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S2.I1.i1.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Interpretability</span> addresses the question: <span class="ltx_text ltx_font_italic">“How does the model function internally?”</span></p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S2.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S2.I1.i2.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Explainability</span> addresses the question: <span class="ltx_text ltx_font_italic">“Why did the model make a particular decision?”</span></p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+</ul>
+</div>
+<div class="ltx_para" id="S2.SS1.p3">
+<p class="ltx_p">Interpretable or <span class="ltx_text ltx_font_italic">glass-box</span> models, such as decision trees and linear regression, are inherently transparent and understandable by design. In contrast, Explainable AI (XAI) typically involves supplementary techniques aimed at making the outputs and decisions of more complex, <span class="ltx_text ltx_font_italic">black-box</span> models, such as neural networks, understandable and justifiable to users.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S2.SS1.p4">
+<p class="ltx_p">With the rapid advancements in artificial intelligence, particularly in deep learning and generative AI technologies, models have become increasingly complex. This growing complexity further underscores the critical need for transparency and interpretability in AI systems. In response to this growing need, a focused area of scientific research has emerged, aimed at developing high-performing AI models that are inherently interpretable. This direction, illustrated in Figure&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S2.F2" title="Figure 2 ‣ 2.1 Definitions and Key Concepts ‣ 2 Fundamentals of Interpretability and Explainability ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">2</span></a>, seeks to bridge the gap between model accuracy and transparency.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S2.F2"><span class="ltx_inline-block"><svg class="ltx_picture ltx_centering" height="374.39" id="S2.F2.pic1" overflow="visible" version="1.1" viewBox="0 0 602.92 374.39" width="602.92"><g fill="#000000" stroke="#000000" stroke-width="0.4pt" transform="translate(0,374.39) matrix(1 0 0 -1 0 0) translate(63.08,0) translate(0,46.55) matrix(1.0 0.0 0.0 1.0 -63.08 -46.55)"><g class="ltx_nestedsvg" transform="matrix(1 0 0 1 0 0) translate(63.08,0) translate(0,46.55)"><g color="#D9D9D9" fill="#D9D9D9" stroke="#D9D9D9" stroke-width="0.4pt"><path d="M 23.89 0 L 23.89 297.73 M 406.07 0 L 406.07 297.73" style="fill:none"></path></g><g color="#D9D9D9" fill="#D9D9D9" stroke="#D9D9D9" stroke-width="0.4pt"><path d="M 0 13.53 L 477.73 13.53 M 0 257.13 L 477.73 257.13" style="fill:none"></path></g><g color="#808080" fill="#808080" stroke="#808080" stroke-width="0.2pt"><path d="M 23.89 -2.95 L 23.89 2.95 M 406.07 -2.95 L 406.07 2.95" style="fill:none"></path></g><g color="#808080" fill="#808080" stroke="#808080" stroke-width="0.2pt"><path d="M -2.95 13.53 L 2.95 13.53 M -2.95 257.13 L 2.95 257.13" style="fill:none"></path></g><g fill="#000000" stroke="#000000" stroke-width="0.4pt"><path d="M 0 0 L 474.97 0" style="fill:none"></path><g transform="matrix(1.0 0.0 0.0 1.0 474.97 0)"><path d="M 2.77 0 L -1.66 2.21 L 0 0 L -1.66 -2.21" style="stroke:none"></path></g><path d="M 0 0 L 0 294.97" style="fill:none"></path><g transform="matrix(0.0 1.0 -1.0 0.0 0 294.97)"><path d="M 2.77 0 L -1.66 2.21 L 0 0 L -1.66 -2.21" style="stroke:none"></path></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 11.3 -17.3)"><foreignobject height="9.46" overflow="visible" style="--fo_width :1.82em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="25.18"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Low</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 391.66 -17.45)"><foreignobject height="12.3" overflow="visible" style="--fo_width :2.08em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="28.83"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">High</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 -33.02 8.81)"><foreignobject height="9.46" overflow="visible" style="--fo_width :1.82em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="25.18"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Low</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 -36.67 253.68)"><foreignobject height="12.3" overflow="visible" style="--fo_width :2.08em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="28.83"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">High</span></span></foreignobject></g><g color="#0000FF" fill="#0000FF" stroke="#0000FF" stroke-width="0.8pt"><path d="M 23.89 257.13 C 23.89 257.13 58.4 157.87 71.66 135.33 C 84.92 112.8 106.18 103.18 119.43 94.73 C 132.69 86.28 153.95 78.94 167.21 74.43 C 180.46 69.93 201.72 65.07 214.98 62.25 C 228.24 59.44 249.5 56.05 262.75 54.13 C 276.01 52.22 297.27 49.88 310.53 48.45 C 323.78 47.02 345.04 44.94 358.3 43.85 C 371.56 42.76 406.07 40.6 406.07 40.6" style="fill:none"></path></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 28.78 253.68)"><foreignobject height="12.3" overflow="visible" style="--fo_width :10.4em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="143.87"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Deep Learning &amp; LLMs</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 19.02 140.22)"><foreignobject height="9.61" overflow="visible" style="--fo_width :7.61em;--fo_height:0.69em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.61)" width="105.28"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Ensemble Models</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 101.33 99.62)"><foreignobject height="9.46" overflow="visible" style="--fo_width :2.62em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="36.21"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">MLPs</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 172.1 76.47)"><foreignobject height="9.46" overflow="visible" style="--fo_width :2.62em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="36.21"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">SVMs</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 109.04 58.79)"><foreignobject height="12.3" overflow="visible" style="--fo_width :7.3em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="101.05"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Bayesian Models</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 243.06 39.79)"><foreignobject height="9.46" overflow="visible" style="--fo_width :2.85em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="39.38"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">GAMs</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 252.55 56.03)"><foreignobject height="12.15" overflow="visible" style="--fo_width :8.38em;--fo_height:0.68em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.46)" width="115.96"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Logistic Regression</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 314.67 29.5)"><foreignobject height="9.46" overflow="visible" style="--fo_width :6.39em;--fo_height:0.68em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.46)" width="88.4"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Decision Trees</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 410.96 37.14)"><foreignobject height="12.3" overflow="visible" style="--fo_width :8.98em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="124.26"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Rule-based Learning</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 363.19 225.26)"><foreignobject height="9.61" overflow="visible" style="--fo_width :5.92em;--fo_height:0.69em;--fo_depth :0em;" transform="matrix(1 0 0 -1 0 9.61)" width="81.95"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Ideal solution</span></span></foreignobject></g><g stroke-width="1.2pt"><g color="#FF0000" fill="#FF0000" stroke="#FF0000"><path d="M 167.21 121.8 L 356.86 229.25" style="fill:none"></path><g stroke-dasharray="none" stroke-dashoffset="0.0pt" stroke-linecap="round" stroke-linejoin="round" transform="matrix(0.87006 0.49295 -0.49295 0.87006 357.58 229.66)"><path d="M -4.21 5.32 C -3.44 2.13 -1.73 0.62 0 0 C -1.73 -0.62 -3.44 -2.13 -4.21 -5.32" style="fill:none"></path></g></g><g color="#FF0000" fill="#FF0000" stroke="#FF0000" transform="matrix(0.87006 0.49295 -0.49295 0.87006 190 144.06)"><foreignobject height="12.3" overflow="visible" style="--fo_width :11.42em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="158.01"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Interpretable ML research</span></span></foreignobject></g></g><g fill="#0000FF"><path d="M 26.65 257.13 C 26.65 258.66 25.42 259.9 23.89 259.9 C 22.36 259.9 21.12 258.66 21.12 257.13 C 21.12 255.61 22.36 254.37 23.89 254.37 C 25.42 254.37 26.65 255.61 26.65 257.13 Z M 23.89 257.13"></path><path d="M 74.43 135.33 C 74.43 136.86 73.19 138.1 71.66 138.1 C 70.13 138.1 68.89 136.86 68.89 135.33 C 68.89 133.81 70.13 132.57 71.66 132.57 C 73.19 132.57 74.43 133.81 74.43 135.33 Z M 71.66 135.33"></path><path d="M 122.2 94.73 C 122.2 96.26 120.96 97.5 119.43 97.5 C 117.9 97.5 116.67 96.26 116.67 94.73 C 116.67 93.21 117.9 91.97 119.43 91.97 C 120.96 91.97 122.2 93.21 122.2 94.73 Z M 119.43 94.73"></path><path d="M 169.97 74.43 C 169.97 75.96 168.73 77.2 167.21 77.2 C 165.68 77.2 164.44 75.96 164.44 74.43 C 164.44 72.91 165.68 71.67 167.21 71.67 C 168.73 71.67 169.97 72.91 169.97 74.43 Z M 167.21 74.43"></path><path d="M 217.75 62.25 C 217.75 63.78 216.51 65.02 214.98 65.02 C 213.45 65.02 212.21 63.78 212.21 62.25 C 212.21 60.73 213.45 59.49 214.98 59.49 C 216.51 59.49 217.75 60.73 217.75 62.25 Z M 214.98 62.25"></path><path d="M 265.52 54.13 C 265.52 55.66 264.28 56.9 262.75 56.9 C 261.22 56.9 259.99 55.66 259.99 54.13 C 259.99 52.61 261.22 51.37 262.75 51.37 C 264.28 51.37 265.52 52.61 265.52 54.13 Z M 262.75 54.13"></path><path d="M 313.29 48.45 C 313.29 49.98 312.05 51.22 310.53 51.22 C 309 51.22 307.76 49.98 307.76 48.45 C 307.76 46.92 309 45.68 310.53 45.68 C 312.05 45.68 313.29 46.92 313.29 48.45 Z M 310.53 48.45"></path><path d="M 361.07 43.85 C 361.07 45.38 359.83 46.62 358.3 46.62 C 356.77 46.62 355.53 45.38 355.53 43.85 C 355.53 42.32 356.77 41.08 358.3 41.08 C 359.83 41.08 361.07 42.32 361.07 43.85 Z M 358.3 43.85"></path><path d="M 408.84 40.6 C 408.84 42.13 407.6 43.37 406.07 43.37 C 404.54 43.37 403.31 42.13 403.31 40.6 C 403.31 39.07 404.54 37.83 406.07 37.83 C 407.6 37.83 408.84 39.07 408.84 40.6 Z M 406.07 40.6"></path></g><g fill="#FFFFFF" stroke="#000000" stroke-width="1.6pt"><path d="M 361.07 230.07 C 361.07 231.6 359.83 232.83 358.3 232.83 C 356.77 232.83 355.53 231.6 355.53 230.07 C 355.53 228.54 356.77 227.3 358.3 227.3 C 359.83 227.3 361.07 228.54 361.07 230.07 Z M 358.3 230.07" style="fill:none"></path></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 171.56 -39.25)"><foreignobject height="12.3" overflow="visible" style="--fo_width :9.73em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="134.6"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Model Interpretability</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(0.0 1.0 -1.0 0.0 -48.86 45.15)"><foreignobject height="12.3" overflow="visible" style="--fo_width :14.99em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="207.44"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Model Complexity &amp; Performance</span></span></foreignobject></g><g fill="#000000" stroke="#000000" transform="matrix(1.0 0.0 0.0 1.0 119.7 313.62)"><foreignobject height="12.3" overflow="visible" style="--fo_width :17.25em;--fo_height:0.69em;--fo_depth :0.19em;" transform="matrix(1 0 0 -1 0 9.61)" width="238.73"><span class="ltx_foreignobject_container"><span class="ltx_foreignobject_content">Model Interpretability vs.&nbsp;Performance</span></span></foreignobject></g></g></g></g></svg><button class="sr-only button" style="display: none;">Report issue for preceding element</button></span>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 2: </span>Trade-off Between Model Interpretability and Learning Performance.</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">2.2  Taxonomy of Methods</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p">Explanation and interpretability methods can be broadly categorized along several dimensions to help practitioners choose appropriate tools for their use case. A common distinction is between <span class="ltx_text ltx_font_italic">model-specific</span> and <span class="ltx_text ltx_font_italic">model-agnostic</span> methods. Model-specific techniques exploit the internal structure of a given model class and are generally more precise, whereas model-agnostic approaches treat the model as a black box and can be applied to a wider range of architectures.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S2.SS2.p2">
+<p class="ltx_p">Another useful categorization is <span class="ltx_text ltx_font_italic">local</span> versus <span class="ltx_text ltx_font_italic">global</span> explanations. Local explanations focus on individual predictions, helping users understand why a specific output was produced. Global explanations describe the overall behavior of the model, providing insights into general trends and feature influences.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S2.SS2.p3">
+<p class="ltx_p">Some methods also vary by whether they are <span class="ltx_text ltx_font_italic">post hoc</span> applied after model training or whether they are built into the model itself (<span class="ltx_text ltx_font_italic">inherently interpretable</span>). Post hoc methods can be useful for auditing and retrospective analysis, while inherently interpretable models are often designed with transparency from the outset. Understanding these distinctions is essential for selecting techniques that align with organizational goals, domain requirements, and model constraints.
+It is not the aim of this whitepaper to provide technical descriptions of explainability and interpretable models and for that we refer readers to recent publications&nbsp;<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx10" title="">10</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx5" title="">5</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx9" title="">9</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx7" title="">7</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx2" title="">2</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx8" title="">8</a>]</cite>
+In the next section, we discuss the current policy and regulatory landscape in the context of explainability and interpretability</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">3  Policy Landscape and Regulatory Considerations</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p">Governments worldwide are implementing policies that mandate AI interpretability, acknowledging that transparent algorithms are necessary to safeguard individual rights and enable accountable governance. Fo example, the European Union’s proposed Artificial Intelligence Act explicitly requires transparency and explainability for high-risk AI applications, establishing legal obligations for AI system providers to ensure their systems are interpretable by users and affected parties. Similarly, emerging guidelines from healthcare regulators, including the Food and Drug Administration (FDA)’s guidance on AI/ML-based medical devices, emphasize the need for interpretable AI in medical applications where patient safety is paramount. These regulatory developments reflect a paradigm shift where interpretability is not merely a technical preference but a fundamental requirement for ethical AI deployment in society.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p">Multiple jurisdictions have established comprehensive AI interpretability requirements across general and sector-specific regulations. Canada’s proposed AIDA emphasizes risk-based governance with interpretability assessments during development phases. Sector-specific regulations include FDA guidance requiring clear documentation of AI/ML medical device decision-making and financial regulators expecting interpretable AI-driven risk models under frameworks like Basel III.
+The EU AI Act mandates transparency for high-risk AI systems and grants individuals the right to clear and meaningful explanations of algorithmic decisions. The US White House Blueprint for AI Bill of Rights (2022) establishes interpretability as a fundamental civil right, requiring notice and explanation for impactful algorithmic systems.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S3.p3">
+<p class="ltx_p">These frameworks converge on several core demands: risk-based transparency requirements where higher-risk applications face stricter interpretability standards, mandatory human oversight capabilities, and individual rights to understand algorithmic decisions affecting them. Practitioners can fulfill these requirements by designing interpretability into systems from the development phase rather than retrofitting, providing clear documentation of decision-making processes, conducting impact assessments to determine appropriate interpretability levels for specific use cases, and ensuring explanations are accessible and understandable to affected parties. The key shift is treating interpretability as a fundamental design requirement rather than an optional technical feature.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S3.p4">
+<p class="ltx_p">Although many regulations call for transparency, few provide clear definitions of what constitutes“sufficient” explanation. Standardizing definitions and evaluation metrics is an ongoing challenge. Most regulatory documents do not explicitly specify how explainability of models should be evaluated, nor what metrics should be used and how these results should be reported. This is possibly due to the multitude of AI-driven applications that exists and may require case-specific evaluation criteria.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S3.p5">
+<p class="ltx_p">Next, we discuss stakeholder specific guidelines pertaining to explainability of ML models and how these stakeholders can play unique roles in furthering this cause for responsible AI.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">4  Stakeholder-Specific Guidelines</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p">Effective implementation of interpretable and explainable AI depends not only on technical solutions, but also on the collaborative efforts of diverse stakeholder groups. Each group—whether technical experts, business leaders, regulators, or end users—brings unique priorities, constraints, and responsibilities that shape the expectations and requirements for transparency (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S4.F3" title="Figure 3 ‣ 4 Stakeholder-Specific Guidelines ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">3</span></a>). Recognizing and addressing these differing perspectives is essential for designing AI systems that are not only accurate but also trusted, understandable, and aligned with real-world needs. These roles are not isolated; rather, they intersect and reinforce one another in the shared pursuit of responsible, transparent AI.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S4.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S4.F3.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x2.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 3: </span>Interpretability Needs Across Stakeholder Groups</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">4.1  For Data Scientists and ML Specialists</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p">Data scientists and ML specialists serve as the primary architects of explainable AI systems, requiring them to balance technical rigor with practical usability while remaining aware of downstream stakeholder needs across diverse application domains. These practitioners face the critical challenge of designing systems that meet both performance requirements and interpretability standards.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S4.SS1.p2">
+<p class="ltx_p">When developing interpretable machine learning models, practitioners should prioritize inherently interpretable architectures over post-hoc explanations whenever performance requirements allow, as these approaches provide more reliable and accurate representations of the underlying decision process. Interpretability strategies must be adapted to the specific context in which a model is applied, as domain-specific constraints and the nature of the data heavily shape what is feasible and effective&nbsp;<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx12" title="">12</a>]</cite>. For example, rule-based models or monotonic constraints may be well-suited for financial risk scoring due to regulatory demands and structured data, whereas in natural language processing, attention mechanisms in LLMs can offer insight into how models weigh different parts of a sentence. These variations highlight the need for technical teams to align their interpretability methods with the practical and technical demands of each domain.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S4.SS1.p3">
+<p class="ltx_p">To ensure these interpretable systems deliver meaningful value, data scientists should establish comprehensive evaluation frameworks that extend beyond traditional accuracy metrics. These evaluation pipelines must systematically assess both technical performance and stakeholder understanding, including how explanation quality correlates with model performance indicators and prediction reliability&nbsp;<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx6" title="">6</a>]</cite>. This holistic evaluation approach ensures that interpretability efforts translate into genuine improvements in user comprehension and decision-making support rather than merely satisfying technical requirements.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">4.2  For Business Leaders and Decision Makers</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p">Business leaders must balance operational efficiency with transparency requirements while ensuring organizational readiness for explainable AI adoption. Not all machine learning applications require interpretability, particularly for low-stakes decisions or applications with trivial explanations and perfect reliability. We present the following guidelines which are appropriate for leaders and decision makers:</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S4.SS2.p2">
+<ul class="ltx_itemize" id="S4.I1">
+<li class="ltx_item" id="S4.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S4.I1.i1.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Risk Assessment</span>: Leaders should categorize AI applications by risk level and regulatory requirements. High-stakes applications involving safety or significant consequences require mandatory explainability protocols, as the lack of explanations during system failures can create serious problems. The task of defining which are high-stakes applications in the organization must be decided upon by technology leaders in collaboration with other relevant stakeholders.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S4.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S4.I1.i2.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Resource Allocation</span>: Time-sensitive applications require careful consideration of computational resources for explanation generation. Organizations must balance explanation quality with operational efficiency constraints <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx6" title="">6</a>]</cite>. For example, in emergency medical diagnosis systems, radiologists must rapidly interpret critical imaging results for stroke patients where every minute affects patient outcomes. While comprehensive explanations showing detailed feature attributions across multiple image regions could provide complete understanding of the AI’s decision-making process, generating such explanations creates significant delays. Organizations must therefore choose between explanation completeness and clinical workflow efficiency, often opting for faster, targeted explanations that provide sufficient insight without delaying life-critical treatment decisions.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S4.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S4.I1.i3.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Change Management</span>: Users integrate AI-generated evidence into their existing decision-making processes for various downstream tasks. Organizations must prepare workflows that accommodate AI explanations within established procedures. As an example illustrating this, consider a bank loan officer who traditionally evaluates loan applications by reviewing credit scores, income statements, and employment history in a specific sequence, then makes approval decisions based on established criteria. When AI is introduced to assist with risk assessment, the officer now receives an AI recommendation along with explanations highlighting key risk factors. The organization must modify the existing loan approval workflow to include a step where officers review and interpret the AI explanation, understand how it relates to their traditional evaluation criteria, and decide whether to follow, modify, or override the AI recommendation. This requires training officers on how to incorporate AI insights into their established decision-making process and updating procedures to document how AI explanations influenced final decisions.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S4.I1.i4" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S4.I1.i4.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Governance and Oversight:</span>
+Business leaders should establish clear governance structures that define accountability for AI decisions and explanations. This includes setting up review processes for model updates and ensuring ongoing compliance with evolving regulatory requirements.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS3">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">4.3  For Regulators and Policy Makers</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S4.SS3.p1">
+<p class="ltx_p">Regulators face the fundamental challenge of creating frameworks that promote innovation while protecting public interests, requiring a nuanced approach that recognizes the technical realities of AI development. Research indicates that interpretability and accuracy are not necessarily in conflict when considering the complete data science process, and this balance can be adjusted based on user preferences and domain requirements. Given that interpretability needs vary significantly across domains and applications, regulatory frameworks must be flexible enough to accommodate these differences while maintaining consistent protection standards.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S4.SS3.p2">
+<p class="ltx_p">To achieve meaningful transparency, regulations should prioritize end-user comprehension over technical complexity, ensuring explanations are accessible without requiring specialized expertise and align with professional decision-making patterns. This user-centered approach necessitates standardized testing protocols that assess both technical performance and real-world usability of explanations across different stakeholder groups. Furthermore, while regulations should encourage the development of inherently interpretable models as the preferred approach, they must also address the limitations of post-hoc explanations for black-box models, which can create misleading characterizations and inappropriate confidence in opaque systems, potentially undermining the very transparency goals these regulations seek to achieve.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS4">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">4.4  For End Users</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S4.SS4.p1">
+<p class="ltx_p">End users, whether clinicians, loan officers, or other domain experts, represent the ultimate beneficiaries of explainable AI systems and require explanations designed for easy understanding without technical knowledge in machine learning or programming. These users naturally assess explanation reasonableness as a way to evaluate AI decision quality, enabling various utilities including decision verification, trust calibration, bias identification, and knowledge discovery. For explanations to be truly effective, they must align with existing professional decision-making processes—for example, medical image interpretation involves systematic feature extraction and diagnostic reasoning that explanations should directly support rather than disrupt. Most critically, interpretable models should enable informed trust decisions rather than promoting automatic trust or distrust, as both overly trusting AI systems (known as automation bias) and users ignoring alarms (alarm fatigue) can lead to dangerous outcomes where critical errors go undetected or legitimate warnings are dismissed. Therefore, users must be properly trained to evaluate and act on AI explanations based on their quality and reliability, ensuring that transparency translates into improved decision-making outcomes rather than blind acceptance or rejection of AI recommendations.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S4.SS4.p2">
+<p class="ltx_p">Recent research&nbsp;<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx4" title="">4</a>]</cite> reveals a critical gap in how different user groups interpret AI explanations, with laypeople basing their trust on explanation faithfulness (how accurately the explanation represents the underlying model) while domain experts rely on explanation alignment (how well explanations match their prior knowledge), suggesting that domain experts may experience cognitive biases due to their expertise. This finding is problematic because faithfulness should be the primary criterion before considering alignment with prior knowledge, yet domain experts in high-stakes domains like medicine may be trusting explanations for the wrong reasons. To address these cognitive biases and interpretation gaps, organizations must implement comprehensive training programs that help all end users understand both the capabilities and limitations of AI explanations, including developing skills for recognizing when explanations may be misleading, when additional verification is needed, and how to properly evaluate explanation faithfulness regardless of their domain expertise.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">5  Incorporating Interpretability into AI Development Workflow</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p">The integration of interpretability into AI development requires a systematic approach that spans the entire machine learning lifecycle. Rather than treating explainability as an afterthought, organizations must embed interpretability considerations from initial design through ongoing maintenance (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S5.F4" title="Figure 4 ‣ 5 Incorporating Interpretability into AI Development Workflow ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">4</span></a>).</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S5.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S5.F4.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x3.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 4: </span>Integrating Interpretability Across the AI Lifecycle</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S5.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">5.1  Design Phase: Choosing Appropriate Models and Methods</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS1.p1">
+<p class="ltx_p">The design phase establishes the foundation for interpretable AI systems by making informed decisions about model architecture, data pre-processing, and explanation methods based on stakeholder requirements and domain constraints.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<section class="ltx_subsubsection" id="S5.SS1.SSS1">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.1 </span>Problem Formulation and Requirements Analysis</h4><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS1.SSS1.p1">
+<p class="ltx_p">The first step involves defining interpretability requirements based on the application domain and stakeholder needs. Interpretable models incorporate domain-specific constraints that facilitate human understanding, and these constraints vary significantly across different applications. Organizations should conduct thorough stakeholder analysis to understand who will interact with the AI system and what types of explanations they require.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS1.SSS1.p2">
+<p class="ltx_p">For high-stakes applications, the choice between inherently interpretable models and post-hoc explanation methods becomes critical. Low-stakes decisions may not require interpretability, but applications involving human safety, legal compliance, or medical decisions should prioritize inherently interpretable models.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S5.SS1.SSS2">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.2 </span>Model Architecture Selection</h4><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS1.SSS2.p1">
+<p class="ltx_p">The choice of model architecture significantly impacts interpretability potential. Different data types require different interpretability approaches; sparse representations work well for tabular data, while computer vision applications benefit from specialized interpretable neural network architectures. Different model types offer varying levels of inherent interpretability, each with distinct advantages and limitations across application domains. Linear models provide direct coefficient interpretation that works well for tabular data and simple NLP tasks but may lack expressiveness for complex relationships found in image analysis or natural language understanding. Tree-based models offer rule-based explanations that mirror human decision processes, making them particularly effective for structured data applications and some object recognition tasks where decision boundaries can be clearly articulated. Ensemble methods balance predictive power with interpretability through feature importance measures, proving valuable across diverse applications from text classification to medical diagnosis. Neural networks, while powerful for complex tasks like computer vision, advanced NLP, and language generation, typically require specialized architectures or post-hoc methods for interpretability, with techniques ranging from attention mechanisms in transformers for language processing to convolutional layer visualization for image analysis. The choice of model type should therefore align with both the complexity requirements of the specific application domain and the interpretability needs of the end users, whether they are analyzing financial data, interpreting medical images, or understanding automated text generation.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S5.SS1.SSS3">
+<h4 class="ltx_title ltx_title_subsubsection">
+<span class="ltx_tag ltx_tag_subsubsection">5.1.3 </span>Data Preparation Strategy</h4><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS1.SSS3.p1">
+<p class="ltx_p">Data preprocessing decisions significantly impact subsequent interpretability. Feature engineering should prioritize meaningful, domain-relevant variables that align with stakeholder mental models. The creation of interpretable features often requires domain expertise and close collaboration with end users to ensure explanations will be comprehensible and actionable.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_subsection" id="S5.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">5.2  Deployment Phase: Explaining AI in Production</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS2.p1">
+<p class="ltx_p">The deployment phase addresses the practical challenges of delivering interpretable AI systems in real-world environments while maintaining performance, reliability, and user satisfaction. Successful production deployment requires careful orchestration of technical architecture, user interface design, and quality assurance processes that collectively ensure explanation systems can operate effectively under operational constraints.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p2">
+<p class="ltx_p">Production architecture design must balance explanation quality with stringent system performance requirements, particularly in time-sensitive applications where computational resources and latency constraints significantly impact explanation generation capabilities. Effective caching strategies become essential, involving pre-computation of explanations for common scenarios to minimize real-time processing overhead and reduce response latency. This approach requires sophisticated prediction of likely explanation requests and intelligent storage management that can quickly retrieve relevant pre-computed explanations while maintaining freshness and accuracy.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p3">
+<p class="ltx_p">Adaptive complexity mechanisms provide another crucial architectural component, enabling systems to deliver different explanation depths based on user expertise levels, available time constraints, and specific decision contexts. Novice users may require comprehensive, step-by-step explanations with extensive contextual information, while expert users might prefer concise summaries that highlight only the most critical decision factors. This adaptability must be implemented through scalable patterns that ensure explanation systems can handle production-level traffic without degrading performance, incorporating load balancing, resource allocation strategies, and efficient processing pipelines that can scale horizontally as demand increases.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p4">
+<p class="ltx_p">Robust fallback mechanisms represent a critical safety consideration, maintaining core system functionality even when explanation generation encounters failures or experiences unexpected delays. These mechanisms might include simplified explanation alternatives, cached historical explanations for similar cases, or graceful degradation that allows the AI system to continue operating with reduced interpretability rather than complete failure.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p5">
+<p class="ltx_p">Seamless user interface integration ensures that explanations enhance rather than disrupt existing workflows, requiring deep understanding of how users naturally inspect AI-generated evidence and incorporate it into their decision-making processes for various downstream tasks. Contextual presentation strategies display explanations at optimal points in user workflows, providing relevant information precisely when users need it without overwhelming them with unnecessary detail or interrupting critical decision processes.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p6">
+<p class="ltx_p">Progressive disclosure techniques allow users to access different levels of explanation detail according to their immediate needs and available cognitive resources. Initial presentations might provide high-level summaries with options to drill down into specific aspects of the decision process, enabling users to control the depth of information they receive based on their confidence levels, time constraints, and expertise. Multi-modal communication approaches combine visual representations, textual descriptions, and interactive explanation formats to accommodate different learning styles and decision-making preferences, while customization options enable users to adjust explanation preferences based on their domain expertise, role requirements, and personal preferences.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p7">
+<p class="ltx_p">Comprehensive quality assurance and testing protocols ensure explanation systems maintain reliability and accuracy under realistic operational conditions. This encompasses stress testing explanation generation capabilities under high computational loads to identify performance bottlenecks and ensure graceful degradation under extreme conditions. Validation procedures verify explanation consistency across different system configurations, deployment environments, and user access patterns, ensuring that explanations remain stable and reliable regardless of the specific technical infrastructure or user interaction modalities.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS2.p8">
+<p class="ltx_p">Continuous verification processes become particularly critical as underlying AI models undergo updates, retraining, or architectural modifications, requiring systematic testing to ensure that explanations remain accurate representations of updated model behavior. This ongoing quality assurance must account for the dynamic nature of production AI systems, where model performance, data distributions, and user requirements may evolve over time, demanding explanation systems that can adapt while maintaining their interpretive fidelity and user utility.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S5.SS3">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">5.3  Monitoring and Maintenance</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S5.SS3.p1">
+<p class="ltx_p">The monitoring and maintenance phase ensures that interpretable AI systems continue to provide accurate, useful explanations throughout their operational lifecycle while adapting to changing requirements and conditions.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS3.p2">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Explanation Quality Monitoring:</span>
+Continuous monitoring systems should track explanation quality metrics to detect degradation or inconsistencies. This includes automated checks for explanation stability, user feedback analysis, and periodic validation against ground truth when available. Organizations should establish thresholds for explanation quality metrics and implement alerting systems when these thresholds are exceeded.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS3.p3">
+<p class="ltx_p">Key monitoring activities include:</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<ul class="ltx_itemize" id="S5.I1">
+<li class="ltx_item" id="S5.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S5.I1.i1.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Drift Detection</span>: Monitor for changes in explanation patterns that may indicate model or data drift</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S5.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S5.I1.i2.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">User Engagement Tracking</span>: Analyze how users interact with explanations to identify improvement opportunities</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S5.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S5.I1.i3.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Performance Impact Assessment</span>: Continuously evaluate the computational cost of explanation generation</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S5.I1.i4" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S5.I1.i4.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Error Rate Monitoring</span>: Track instances where explanations may have misled users or contributed to incorrect decisions</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+</ul>
+</div>
+<div class="ltx_para" id="S5.SS3.p4">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Adaptive Improvement Processes:</span>
+Interpretable AI systems should incorporate feedback mechanisms that enable continuous improvement of explanation quality and relevance. This includes collecting user feedback on explanation usefulness, analyzing patterns in user behavior with explanations, and updating explanation methods based on new research and best practices.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS3.p5">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Regulatory Compliance Maintenance:</span>
+As regulatory requirements evolve, organizations must ensure their interpretable AI systems remain compliant. This requires ongoing assessment of explanation adequacy against current regulations, documentation of explanation methodologies for audit purposes, and implementation of processes for updating explanation systems to meet new requirements.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S5.SS3.p6">
+<p class="ltx_p">The maintenance phase should also include regular reviews of interpretability requirements with stakeholders, as user needs and domain understanding may evolve over time. Organizations should establish processes for systematically updating explanation methods and retraining models while maintaining explanation quality and consistency.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">6  Standardized Reporting Framework for Interpretable Models</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S6.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">6.1  Proposed Reporting Template</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S6.SS1.p1">
+<p class="ltx_p">To ensure consistent documentation and evaluation of interpretable AI systems across organizations and domains, we propose a standardized reporting template that captures essential elements of model interpretability. This template serves as a comprehensive guide for practitioners to document their interpretable AI implementations, enabling better transparency, reproducibility, and compliance with regulatory requirements.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS1.p2">
+<p class="ltx_p">The proposed template consists of six major sections: Model Overview, Interpretability Approach, Technical Implementation, Evaluation Results, Stakeholder Assessment, and Compliance Documentation (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S6.F5" title="Figure 5 ‣ 6.1 Proposed Reporting Template ‣ 6 Standardized Reporting Framework for Interpretable Models ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">5</span></a>). Each section contains specific fields and requirements designed to capture the most critical aspects of interpretable AI systems while remaining flexible enough to accommodate diverse application domains and organizational contexts.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S6.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S6.F5.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x4.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 5: </span>Key Components of a Standardized Reporting Template for Interpretable AI Systems</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S6.SS1.p3">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Section 1: Model Overview</span>
+This section captures fundamental information about the AI system, including the problem domain, intended use case, target users, and business context. It should specify the model architecture, data sources, training methodology, and performance characteristics. Additionally, it documents the rationale for requiring interpretability in this specific application and the expected benefits for stakeholders.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS1.p4">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Section 2: Interpretability Approach</span>
+This section details the chosen interpretability methodology, whether inherently interpretable models or post-hoc explanation techniques. It should justify the selection of specific interpretability approaches based on domain requirements, user needs, and technical constraints. The documentation should include a clear mapping between interpretability techniques and their intended purposes, such as global model understanding, local prediction explanations, or feature importance analysis.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S6.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">6.2  Essential Elements to Document</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S6.SS2.p1">
+<p class="ltx_p">The standardized reporting framework requires documentation of twelve essential elements that collectively provide a comprehensive view of the interpretable AI system’s design, implementation, and effectiveness.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p2">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Interpretability Requirements and Justification:</span> Document the specific reasons why interpretability is necessary for this application, including regulatory requirements, stakeholder needs, risk assessment outcomes, and business objectives. This section should clearly articulate the expected benefits of interpretability and how they align with organizational goals.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p3">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Stakeholder Analysis:</span> Identify all stakeholders who will interact with or be affected by the AI system’s explanations, including their technical background, domain expertise, decision-making responsibilities, and specific information needs. This analysis should inform the design of explanation interfaces and content.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p4">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Architecture and Design Decisions:</span> Provide detailed documentation of the chosen model architecture, including the rationale for selecting inherently interpretable models versus complex models with post-hoc explanations. Document any architectural modifications made to enhance interpretability and their impact on model performance.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p5">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Explanation Generation Methods:</span> Describe the specific techniques used to generate explanations, including their theoretical foundations, implementation details, computational requirements, and limitations. For post-hoc methods, document validation procedures used to ensure explanation fidelity and reliability.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p6">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Technical Performance Metrics:</span> Report both predictive performance metrics (accuracy, precision, recall, etc.) and interpretability-specific metrics (fidelity, stability, consistency, completeness). Include statistical significance tests and confidence intervals where appropriate, and acknowledge any trade-offs between performance and interpretability.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p7">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Human-Centered Evaluation Results:</span> Document the results of user studies, including task performance measurements, trust calibration assessments, mental model alignment evaluations, and actionability assessments. Report both quantitative metrics and qualitative feedback from actual end users.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p8">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Deployment Architecture:</span> Describe the technical infrastructure used to deliver explanations in production, including caching strategies, performance optimization techniques, fallback mechanisms, and scalability considerations. Document any limitations or constraints that affect explanation availability or quality.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p9">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Quality Assurance Procedures:</span> Detail the processes used to ensure explanation quality, including validation protocols, monitoring systems, alerting mechanisms, and continuous improvement procedures. Document quality thresholds and the actions taken when these thresholds are exceeded.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p10">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Regulatory Compliance:</span> Provide evidence of compliance with relevant regulations and standards, including documentation of explanation adequacy, audit trails, and processes for maintaining compliance as requirements evolve. Include references to specific regulatory frameworks and their requirements.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p11">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Risk Assessment and Mitigation:</span> Document potential risks associated with the interpretable AI system, including risks of misleading explanations, over-reliance on AI recommendations, or misinterpretation of explanations. Describe mitigation strategies and monitoring procedures for each identified risk.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p12">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Maintenance and Update Procedures:</span> Outline processes for maintaining explanation quality over time, including procedures for updating explanation methods, retraining models, monitoring explanation drift, and incorporating user feedback. Document version control procedures and change management processes.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS2.p13">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Limitations and Known Issues:</span> Acknowledge limitations of the interpretability approach, including scenarios where explanations may be incomplete or misleading, technical constraints that affect explanation quality, and areas where further research or development is needed.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S6.SS3">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">6.3  Case Study: Implementing the Reporting Framework</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S6.SS3.p1">
+<p class="ltx_p">To demonstrate the practical application of the standardized reporting framework, we present a case study of its implementation in a healthcare AI system for diagnostic imaging. This case study illustrates how the framework can be adapted to specific domain requirements while maintaining consistency and comprehensiveness.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S6.SS4">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">6.4  Medical Imaging Diagnostic Support System</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S6.SS4.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Model Overview:</span> The system assists radiologists in detecting lung cancer in chest X-rays, serving as a second opinion tool in a hospital radiology department. The target users are board-certified radiologists with varying levels of experience in chest imaging. The business context involves improving diagnostic accuracy while maintaining radiologist autonomy in final decision-making.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS4.p2">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Interpretability Approach:</span> Given the high-stakes medical context and regulatory requirements, the team selected an inherently interpretable ensemble model combining generalized additive models with attention-based neural networks. This hybrid approach enables both global feature understanding and local explanation of specific predictions while maintaining competitive diagnostic accuracy.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS4.p3">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Technical Implementation:</span> The model processes chest X-rays through a specialized interpretable neural network architecture that generates pixel-level attribution maps highlighting regions most relevant to the cancer detection decision. Global explanations show the model’s overall decision patterns across different demographic groups and imaging conditions.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS4.p4">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Evaluation Results:</span> The system achieved 94.2</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS4.p5">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Regulatory Compliance:</span> The system meets FDA requirements for AI/ML-based medical devices, with comprehensive documentation of explanation methodologies and validation procedures. Regular audits ensure ongoing compliance with evolving regulations.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S6.SS4.p6">
+<p class="ltx_p">This case study demonstrates how the reporting framework captures essential information while remaining practical for real-world implementation. The standardized format enables comparison across different systems and domains while ensuring that critical aspects of interpretable AI are consistently documented and evaluated.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S7">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">7  Evaluation Methods for Model Interpretability and Explainability</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S7.p1">
+<p class="ltx_p">The evaluation of explainable artificial intelligence (XAI) methods presents unique challenges as it requires measuring subjective qualities like comprehensibility, faithfulness, and usefulness rather than traditional predictive performance metrics. Quantitative assessment methods provide objective measures through functionally-grounded evaluation, including fidelity measures that test how faithfully explanations represent model behavior through perturbation-based approaches, stability measures that assess explanation robustness across similar inputs, and completeness metrics that evaluate whether explanations capture the full scope of model behaviour <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx3" title="">3</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx13" title="">13</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx1" title="">1</a>]</cite>. For specialized domains like time-series data, novel metrics such as area under the top curve and modified F1 scores have been developed to address temporal dependencies and sequential relationships <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx14" title="">14</a>]</cite>.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p2">
+<p class="ltx_p">Human-centered evaluation directly assesses explanation quality from the user perspective, recognizing that interpretability ultimately depends on human comprehension and utility. This approach follows a three-level framework: application-grounded evaluation with real end-users performing actual domain tasks, human-grounded evaluation using simplified tasks with lay participants, and functionally-grounded evaluation using computational proxies. Task-based evaluations include forward simulation where participants predict model outputs from explanations, counterfactual reasoning to test understanding of decision boundaries, and trust assessment to measure appropriate calibration of user confidence in model predictions <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx3" title="">3</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx11" title="">11</a>]</cite>.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p3">
+<p class="ltx_p">A comprehensive evaluation framework organizes explanation quality into twelve properties (Co-12) across content dimensions (correctness, completeness, consistency), presentation aspects (compactness, composition, confidence), and user considerations (context, coherence, controllability). The selection of evaluation methods should align with application context, employing multiple quantitative metrics for general-purpose assessment, prioritizing human-centered evaluation with domain experts for specific applications, and using functionally-grounded methods for iterative research and development <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx11" title="">11</a>, <a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#bib.bibx15" title="">15</a>]</cite>.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p4">
+<p class="ltx_p">Comprehensive evaluation reporting should include:</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p5">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Methodology Transparency:</span> Clearly describe evaluation procedures, including data preprocessing, perturbation strategies, and baseline comparisons. Report both positive and negative results to avoid publication bias.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p6">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Multi-Dimensional Assessment:</span> Report metrics across multiple Co-12 properties rather than focusing on single measures. Acknowledge trade-offs between different quality aspects.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p7">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Statistical Rigor:</span> Include confidence intervals, significance tests, and multiple random seeds when applicable. Report both individual instance results and aggregate statistics.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p8">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Reproducibility Information:</span> Provide sufficient implementation details, dataset descriptions, and code availability to enable replication studies.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p9">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Limitation Discussion:</span> Explicitly acknowledge evaluation limitations, including cases where methods may not generalize or where evaluation metrics may not capture all relevant quality aspects.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S7.p10">
+<p class="ltx_p">The field continues evolving toward more standardized evaluation practices, with growing recognition that comprehensive assessment requires combining multiple evaluation approaches rather than relying on single metrics or methodologies.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S7.F6"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="467" id="S7.F6.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x5.png" width="830">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 6: </span>Multi-Level Evaluation Framework for Interpretability Methods</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</section>
+<section class="ltx_section" id="S8">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">8  Challenges and Limitations</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S8.p1">
+<p class="ltx_p">Despite growing interest and advancements in interpretable AI, several technical, human, and organizational barriers continue to impede its widespread implementation. These challenges are often interdependent and must be addressed holistically to build AI systems that are not only accurate but also trustworthy, transparent, and aligned with human values. Key challenges across four dimensions emerge: technical limitations, trade-offs with performance, human cognitive factors, and institutional constraints—that impact the effective integration of interpretability into AI systems(Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S8.F7" title="Figure 7 ‣ 8 Challenges and Limitations ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">7</span></a>).</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S8.F7"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S8.F7.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x6.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 7: </span>Key Challenges to Implementing Interpretable AI Systems</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<section class="ltx_subsection" id="S8.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">8.1  Technical Challenges</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S8.SS1.p1">
+<p class="ltx_p">The implementation of interpretable AI systems faces several significant technical challenges that organizations must navigate carefully. Computational overhead represents one of the most immediate concerns, as generating high-quality explanations often requires substantial processing power and time, particularly for complex models and large datasets. Real-time applications face especially acute constraints, where the latency introduced by explanation generation can compromise system responsiveness and user experience.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS1.p2">
+<p class="ltx_p">Explanation consistency poses another critical challenge, particularly when multiple interpretation methods are applied to the same model or decision. Different explanation techniques may yield conflicting insights about the same prediction, creating confusion for users and undermining confidence in the interpretability system. This inconsistency can arise from fundamental differences in how various methods operate, from gradient-based approaches that may be sensitive to input perturbations to sampling-based methods that introduce stochastic variation.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS1.p3">
+<p class="ltx_p">Scalability challenges emerge as organizations attempt to deploy interpretable AI systems across large-scale operations. Explanation methods that work well for individual predictions or small datasets may not scale effectively to enterprise-level deployments with millions of daily predictions. The infrastructure required to support explanation generation, storage, and delivery can become prohibitively expensive, particularly for organizations operating under tight budget constraints.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S8.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">8.2  The Interpretability-Performance Trade-off</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S8.SS2.p1">
+<p class="ltx_p">A common perception is that increasing model interpretability comes at the cost of performance. However, recent arguments suggest this is a false dichotomy. Rudin et al. (2022) advocate that in many high-stakes applications, interpretable models can match or even outperform black-box models.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS2.p2">
+<p class="ltx_p">The interpretability-performance trade-off manifests differently across application domains and use cases. In domains where the underlying relationships are relatively simple or well-understood, inherently interpretable models like linear regression or decision trees can achieve performance comparable to more complex alternatives while providing complete transparency. However, in domains involving high-dimensional data, complex non-linear relationships, or subtle pattern recognition tasks, the performance gap between interpretable and black-box models may be more significant.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS2.p3">
+<p class="ltx_p">Organizations must carefully assess this trade-off in the context of their specific requirements. For high-stakes decisions where understanding the reasoning process is paramount—such as medical diagnosis, loan approval, or criminal justice applications—accepting some performance reduction in favor of interpretability may be justified. Conversely, for applications where performance is critical and the consequences of individual errors are manageable, organizations might prioritize accuracy over interpretability.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS2.p4">
+<p class="ltx_p">Use of inherently interpretable models is especially crucial in domains such as medicine, where understanding and accountability are paramount. For lower-risk applications (e.g., targeted advertising), black-box models may be acceptable provided proper governance and monitoring are in place.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S8.SS3">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">8.3  Human Factors and Cognitive Limitations</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S8.SS3.p1">
+<p class="ltx_p">The effectiveness of interpretable AI systems is fundamentally limited by human cognitive capacity and information processing constraints. Users have finite attention spans and working memory, meaning that explanations must be carefully designed to convey the most important information without overwhelming cognitive resources. Complex explanations with too much detail can be counterproductive, leading to information overload and poor decision-making.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS3.p2">
+<p class="ltx_p">Cognitive biases present another significant challenge, as users may interpret explanations through the lens of their existing beliefs and expectations. Confirmation bias can lead users to focus on explanation elements that support their preconceptions while ignoring contradictory information. Anchoring bias may cause users to over-weight the first piece of explanation information they encounter, while availability bias might lead them to overestimate the importance of easily recalled examples or patterns.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS3.p3">
+<p class="ltx_p">Domain expertise creates additional complexity, as expert users and novices have fundamentally different information needs and interpretation patterns. Experts may prefer concise, technical explanations that align with their professional knowledge, while novices require more comprehensive, educational explanations that build understanding from basic principles. Designing explanation systems that effectively serve both audiences without compromising utility for either represents a significant challenge.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS3.p4">
+<p class="ltx_p">Trust calibration presents a particularly complex human factor challenge. Users must develop appropriate levels of trust in AI systems—neither over-trusting nor under-trusting the technology. Explanations play a crucial role in this calibration process, but poorly designed explanations can lead to inappropriate trust levels, whether excessive confidence in flawed systems or unnecessary skepticism toward reliable ones.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S8.SS4">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">8.4  Organizational Barriers to Adoption</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S8.SS4.p1">
+<p class="ltx_p">Organizations face numerous structural and cultural barriers to implementing interpretable AI systems effectively. Resource constraints often limit the ability to invest in the additional development time, computational infrastructure, and specialized expertise required for interpretable AI. Organizations operating under tight budgets or aggressive timelines may view interpretability as a luxury rather than a necessity, particularly when regulatory requirements are unclear or loosely enforced.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS4.p2">
+<p class="ltx_p">Cultural resistance to transparency can present significant obstacles, particularly in organizations with hierarchical decision-making structures or competitive cultures where information is viewed as power. Some stakeholders may resist interpretable AI systems because they fear that transparency will expose inefficiencies, biases, or errors in existing processes. This resistance can manifest as reluctance to provide training data, participate in user studies, or adopt new workflows that incorporate AI explanations.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS4.p3">
+<p class="ltx_p">Technical debt and legacy system integration pose practical implementation challenges. Organizations with established AI systems may find it difficult to retrofit interpretability capabilities without significant architectural changes. The cost and risk associated with modifying production systems can be substantial, particularly for organizations in regulated industries where system changes require extensive validation and approval processes.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS4.p4">
+<p class="ltx_p">Skills gaps present another significant barrier, as interpretable AI requires expertise that spans multiple disciplines including machine learning, user experience design, domain knowledge, and regulatory compliance. Organizations may struggle to find individuals with the necessary combination of skills or to develop such expertise internally. This challenge is compounded by the rapidly evolving nature of interpretability research and the lack of standardized training programs.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S8.SS4.p5">
+<p class="ltx_p">Change management represents a critical organizational challenge, as implementing interpretable AI often requires modifications to existing workflows, decision-making processes, and organizational roles. Users may resist adopting new tools or processes, particularly if they perceive the changes as threatening their autonomy or expertise. Successful implementation requires careful change management strategies that address user concerns, provide adequate training, and demonstrate clear benefits.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S9">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">9  Interpretability Applications and Cross-Industry Learnings</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.p1">
+<p class="ltx_p">To better understand how interpretability and explainability function in real-world applications, we analyzed case studies spanning sectors such as finance, healthcare, telecommunications, infrastructure, and human resources. These applied efforts offered valuable insights into both technical and organizational dynamics that shape the successful adoption of interpretable machine learning (ML) systems.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<section class="ltx_subsection" id="S9.SS1">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.1  Interpretability Across Domains: Purpose and Practice</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS1.p1">
+<p class="ltx_p">As AI systems continue to permeate a variety of sectors, from finance and healthcare to infrastructure, education, and human resources, there is a growing recognition that interpretability is not merely a desirable feature but a necessary one. The role of interpretability varies significantly depending on the domain, yet a common thread emerges: the need to understand, trust, and justify machine learning outputs in ways that align with business goals, compliance demands, and end-user expectations.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS1.p2">
+<p class="ltx_p">In high-stakes domains like healthcare or finance, interpretability is often motivated by regulatory scrutiny and ethical accountability. In technical domains like infrastructure or telecommunications, it supports root cause analysis and system debugging. Meanwhile, in human-centered fields such as HR and education, interpretability facilitates fairness, transparency, and improved stakeholder communication.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS1.p3">
+<p class="ltx_p">Interpretability applications in these diverse settings reveals that successful interpretability efforts tend to share key characteristics of deliberate planning, alignment with stakeholder needs, and integration into the broader system development process. Regardless of sector, teams that treated interpretability as a core design requirement, rather than a post-hoc addition, were better positioned to meet both technical and organizational objectives.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S9.SS2">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.2  Key Cross-Sector Observations and Insights</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<figure class="ltx_figure" id="S9.F8"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S9.F8.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x7.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 8: </span>Adoption of AI Interpretability Across Domains</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS2.p1">
+<p class="ltx_p">Several recurring themes emerged across the case studies (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.F8" title="Figure 8 ‣ 9.2 Key Cross-Sector Observations and Insights ‣ 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">8</span></a>):</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS2.p2">
+<ul class="ltx_itemize" id="S9.I1">
+<li class="ltx_item" id="S9.I1.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i1.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Early Integration of Interpretability is Critical</span>:
+Projects that defined interpretability goals early in development were better able to align models, explanation techniques, and stakeholder needs. Delayed consideration often led to costly retrofitting and limited effectiveness.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i2.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Inherently Interpretable Models Are Often Better Aligned with Stakeholders</span>:
+Models like Explainable Boosting Machines (EBMs), Generalized Additive Models (GAMs), and Neural Additive Models (NAMs) offered transparency by design and were easier for non-technical stakeholders to understand. These were particularly effective in domains requiring high accountability.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i3.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Trade-offs Between Accuracy and Interpretability Are Contextual</span>:
+In domains like fraud detection and clinical risk prediction, interpretable models occasionally underperformed black-box counterparts but offered significant advantages in trust and compliance. Teams often had to balance predictive performance with clarity and audit-ability.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i4" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i4.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Limitations of Post-hoc Methods in Complex Use Cases</span>:
+Tools like SHAP and LIME were widely used but often struggled with stability, sensitivity to hyperparameters, and inconsistent outputs when applied to large language models or high-dimensional data. These limitations highlight the need for careful method selection based on domain and model architecture.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i5" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i5.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Explainability for Generative Models is Still Maturing</span>:
+Use cases involving large language models (e.g., LLaMA, Falcon, Mistral) revealed gaps in current interpretability tools. Techniques such as attribution mapping and perturbation helped expose token relationships but were constrained by the models’ complexity and opacity.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i6" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i6.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Visual Tools and Communication Infrastructure Enhance Stakeholder Engagement</span>:
+Projects that included dashboards, interactive plots, or structured reporting templates were more effective at translating technical insights into actionable understanding for business users, auditors, or compliance teams.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I1.i7" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I1.i7.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Interpretability is a Socio-Technical Challenge</span>:
+Success was often driven more by process, communication, and alignment than technical execution alone. Teams that fostered feedback loops, included domain experts early, and regularly reflected on their approach achieved more sustainable outcomes.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section class="ltx_subsection" id="S9.SS3">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.3  Domain-Specific Highlights</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS3.p1">
+<p class="ltx_p">Case studies across diverse industries including finance, telecommunications, healthcare, human resources, infrastructure, and education demonstrate the varied ways in which interpretability techniques can be applied to domain-specific machine learning challenges. These applications surfaced key technical and organizational considerations, highlighting the trade-offs, limitations, and opportunities inherent in building transparent and trustworthy AI systems. Despite sector-specific complexities, the underlying techniques proved adaptable and effective across a wide range of use cases, reinforcing their relevance to any industry pursuing responsible AI adoption.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS3.p2">
+<ul class="ltx_itemize" id="S9.I2">
+<li class="ltx_item" id="S9.I2.i1" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I2.i1.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Finance and Fraud Detection:</span> In domains with high regulatory oversight, such as fraud detection and credit scoring, techniques like SHAP, LIME, and Explainable Boosting Machines (EBMs) were used to enhance transparency. Post-hoc tools such as SHAP provided fine-grained insight into feature importance, but frequently exhibited instability when applied to complex or imbalanced datasets. In contrast, inherently interpretable models like EBMs produced more stable, rule-based outputs that resonated better with non-technical stakeholders—even when sacrificing some predictive performance or sensitivity to rare events.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I2.i2" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I2.i2.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Healthcare:</span> Clinical applications such as patient outcome prediction and hospital readmission risk modeling leaned on techniques like Generalized Additive Models (GAMs) and Partial Dependence Plots (PDPs) to deliver transparent decision logic. These approaches proved particularly valuable in fostering clinician trust in model outputs. However, explainability was harder to maintain in contexts involving sparse or high-dimensional data, sometimes requiring simplified modeling approaches or hybrid architectures to ensure interpretability without compromising utility.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I2.i3" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I2.i3.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">LLMs and Document AI:</span> Use cases such as resume screening, banking chatbot response generation, and optical character recognition (OCR) pipelines applied interpretability tools to large-scale generative models like LLaMA, Falcon, and Mistral. Token-level attribution and perturbation techniques provided partial insight into model reasoning, but their effectiveness was limited by the opaque nature of attention-based architectures. These challenges point to an urgent need for domain-specific interpretability methods tailored to generative and sequence-based models, particularly in compliance-sensitive fields like HR and financial services.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+<li class="ltx_item" id="S9.I2.i4" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span>
+<div class="ltx_para" id="S9.I2.i4.p1">
+<p class="ltx_p"><span class="ltx_text ltx_font_bold">Infrastructure and Industrial Systems:</span> For tasks such as anomaly detection in sensor and telemetry data, glass-box models like EBMs and GAMs offered valuable interpretability benefits over black-box methods like Isolation Forests. These interpretable alternatives enabled clearer root cause analysis and better alignment with ESG (Environmental, Social, and Governance) reporting requirements. Nevertheless, teams encountered scalability challenges when attempting to embed interpretability into real-time monitoring systems—especially in environments characterized by high-volume or high-dimensional data.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</li>
+</ul>
+</div>
+<div class="ltx_para" id="S9.SS3.p3">
+<p class="ltx_p">Across these domains, the case studies revealed that interpretability is often as much about communication and stakeholder engagement as it is about modeling technique. While no single method universally outperformed others, the combination of case-specific model selection, visualization, and tailored explanation strategies consistently contributed to better stakeholder understanding and trust. These findings reinforce the broader thesis of this whitepaper: <span class="ltx_text ltx_font_italic">interpretability is a context-dependent practice requiring adaptable frameworks rather than rigid solutions.</span></p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S9.SS4">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.4  Learnings: Practical Adoption of Interpretability</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS4.p1">
+<p class="ltx_p">The collective insights drawn from applied experimentation across sectors demonstrate that interpretability is most effective when treated as a foundational component of the machine learning development process. Embedding interpretability from the outset—starting at the problem definition and model design phase—enables organizations to align techniques with their specific regulatory, operational, and stakeholder needs. Early integration also helps reduce the need for costly and less effective retrofitting later in the development cycle.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS4.p2">
+<p class="ltx_p">Another critical enabler of practical adoption is the development of robust communication infrastructure. Tools such as interactive dashboards, visualizations, and standardized explanation templates help translate complex model behavior into insights that are accessible to diverse stakeholders, including domain experts, auditors, and end users. These tools not only support transparency but also foster trust, a prerequisite for responsible AI deployment.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS4.p3">
+<p class="ltx_p">Interpretability methods must also be carefully selected based on the specific characteristics of the domain and application. There is no one-size-fits-all approach: inherently interpretable models may be better suited for some contexts, while post-hoc techniques might offer flexibility in others. Aligning methods with domain constraints, user literacy, and compliance demands ensures that interpretability delivers meaningful value rather than technical formality.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS4.p4">
+<p class="ltx_p">Finally, organizations benefit from building structured opportunities for reflection, evaluation, and continuous improvement into their workflows. By encouraging teams to document trade-offs, revisit decisions, and gather feedback from end users, interpretability becomes a dynamic capability—capable of adapting as data, models, and requirements evolve.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS4.p5">
+<p class="ltx_p">Together, these recommendations highlight that interpretability is not a fixed property of an algorithm, but a socio-technical practice grounded in context, purpose, and thoughtful design. When supported by the right processes and infrastructure, it becomes a powerful tool for improving accountability, fostering trust, and guiding the responsible adoption of machine learning systems across industries.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S9.F9"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S9.F9.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x8.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 9: </span>Bridging the Interpretability Gap: Key Steps Toward Practical and Transparent AI Systems</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</section>
+<section class="ltx_subsection" id="S9.SS5">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.5  The Web Portal Initiative: One-Stop Resource for Interpretable AI</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS5.p1">
+<p class="ltx_p">Building on the comprehensive framework presented in this white paper, we propose the development of an integrated web portal that serves as a centralized resource for interpretable AI implementation. This initiative, inspired by the TransparentAI portal concept, would provide practitioners with interactive tools, comprehensive guidance, and real-world case studies to support their interpretability efforts.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS5.p2">
+<p class="ltx_p">The proposed portal would feature several key components designed to address the practical needs identified through our interpretability application experimentation and industry engagement. An interactive technique selection wizard would guide users through a decision tree process to identify the most appropriate interpretability methods based on their specific model types, industry contexts, and stakeholder requirements. This tool would move beyond simple recommendations to provide detailed implementation guidance, including code examples, best practices, and common pitfalls to avoid.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS5.p3">
+<p class="ltx_p">A comprehensive method comparison tool would allow users to evaluate different interpretability approaches side-by-side, with interactive visualizations showing how various techniques perform across different evaluation metrics and use cases. This comparative analysis capability would be particularly valuable for organizations trying to select among multiple viable interpretability approaches for their specific applications.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS5.p4">
+<p class="ltx_p">The portal would include a searchable database of real-world case studies spanning diverse industries and application domains, providing practitioners with concrete examples of how interpretability has been successfully implemented in similar contexts. These case studies would go beyond high-level descriptions to provide detailed technical implementations, lessons learned, and quantified outcomes that demonstrate the business value of interpretable AI.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS5.p5">
+<p class="ltx_p">Interactive evaluation tools would enable users to assess their current interpretability practices against established benchmarks and identify areas for improvement. These tools would provide customized recommendations based on user inputs and guide organizations through a structured improvement process that builds interpretability capabilities over time.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS5.p6">
+<p class="ltx_p">A regulatory compliance checker would help organizations understand and navigate the complex landscape of AI transparency requirements across different jurisdictions and industry sectors. This tool would provide up-to-date information on relevant regulations, assessment frameworks for determining compliance requirements, and guidance on implementing appropriate interpretability measures.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_subsection" id="S9.SS6">
+<h3 class="ltx_title ltx_font_bold ltx_title_subsection" style="font-size:120%;color:#00539B;">9.6  Proposed Roadmap for Industry Adoption of Interpretability</h3><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS6.p1">
+<p class="ltx_p">Based on the success and insights gained from interpretability application case studies, we propose a roadmap that organizations can adopt to embed interpretable AI practices into their development workflows and governance structures. This roadmap supports continuous learning, iterative experimentation, and the development of internal capacity to scale interpretable AI across diverse contexts.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<figure class="ltx_figure" id="S9.F10"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="337" id="S9.F10.g1" src="./Transparent AI_ The Case for Interpretability and Explainability_files/x9.png" width="600">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 10: </span>Proposed Roadmap for Driving Industry-Wide Interpretability Adoption</figcaption>
+</figure><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S9.SS6.p2">
+<p class="ltx_p">The roadmap encourages organizations to design internal programming such as targeted training, guided pilot projects, and structured knowledge-sharing sessions focused on specific themes or domains (Fig.&nbsp;<a class="ltx_ref" href="https://arxiv.org/html/2507.23535v1#S9.F10" title="Figure 10 ‣ 9.6 Proposed Roadmap for Industry Adoption of Interpretability ‣ 9 Interpretability Applications and Cross-Industry Learnings ‣ Transparent AI: The Case for Interpretability and Explainability"><span class="ltx_text ltx_ref_tag">10</span></a>). For example, healthcare organizations may prioritize workflows that address unique regulatory, technical, and ethical challenges, while financial institutions might focus on risk management, auditability, and fairness.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p3">
+<p class="ltx_p">Technical workstreams can be established to explore advanced interpretability challenges such as large language models, multi-modal systems, and real-time pipelines. These efforts would focus on evaluating emerging techniques, prototyping interpretable architectures, and identifying tool-chain gaps specific to the organization’s use cases.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p4">
+<p class="ltx_p">Leadership focused initiatives should aim to build strategic understanding among business and executive stakeholders. These can include workshops on governance frameworks, change management planning, and the business case for interpretable AI, helping align organizational vision with transparency goals.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p5">
+<p class="ltx_p">Organizations can also foster internal forums or communities of practice to promote cross-functional learning and knowledge transfer. Sharing lessons across departments or use cases can help identify common interpretability challenges and solutions that can be generalized or adapted.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p6">
+<p class="ltx_p">To sustain progress, organizations should incorporate continuous improvement mechanisms into their interpretability initiatives. This includes collecting regular feedback, evaluating progress against defined milestones, and iterating on frameworks, tooling, and training based on real-world implementation outcomes.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p7">
+<p class="ltx_p">Finally, a train-the-trainer strategy can empower internal champions to lead interpretability education across the organization. By developing reusable content, tailored programming, and coaching structures, teams can scale interpretability practices in a sustainable, context-sensitive manner.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S9.SS6.p8">
+<p class="ltx_p">This roadmap offers a flexible and actionable foundation for industry adoption of interpretable AI—one that can be adapted to suit varying maturity levels, resource constraints, and sector-specific demands.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S10">
+<h2 class="ltx_title ltx_font_bold ltx_title_section" style="font-size:144%;color:#00539B;">10  Conclusion and Recommendations</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<div class="ltx_para" id="S10.p1">
+<p class="ltx_p">The advancement of AI systems into critical decision-making roles has transformed interpretability from an academic consideration into a fundamental requirement for responsible AI deployment. This whitepaper demonstrates that achieving transparent AI requires coordinated efforts across organizational, regulatory, and human dimensions. Our interpretability application experiment revealed critical insights that reshape how organizations should approach transparent AI implementation. The case studies demonstrated that technical excellence in explanation generation is necessary but insufficient. Teams that achieved meaningful outcomes invested heavily in understanding stakeholder mental models and decision-making workflows. We also propose developing an integrated web portal serving as a centralized resource for interpretable AI implementation, featuring interactive technique selection tools, comprehensive case study databases, and regulatory compliance guidance.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S10.p2">
+<p class="ltx_p">The transition to interpretable AI represents both opportunity and imperative. Organizations should begin by assessing current transparency practices, identifying high-priority applications where interpretability is essential, and developing implementation roadmaps.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+<div class="ltx_para" id="S10.p3">
+<p class="ltx_p">The future of AI depends on our collective ability to build systems that humans can understand, trust, and effectively collaborate with. Organizations that embrace interpretability as a fundamental design principle will achieve better regulatory compliance and unlock the full potential of human-AI collaboration. The frameworks presented in this whitepaper provide the foundation—the journey begins with commitment and action.</p><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2><button class="sr-only button" style="display: none;">Report issue for preceding element</button>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bibx1">
+<span class="ltx_tag ltx_tag_bibitem">[1]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Julius Adebayo et al.
+</span>
+<span class="ltx_bibblock">“Sanity checks for saliency maps”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Advances in neural information processing systems</em> <span class="ltx_text ltx_font_bold">31</span>, 2018
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx2">
+<span class="ltx_tag ltx_tag_bibitem">[2]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Jurgita Černevičienė and Audrius Kabašinskas
+</span>
+<span class="ltx_bibblock">“Explainable artificial intelligence (XAI) in finance: a systematic literature review”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Artificial Intelligence Review</em> <span class="ltx_text ltx_font_bold">57.8</span>, 2024
+</span>
+<span class="ltx_bibblock">DOI: <a class="ltx_ref ltx_href" href="https://dx.doi.org/10.1007/s10462-024-10854-8" title="">10.1007/s10462-024-10854-8</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx3">
+<span class="ltx_tag ltx_tag_bibitem">[3]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Finale Doshi-Velez and Been Kim
+</span>
+<span class="ltx_bibblock">“Considerations for evaluation and generalization in interpretable machine learning”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Explainable and interpretable models in computer vision and machine learning</em>
+</span>
+<span class="ltx_bibblock">Springer, 2017, pp. 3–17
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx4">
+<span class="ltx_tag ltx_tag_bibitem">[4]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Tessa Han et al.
+</span>
+<span class="ltx_bibblock">“Is ignorance bliss? the role of post hoc explanation faithfulness and alignment in model trust in laypeople and domain experts”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2312.05690</em>, 2023
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx5">
+<span class="ltx_tag ltx_tag_bibitem">[5]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Weiche Hsieh et al.
+</span>
+<span class="ltx_bibblock">“A Comprehensive Guide to Explainable AI: From Classical Models to LLMs”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2412.00800</em>, 2024
+</span>
+<span class="ltx_bibblock">URL: <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://arxiv.org/abs/2412.00800" title="">https://arxiv.org/abs/2412.00800</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx6">
+<span class="ltx_tag ltx_tag_bibitem">[6]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Weina Jin, Xiaoxiao Li, Mostafa Fatehi and Ghassan Hamarneh
+</span>
+<span class="ltx_bibblock">“Guidelines and Evaluation of Clinical Explainable AI in Medical Image Analysis”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Medical Image Analysis</em> <span class="ltx_text ltx_font_bold">84</span>
+</span>
+<span class="ltx_bibblock">Elsevier, 2022, pp. 102684
+</span>
+<span class="ltx_bibblock">DOI: <a class="ltx_ref ltx_href" href="https://dx.doi.org/10.1016/j.media.2022.102684" title="">10.1016/j.media.2022.102684</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx7">
+<span class="ltx_tag ltx_tag_bibitem">[7]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Uday Kamath and John Liu
+</span>
+<span class="ltx_bibblock">“Model Interpretability: Advances in Interpretable Machine Learning”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Explainable Artificial Intelligence: An Introduction to Interpretable Machine Learning</em>, 2021, pp. 121–165
+</span>
+<span class="ltx_bibblock">DOI: <a class="ltx_ref ltx_href" href="https://dx.doi.org/10.1007/978-3-030-83356-5_4" title="">10.1007/978-3-030-83356-5_4</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx8">
+<span class="ltx_tag ltx_tag_bibitem">[8]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Tamás Kenesei and János Abonyi
+</span>
+<span class="ltx_bibblock">“Interpretability of Neural Networks”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">SpringerBriefs in Computer Science</em>, 2015, pp. 33–48
+</span>
+<span class="ltx_bibblock">DOI: <a class="ltx_ref ltx_href" href="https://dx.doi.org/10.1007/978-3-319-21942-4_3" title="">10.1007/978-3-319-21942-4_3</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx9">
+<span class="ltx_tag ltx_tag_bibitem">[9]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Haoyan Luo and Lucia Specia
+</span>
+<span class="ltx_bibblock">“From Understanding to Utilization: A Survey on Explainability for Large Language Models”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">arXiv preprint arXiv:2401.12874</em>, 2024
+</span>
+<span class="ltx_bibblock">URL: <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://arxiv.org/abs/2401.12874" title="">https://arxiv.org/abs/2401.12874</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx10">
+<span class="ltx_tag ltx_tag_bibitem">[10]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Christoph Molnar
+</span>
+<span class="ltx_bibblock">“Interpretable machine learning”
+</span>
+<span class="ltx_bibblock">Lulu. com, 2020
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx11">
+<span class="ltx_tag ltx_tag_bibitem">[11]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Meike Nauta et al.
+</span>
+<span class="ltx_bibblock">“From anecdotal evidence to quantitative evaluation methods: A systematic review on evaluating explainable AI”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">ACM Computing Surveys</em> <span class="ltx_text ltx_font_bold">55.13s</span>
+</span>
+<span class="ltx_bibblock">ACM, 2023, pp. 1–42
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx12">
+<span class="ltx_tag ltx_tag_bibitem">[12]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Cynthia Rudin et al.
+</span>
+<span class="ltx_bibblock">“Interpretable machine learning: Fundamental principles and 10 grand challenges”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Statistics Surveys</em> <span class="ltx_text ltx_font_bold">16</span>
+</span>
+<span class="ltx_bibblock">Institute of Mathematical StatisticsBernoulli Society, 2022, pp. 1–85
+</span>
+<span class="ltx_bibblock">DOI: <a class="ltx_ref ltx_href" href="https://dx.doi.org/10.1214/21-SS133" title="">10.1214/21-SS133</a>
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx13">
+<span class="ltx_tag ltx_tag_bibitem">[13]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Wojciech Samek et al.
+</span>
+<span class="ltx_bibblock">“Evaluating the visualization of what a deep neural network has learned”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">IEEE transactions on neural networks and learning systems</em> <span class="ltx_text ltx_font_bold">28.11</span>
+</span>
+<span class="ltx_bibblock">IEEE, 2017, pp. 2660–2673
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx14">
+<span class="ltx_tag ltx_tag_bibitem">[14]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Hugues Turbé, Mina Bjelogrlic, Christian Lovis and Gianmarco Mengaldo
+</span>
+<span class="ltx_bibblock">“Evaluation of post-hoc interpretability methods in time-series classification”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Nature Machine Intelligence</em> <span class="ltx_text ltx_font_bold">5.3</span>
+</span>
+<span class="ltx_bibblock">Nature Publishing Group, 2023, pp. 250–260
+</span>
+</li>
+<li class="ltx_bibitem" id="bib.bibx15">
+<span class="ltx_tag ltx_tag_bibitem">[15]<button class="back-to-reference-btn" aria-label="Back to the article">↑</button></span>
+<span class="ltx_bibblock">Mythreyi Velmurugan et al.
+</span>
+<span class="ltx_bibblock">“Developing guidelines for functionally-grounded evaluation of explainable artificial intelligence using tabular data”
+</span>
+<span class="ltx_bibblock">In <em class="ltx_emph ltx_font_italic">Data Mining and Knowledge Discovery</em>
+</span>
+<span class="ltx_bibblock">Springer, 2024
+</span>
+</li>
+</ul>
+</section>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</article>
+</div>
+
+</div>
+
+
+<button type="button" class="btn btn-primary hover-rp-button" id="openForm">Report Issue</button><div class="modal" id="myForm" role="dialog" aria-labelledby="modal-title"><div class="modal-dialog"><form class="modal-content" id="myFormContent" enctype="multipart/form-data"><div class="modal-header" id="modal-header"><h5 class="modal-title">Report Github Issue</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><label for="form_title" id="modalTitle">Title:</label><input class="form-control" id="form_title" name="form_title" required="required" placeholder="Enter title"><label for="description" id="selectedTextModalDescription" style="display: none;">Content selection saved. Describe the issue below:</label><label for="description" id="nomralModalDescription">Description:</label><textarea class="form-control" id="description" name="description" required="required" style="height: 80px;" maxlength="500" placeholder="500 characters maximum"></textarea></div><div class="modal-footer d-flex justify-content-end"><button type="submit" class="sr-only button" id="modal-submit-sr">Submit without Github</button><button type="submit" class="btn btn-primary" id="modal-submit">Submit in Github</button></div></form></div></div><button id="small-report-button" type="button" class="btn btn-secondary btn-sm" style="background-color: rgb(179, 27, 27); position: fixed; display: none; left: 830.89px; top: 239.588px; transform: translate(-50%, -100%);">Report Issue for Selection</button><div class="ltx_page_footer">
+        <div class="ltx_page_logo">
+            Generated by
+            <a href="https://math.nist.gov/~BMiller/LaTeXML/" class="ltx_LaTeXML_logo">
+                <span style="letter-spacing: -0.2em; margin-right: 0.1em;">
+                    L
+                    <span style="font-size: 70%; position: relative; bottom: 2.2pt;">A</span>
+                    T
+                    <span style="position: relative; bottom: -0.4ex;">E</span>
+                </span>
+                <span class="ltx_font_smallcaps">xml</span>
+                <img alt="[LOGO]" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==">
+            </a>
+        </div></div><footer id="footer" class="ltx_document">
+        <div class="keyboard-glossary">
+            <h2>Instructions for reporting errors</h2>
+            <p>We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the methods listed below:</p>
+            <ul>
+                <li>Click the "Report Issue" button.</li>
+                <li>Open a report feedback form via keyboard, use "<strong>Ctrl + ?</strong>".</li>
+                <li>Make a text selection and click the "Report Issue for Selection" button near your cursor.</li>
+                <li class="sr-only">You can use Alt+Y to toggle on and Alt+Shift+Y to toggle off accessible reporting links at each section.</li>
+            </ul>
+            <p>Our team has already identified <a class="ltx_ref" href="https://github.com/arXiv/html_feedback/issues" target="_blank">the following issues</a>. We appreciate your time reviewing and reporting rendering errors we may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability should not be a barrier to accessing research. Thank you for your continued support in championing open access for all.</p>
+            <p>Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a <a class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML" target="_blank">list of packages that need conversion</a>, and welcome <a class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/issues" target="_blank">developer contributions</a>.</p>
+        </div>
+    </footer></body></html>

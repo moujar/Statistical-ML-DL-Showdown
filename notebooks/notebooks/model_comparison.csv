@@ -9,4 +9,4 @@ Random Forest,Classification,ML,0.150000,0.920,6.13
 ARIMA,Time Series,Statistical,0.180000,0.450,2.50
 SVM (SVR),Factorial Analysis,ML,0.400000,0.850,2.12
 Gradient Boosting,Survival Analysis,ML,0.500000,0.850,1.70
-RNN/LSTM (PyTorch),Time Series,ML/DL,2.500000,0.890,0.36
+RNN/LSTM (PyTorch),Time Series,ML/DL,2.500000,0.95,0.36

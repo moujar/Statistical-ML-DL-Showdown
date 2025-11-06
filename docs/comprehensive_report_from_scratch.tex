@@ -1,0 +1,1046 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Page setup
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO,RE]{\leftmark}
+
+% Custom colors
+\definecolor{mlcolor}{RGB}{52, 152, 219}
+\definecolor{statcolor}{RGB}{231, 76, 60}
+\definecolor{accentcolor}{RGB}{46, 204, 113}
+\definecolor{dlcolor}{RGB}{255, 165, 0}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=green
+}
+
+% Title information
+\title{Bridging the Gap: Statistical vs Machine Learning Methods\\
+\large Performance, Cost, and Interpretability Trade-offs\\
+\large in the Age of Transparent AI}
+\author{Abderrahmane Moujar \and Oudoum Ali Houmed \and Said Abolhassan Razavi\\
+\small Master Paris-Saclay, Applied Statistics}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This comprehensive study presents a systematic comparison between statistical and machine learning (ML) approaches across multiple problem domains. We evaluate 13 model-dataset combinations spanning four distinct problem types: regression, classification, time series analysis, and factorial analysis. Our analysis quantifies the fundamental trade-offs between three critical dimensions: \textcolor{mlcolor}{performance} (accuracy, R², RMSE), \textcolor{statcolor}{cost} (training time, computational resources), and \textcolor{accentcolor}{interpretability} (explainability, statistical inference). 
+
+Our findings reveal that statistical models excel in interpretability (88.3/100 vs 37.4/100) and efficiency (20-100x faster training), while ML/DL models demonstrate superior performance on complex datasets (0.818 vs 0.547 average). The study connects these findings to the emerging field of Interpretable ML and Transparent AI, providing evidence-based recommendations for model selection. We demonstrate that no single approach dominates all categories, and the optimal choice depends on specific requirements including regulatory constraints, dataset characteristics, and computational resources.
+
+\textbf{Keywords:} Machine Learning, Statistical Models, Interpretability, Transparent AI, Model Comparison, Performance Trade-offs
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\subsection{Background and Motivation}
+
+The landscape of predictive modeling has been fundamentally shaped by two distinct yet interconnected paradigms: traditional statistical methods and modern machine learning approaches. While statistical models have provided the foundation for scientific inference and hypothesis testing for over a century, machine learning methods have revolutionized predictive accuracy in complex, high-dimensional problems.
+
+However, as artificial intelligence systems increasingly inform critical decisions in healthcare, finance, and public policy, the demand for \textbf{transparent and interpretable} models has reached unprecedented levels. This convergence of performance requirements and interpretability needs has created a fundamental tension: how can practitioners balance the superior predictive power of complex ML models with the transparency and trust required for high-stakes applications?
+
+The emergence of \textbf{Interpretable ML} and \textbf{Transparent AI} research represents a concerted effort to bridge this gap. As noted in recent work on transparent AI \cite{transparent_ai_2025}, the challenge is not merely technical but encompasses organizational, regulatory, and human factors. This study contributes to this ongoing dialogue by providing empirical evidence on the trade-offs between statistical and ML approaches.
+
+\subsection{Problem Statement}
+
+The core research question driving this investigation is:
+
+\textit{How do Machine Learning and Statistical models compare across different problem domains in terms of:}
+\begin{itemize}
+    \item \textcolor{mlcolor}{\textbf{Performance}} (accuracy, R², RMSE)
+    \item \textcolor{statcolor}{\textbf{Cost}} (training time, computational resources)
+    \item \textcolor{accentcolor}{\textbf{Interpretability}} (explainability, statistical inference)
+\end{itemize}
+
+This question is particularly relevant in the context of regulatory requirements (EU AI Act, Canada AIDA, US AI Bill of Rights) that mandate transparency for high-risk AI systems. Understanding these trade-offs enables evidence-based model selection that aligns with both performance objectives and compliance requirements.
+
+\subsection{Research Objectives}
+
+This study aims to:
+
+\begin{enumerate}
+    \item \textbf{Systematic Comparison:} Compare ML and Statistical approaches across multiple problem domains using standardized evaluation protocols
+    \item \textbf{Quantify Trade-offs:} Provide quantitative measures of the performance-cost-interpretability trade-offs
+    \item \textbf{Evidence-based Recommendations:} Develop practical guidelines for model selection based on empirical findings
+    \item \textbf{Connect to Transparent AI:} Link findings to the broader research agenda on interpretable ML and transparent AI systems
+\end{enumerate}
+
+\subsection{Scope of the Study}
+
+Our comprehensive analysis encompasses:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{Details} \\
+\midrule
+Problem Domains & 4 & Regression, Classification, Time Series, Factorial Analysis \\
+Datasets & 13 & 150 to 35,000 samples \\
+ML Models & 5 & Linear Regression, Random Forest, SVM, RNN/LSTM, Gradient Boosting \\
+Statistical Models & 5 & OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox/Poisson \\
+Total Comparisons & 13 & Model-Dataset pairs \\
+\bottomrule
+\end{tabular}
+\caption{Study Scope Overview}
+\label{tab:scope}
+\end{table}
+
+\subsection{Problem Domains and Datasets}
+
+\subsubsection{Regression Analysis}
+\begin{itemize}
+    \item \textbf{California Housing:} 20,640 samples, 8 features - Predicting median house values
+    \item \textbf{Diabetes:} 442 samples, 10 features - Disease progression prediction
+    \item \textbf{Wine Quality:} 1,599 samples, 11 features - Quality score prediction
+    \item \textbf{Energy Consumption:} 1,000 samples (synthetic), 6 features - Energy usage forecasting
+\end{itemize}
+
+\subsubsection{Classification}
+\begin{itemize}
+    \item \textbf{Iris:} 150 samples, 3 classes, 4 features - Classic classification benchmark
+    \item \textbf{Wine Classification:} 178 samples, 3 classes, 13 features - Wine type classification
+    \item \textbf{Breast Cancer:} 569 samples, 2 classes, 30 features - Medical diagnosis
+    \item \textbf{Credit Default:} 1,000 samples (synthetic), 2 classes, 10 features - Financial risk assessment
+\end{itemize}
+
+\subsubsection{Time Series Analysis}
+\begin{itemize}
+    \item \textbf{Energy Consumption:} 1,000 time steps (synthetic) - Temporal energy patterns
+    \item \textbf{Temperature:} 1,000 time steps (synthetic) - Climate data forecasting
+    \item \textbf{Sales Forecasting:} 1,000 time steps (synthetic) - Business metrics prediction
+\end{itemize}
+
+\subsubsection{Factorial Analysis}
+\begin{itemize}
+    \item \textbf{Treatment Effects:} Clinical trial data - Medical intervention analysis
+    \item \textbf{Educational Outcomes:} Teaching method comparison - Educational research
+    \item \textbf{Agricultural Experiment:} Fertilizer × Water level (3×3 factorial) - Agricultural science
+    \item \textbf{Drug Efficacy Study:} Drug treatment comparison - Pharmaceutical research
+\end{itemize}
+
+\section{Literature Review and Theoretical Framework}
+
+\subsection{The Interpretability-Performance Trade-off}
+
+The fundamental tension between model performance and interpretability has been extensively documented in the machine learning literature. This trade-off can be mathematically expressed as:
+
+\begin{equation}
+\max_\theta \quad P(\theta) - \alpha C(\theta) + \beta I(\theta)
+\label{eq:optimization}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $P(\theta)$ represents \textbf{Performance} (e.g., R², accuracy)
+    \item $C(\theta)$ represents \textbf{Cost} (training time, computational resources)
+    \item $I(\theta)$ represents \textbf{Interpretability} (explainability score $\in [0, 100]$)
+    \item $\alpha$ and $\beta$ are weighting factors reflecting domain-specific priorities
+\end{itemize}
+
+Figure~\ref{fig:interpretability_tradeoff} illustrates this relationship, showing how different model types fall along the performance-interpretability spectrum.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{../bridging_gap.png}
+\caption{The Performance-Interpretability Trade-off. The purple curve represents the traditional inverse relationship, while the red arrow indicates the direction of Interpretable ML research toward the ideal solution (high performance, high interpretability).}
+\label{fig:interpretability_tradeoff}
+\end{figure}
+
+\subsection{Statistical Models: Foundations and Characteristics}
+
+Statistical models are grounded in mathematical theory and provide:
+
+\begin{itemize}
+    \item \textbf{Statistical Inference:} P-values, confidence intervals, hypothesis testing
+    \item \textbf{Model Diagnostics:} F-tests, AIC, BIC, residual analysis
+    \item \textbf{Theoretical Guarantees:} Asymptotic properties, convergence results
+    \item \textbf{Interpretability:} Direct coefficient interpretation, causal inference capabilities
+\end{itemize}
+
+\subsubsection{Ordinary Least Squares (OLS) Regression}
+
+The OLS regression model is defined as:
+
+\begin{equation}
+Y = X\beta + \varepsilon
+\end{equation}
+
+with the least squares estimator:
+
+\begin{equation}
+\hat{\beta} = (X^T X)^{-1} X^T Y
+\end{equation}
+
+This approach provides:
+\begin{itemize}
+    \item Unbiased estimates under Gauss-Markov assumptions
+    \item Statistical significance testing via t-tests and F-tests
+    \item Confidence intervals for coefficients
+    \item Model diagnostics (R², adjusted R², residual analysis)
+\end{itemize}
+
+\subsubsection{Logistic Regression}
+
+For binary classification, logistic regression models:
+
+\begin{equation}
+P(Y=1|X) = \frac{1}{1 + e^{-X\beta}}
+\end{equation}
+
+with the log-odds transformation:
+
+\begin{equation}
+\log\left(\frac{p}{1-p}\right) = X\beta
+\end{equation}
+
+This provides odds ratios, p-values, and confidence intervals for each coefficient.
+
+\subsubsection{ANOVA (Analysis of Variance)}
+
+ANOVA tests for differences between group means using the model:
+
+\begin{equation}
+Y_{ij} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \varepsilon_{ij}
+\end{equation}
+
+with the F-statistic:
+
+\begin{equation}
+F = \frac{\text{MS}_{\text{between}}}{\text{MS}_{\text{within}}}
+\end{equation}
+
+\subsubsection{ARIMA (AutoRegressive Integrated Moving Average)}
+
+For time series, ARIMA models capture temporal dependencies:
+
+\begin{equation}
+\phi(B)(1-B)^d X_t = \theta(B)\varepsilon_t
+\end{equation}
+
+where $(p,d,q)$ parameters are selected via information criteria.
+
+\subsection{Machine Learning Models: Capabilities and Limitations}
+
+Modern ML models excel at:
+
+\begin{itemize}
+    \item \textbf{Complex Pattern Recognition:} Non-linear relationships, interactions
+    \item \textbf{High-Dimensional Data:} Feature selection, dimensionality reduction
+    \item \textbf{Scalability:} Large datasets, distributed computing
+    \item \textbf{Adaptive Learning:} Online learning, transfer learning
+\end{itemize}
+
+However, they typically lack:
+
+\begin{itemize}
+    \item Direct statistical inference capabilities
+    \item Theoretical guarantees (except in specific cases)
+    \item Built-in interpretability mechanisms
+    \item Hypothesis testing frameworks
+\end{itemize}
+
+\subsubsection{Random Forest}
+
+Random Forest combines multiple decision trees:
+
+\begin{equation}
+\hat{y} = \frac{1}{B}\sum_{b=1}^B T_b(X; \theta_b)
+\end{equation}
+
+where $T_b \sim \text{Decision Tree}$ and $B$ is the number of trees.
+
+\subsubsection{Support Vector Machines (SVM)}
+
+SVM solves the optimization problem:
+
+\begin{equation}
+\min_{\mathbf{w},b} \quad \frac{1}{2}\|\mathbf{w}\|^2 + C\sum_{i=1}^n \xi_i
+\end{equation}
+
+with kernel function:
+
+\begin{equation}
+K(\mathbf{x}_i, \mathbf{x}_j) = \phi(\mathbf{x}_i)^T\phi(\mathbf{x}_j)
+\end{equation}
+
+\subsubsection{Recurrent Neural Networks (LSTM)}
+
+LSTM networks model sequential dependencies:
+
+\begin{equation}
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b)
+\end{equation}
+
+\begin{equation}
+\hat{y}_t = f(h_t)
+\end{equation}
+
+\subsection{Transparent AI and Interpretable ML}
+
+Recent research, as exemplified by the work on Transparent AI \cite{transparent_ai_2025}, emphasizes that interpretability is not optional for high-stakes AI deployment. Key principles include:
+
+\begin{enumerate}
+    \item \textbf{Early Integration:} Interpretability must be embedded from initial design, not retrofitted
+    \item \textbf{Stakeholder-Specific Needs:} Different audiences require different explanation types
+    \item \textbf{Comprehensive Evaluation:} Beyond accuracy metrics, evaluate explanation quality
+    \item \textbf{Regulatory Alignment:} Ensure compliance with emerging AI governance frameworks
+\end{enumerate}
+
+\section{Methodology}
+
+\subsection{Experimental Design}
+
+Our experimental design follows a systematic comparison framework ensuring fair evaluation across all model-dataset combinations.
+
+\subsection{Data Preprocessing}
+
+\subsubsection{Exploratory Data Analysis (EDA)}
+
+For each dataset, we performed comprehensive EDA:
+
+\begin{itemize}
+    \item \textbf{Distribution Analysis:} Histograms, box plots, Q-Q plots
+    \item \textbf{Correlation Analysis:} Correlation matrices, multicollinearity detection
+    \item \textbf{Missing Value Detection:} Identification and treatment strategies
+    \item \textbf{Outlier Identification:} Statistical tests (IQR, Z-score) and visualization
+    \item \textbf{Feature-Target Relationships:} Scatter plots, partial dependence plots
+\end{itemize}
+
+\subsubsection{Preprocessing Pipeline}
+
+Standardized preprocessing steps applied consistently:
+
+\begin{enumerate}
+    \item \textbf{Train-Test Split:} 80-20 split, maintaining temporal order for time series
+    \item \textbf{Standardization:} $z = \frac{x - \mu}{\sigma}$ for numerical features
+    \item \textbf{Feature Scaling:} Min-max scaling for numerical stability
+    \item \textbf{Handling Skewed Distributions:} Log transformation, Box-Cox transformation
+    \item \textbf{Outlier Treatment:} Winsorization or removal based on domain knowledge
+    \item \textbf{Categorical Encoding:} One-hot encoding for nominal, ordinal encoding for ordinal
+\end{enumerate}
+
+\textbf{Critical Consistency Requirement:} Both statistical and ML models were trained on identical preprocessed data to ensure fair comparison.
+
+\subsection{Model Implementation}
+
+\subsubsection{Statistical Models}
+
+\begin{itemize}
+    \item \textbf{OLS Regression:} Implemented using \texttt{statsmodels} (Python)
+    \item \textbf{Logistic Regression:} \texttt{statsmodels} with maximum likelihood estimation
+    \item \textbf{ANOVA:} \texttt{scipy.stats} and \texttt{statsmodels}
+    \item \textbf{ARIMA:} \texttt{statsmodels.tsa.arima.model} with auto-selection of $(p,d,q)$
+    \item \textbf{Cox/Poisson Regression:} \texttt{lifelines} and \texttt{statsmodels}
+\end{itemize}
+
+\subsubsection{Machine Learning Models}
+
+\begin{itemize}
+    \item \textbf{Linear Regression:} \texttt{scikit-learn} with default hyperparameters
+    \item \textbf{Random Forest:} \texttt{scikit-learn} with grid search for hyperparameter tuning
+    \item \textbf{SVM:} \texttt{scikit-learn} with RBF kernel and cross-validation
+    \item \textbf{RNN/LSTM:} \texttt{PyTorch} implementation with appropriate architecture
+    \item \textbf{Gradient Boosting:} \texttt{scikit-learn} GradientBoostingRegressor/Classifier
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+
+\subsubsection{Performance Metrics}
+
+\begin{itemize}
+    \item \textbf{Regression:} R² (coefficient of determination), RMSE (Root Mean Squared Error), MAE (Mean Absolute Error)
+    \item \textbf{Classification:} Accuracy, Precision, Recall, F1-score, AUC-ROC
+    \item \textbf{Time Series:} R², RMSE, MAE on test set forecasts
+\end{itemize}
+
+\subsubsection{Cost Metrics}
+
+\begin{itemize}
+    \item \textbf{Training Time:} Wall-clock time in seconds
+    \item \textbf{Prediction Time:} Inference time per sample
+    \item \textbf{Memory Usage:} Peak memory consumption during training
+    \item \textbf{Efficiency Score:} $\frac{\text{Performance}}{\text{Cost}}$ (normalized)
+\end{itemize}
+
+\subsubsection{Interpretability and Transparency Metrics}
+
+We developed a comprehensive composite interpretability and transparency score that quantifies how well a model can be understood, explained, and trusted by stakeholders. The score is computed as a weighted sum of four key dimensions:
+
+\begin{equation}
+I(\theta) = w_T \cdot I_{\text{transparency}}(\theta) + w_I \cdot I_{\text{inference}}(\theta) + w_E \cdot I_{\text{explanation}}(\theta) + w_D \cdot I_{\text{documentation}}(\theta)
+\label{eq:interpretability}
+\end{equation}
+
+where $I(\theta) \in [0, I_{\max}]$ with $I_{\max} = w_T + w_I + w_E + w_D$ being the maximum possible score, and each component is normalized to $[0, 1]$ before weighting. The weights $w_T, w_I, w_E, w_D \geq 0$ reflect the relative importance of each dimension.
+
+\paragraph{Component 1: Model Transparency}
+
+Model transparency measures the extent to which model parameters and structure can be directly understood without additional explanation methods. We define transparency as a function of parameter interpretability:
+
+\begin{equation}
+I_{\text{transparency}}(\theta) = \frac{1}{|\theta|} \sum_{i=1}^{|\theta|} \phi(\theta_i)
+\label{eq:transparency}
+\end{equation}
+
+where $|\theta|$ is the number of parameters, and $\phi(\theta_i) \in [0, 1]$ quantifies the interpretability of parameter $\theta_i$:
+
+\begin{equation}
+\phi(\theta_i) = \begin{cases}
+1 & \text{if } \theta_i \text{ has direct, intuitive meaning} \\
+\alpha & \text{if } \theta_i \text{ requires domain knowledge to interpret} \\
+\beta & \text{if } \theta_i \text{ has indirect interpretation} \\
+0 & \text{if } \theta_i \text{ has no interpretable meaning}
+\end{cases}
+\end{equation}
+
+with $1 > \alpha > \beta > 0$ representing decreasing levels of interpretability.
+
+For models with structural interpretability (e.g., decision trees), we extend the formulation:
+
+\begin{equation}
+I_{\text{transparency}}(\theta) = \lambda \cdot I_{\text{parameter}}(\theta) + (1-\lambda) \cdot I_{\text{structure}}(\theta)
+\end{equation}
+
+where $I_{\text{parameter}}(\theta)$ is computed via Equation~\ref{eq:transparency}, $I_{\text{structure}}(\theta) \in [0,1]$ measures the interpretability of the model structure (e.g., tree depth, rule complexity), and $\lambda \in [0,1]$ balances the two components.
+
+\textbf{Examples:}
+\begin{itemize}
+    \item \textbf{Linear Models:} $\phi(\theta_i) = 1$ for all coefficients (direct unit change interpretation)
+    \item \textbf{Decision Trees:} High $I_{\text{structure}}$ due to if-then rule interpretability
+    \item \textbf{Deep Neural Networks:} $\phi(\theta_i) \approx 0$ for most weights (no direct meaning)
+\end{itemize}
+
+\paragraph{Component 2: Statistical Inference}
+
+Statistical inference measures the availability and quality of statistical tools for hypothesis testing, uncertainty quantification, and model validation. We define:
+
+\begin{equation}
+I_{\text{inference}}(\theta) = \gamma_1 \cdot I_{\text{hypothesis}}(\theta) + \gamma_2 \cdot I_{\text{uncertainty}}(\theta) + \gamma_3 \cdot I_{\text{diagnostics}}(\theta)
+\label{eq:inference}
+\end{equation}
+
+where $\gamma_1 + \gamma_2 + \gamma_3 = 1$ are weighting factors, and each component is normalized to $[0,1]$.
+
+\textbf{Hypothesis Testing Capability:}
+\begin{equation}
+I_{\text{hypothesis}}(\theta) = \frac{|\{\theta_i : \text{p-value}(\theta_i) \text{ available}\}|}{|\theta|} \cdot \mathbb{1}_{\{\text{tests available}\}}
+\end{equation}
+
+where $\mathbb{1}_{\{\text{tests available}\}} = 1$ if hypothesis tests (t-tests, F-tests, likelihood ratio tests) are available, and $0$ otherwise.
+
+\textbf{Uncertainty Quantification:}
+\begin{equation}
+I_{\text{uncertainty}}(\theta) = \frac{|\{\theta_i : \text{CI}(\theta_i) \text{ available}\}|}{|\theta|} + \delta \cdot \mathbb{1}_{\{\text{prediction intervals available}\}}
+\end{equation}
+
+where CI denotes confidence intervals, and $\delta \in [0, 1]$ weights prediction interval availability.
+
+\textbf{Model Diagnostics:}
+\begin{equation}
+I_{\text{diagnostics}}(\theta) = \frac{1}{D} \sum_{d=1}^{D} \mathbb{1}_{\{\text{diagnostic}_d \text{ available}\}}
+\end{equation}
+
+where $D$ is the number of relevant diagnostics (residual analysis, goodness-of-fit tests, model assumptions checks).
+
+\textbf{Examples:}
+\begin{itemize}
+    \item \textbf{OLS Regression:} $I_{\text{hypothesis}} = 1$, $I_{\text{uncertainty}} = 1$, $I_{\text{diagnostics}} = 1$ (full suite)
+    \item \textbf{Random Forest:} $I_{\text{hypothesis}} = 0$, $I_{\text{uncertainty}} \approx 0$, $I_{\text{diagnostics}} \approx 0$ (minimal inference)
+\end{itemize}
+
+\paragraph{Component 3: Explanation Methods Compatibility}
+
+This component evaluates how well the model can be explained using post-hoc explanation methods, even if the model itself is not inherently interpretable. We define:
+
+\begin{equation}
+I_{\text{explanation}}(\theta) = \frac{1}{M} \sum_{m=1}^{M} \eta_m(\theta) \cdot \rho_m(\theta)
+\label{eq:explanation}
+\end{equation}
+
+where $M$ is the number of explanation methods considered, $\eta_m(\theta) \in [0,1]$ measures the compatibility of method $m$ with model $\theta$, and $\rho_m(\theta) \in [0,1]$ measures the quality/reliability of explanations produced by method $m$.
+
+For each explanation method $m$ (e.g., SHAP, LIME, Partial Dependence Plots, Feature Importance), we compute:
+
+\begin{equation}
+\eta_m(\theta) = \begin{cases}
+1 & \text{if method } m \text{ is directly applicable} \\
+\kappa_m & \text{if method } m \text{ requires adaptations, } \kappa_m \in (0,1) \\
+0 & \text{if method } m \text{ is not applicable}
+\end{cases}
+\end{equation}
+
+The quality metric $\rho_m(\theta)$ accounts for explanation stability and completeness:
+
+\begin{equation}
+\rho_m(\theta) = \alpha_m \cdot \text{Stability}_m(\theta) + (1-\alpha_m) \cdot \text{Completeness}_m(\theta)
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\text{Stability}_m(\theta) \in [0,1]$ measures consistency of explanations across similar inputs
+    \item $\text{Completeness}_m(\theta) \in [0,1]$ measures how well explanations cover all relevant features
+    \item $\alpha_m \in [0,1]$ balances the two factors
+\end{itemize}
+
+\textbf{Examples:}
+\begin{itemize}
+    \item \textbf{Random Forest:} High $\eta_m$ for SHAP, LIME, PDP; good $\rho_m$ due to tree-based structure
+    \item \textbf{Deep Neural Networks:} Lower $\eta_m$ and $\rho_m$ due to complexity and potential instability
+\end{itemize}
+
+\paragraph{Component 4: Documentation and Theoretical Foundation}
+
+This component assesses the quality of model documentation, theoretical understanding, and educational resources available. We define:
+
+\begin{equation}
+I_{\text{documentation}}(\theta) = \mu_1 \cdot I_{\text{theory}}(\theta) + \mu_2 \cdot I_{\text{docs}}(\theta) + \mu_3 \cdot I_{\text{education}}(\theta)
+\label{eq:documentation}
+\end{equation}
+
+where $\mu_1 + \mu_2 + \mu_3 = 1$ are weighting factors.
+
+\textbf{Theoretical Foundation:}
+\begin{equation}
+I_{\text{theory}}(\theta) = f_{\text{age}}(t) \cdot \mathbb{1}_{\{\text{theoretical framework exists}\}} \cdot \mathbb{1}_{\{\text{mathematical derivations available}\}}
+\end{equation}
+
+where $f_{\text{age}}(t)$ is a non-decreasing function of the time $t$ since the method's introduction, reflecting maturity of theoretical understanding.
+
+\textbf{Documentation Quality:}
+\begin{equation}
+I_{\text{docs}}(\theta) = \frac{1}{K} \sum_{k=1}^{K} \mathbb{1}_{\{\text{doc component}_k \text{ available}\}} \cdot q_k
+\end{equation}
+
+where $K$ is the number of documentation components (API reference, examples, tutorials, best practices), and $q_k \in [0,1]$ measures the quality of each component.
+
+\textbf{Educational Resources:}
+\begin{equation}
+I_{\text{education}}(\theta) = \frac{|\{\text{textbooks}\}|}{N_{\text{textbooks}}} + \frac{|\{\text{courses}\}|}{N_{\text{courses}}} + \frac{|\{\text{tutorials}\}|}{N_{\text{tutorials}}}
+\end{equation}
+
+normalized to $[0,1]$, where $N_{\text{textbooks}}$, $N_{\text{courses}}$, $N_{\text{tutorials}}$ are normalization constants.
+
+\textbf{Examples:}
+\begin{itemize}
+    \item \textbf{OLS Regression:} High $I_{\text{theory}}$ (century-old theory), high $I_{\text{docs}}$, high $I_{\text{education}}$
+    \item \textbf{Emerging Methods:} Lower scores across all components
+\end{itemize}
+
+\paragraph{Total Interpretability Score Calculation}
+
+The final interpretability and transparency score is computed by combining all components:
+
+\begin{equation}
+I_{\text{total}}(\theta) = w_T \cdot \bar{I}_{\text{transparency}}(\theta) + w_I \cdot \bar{I}_{\text{inference}}(\theta) + w_E \cdot \bar{I}_{\text{explanation}}(\theta) + w_D \cdot \bar{I}_{\text{documentation}}(\theta)
+\label{eq:total_interpretability}
+\end{equation}
+
+where $\bar{I}_{\cdot}(\theta)$ denotes normalized components (scaled to $[0,1]$), and the weights satisfy $w_T + w_I + w_E + w_D = I_{\max}$.
+
+The normalization ensures fair comparison across different model types:
+\begin{equation}
+\bar{I}_{\text{component}}(\theta) = \frac{I_{\text{component}}(\theta) - I_{\text{component}}^{\min}}{I_{\text{component}}^{\max} - I_{\text{component}}^{\min}}
+\end{equation}
+
+where $I_{\text{component}}^{\min}$ and $I_{\text{component}}^{\max}$ are the theoretical minimum and maximum values for each component.
+
+\paragraph{Computational Algorithm}
+
+The interpretability score computation follows this procedure:
+
+\begin{enumerate}
+    \item \textbf{Parameter Analysis:} For each parameter $\theta_i$, compute $\phi(\theta_i)$ based on interpretability criteria
+    \item \textbf{Transparency Score:} Compute $I_{\text{transparency}}(\theta)$ using Equation~\ref{eq:transparency}
+    \item \textbf{Inference Score:} Evaluate $I_{\text{hypothesis}}(\theta)$, $I_{\text{uncertainty}}(\theta)$, $I_{\text{diagnostics}}(\theta)$ and combine via Equation~\ref{eq:inference}
+    \item \textbf{Explanation Score:} For each explanation method $m$, compute $\eta_m(\theta)$ and $\rho_m(\theta)$, then aggregate via Equation~\ref{eq:explanation}
+    \item \textbf{Documentation Score:} Evaluate $I_{\text{theory}}(\theta)$, $I_{\text{docs}}(\theta)$, $I_{\text{education}}(\theta)$ and combine via Equation~\ref{eq:documentation}
+    \item \textbf{Normalization:} Normalize each component to $[0,1]$ range
+    \item \textbf{Final Score:} Apply weighted combination using Equation~\ref{eq:total_interpretability}
+\end{enumerate}
+
+\paragraph{Qualitative Comparison}
+
+To illustrate the framework without specific numerical values:
+
+\textbf{High Interpretability Models (e.g., OLS Regression):}
+\begin{itemize}
+    \item $I_{\text{transparency}} \approx 1$: All parameters directly interpretable
+    \item $I_{\text{inference}} \approx 1$: Full statistical inference suite available
+    \item $I_{\text{explanation}} \approx 1$: Excellent compatibility with explanation methods
+    \item $I_{\text{documentation}} \approx 1$: Strong theoretical foundation and comprehensive documentation
+    \item Result: $I_{\text{total}} \approx I_{\max}$
+\end{itemize}
+
+\textbf{Medium Interpretability Models (e.g., Random Forest):}
+\begin{itemize}
+    \item $I_{\text{transparency}} \ll 1$: Ensemble complexity reduces transparency
+    \item $I_{\text{inference}} \ll 1$: Limited statistical inference
+    \item $I_{\text{explanation}} \approx 1$: Excellent post-hoc explanation compatibility
+    \item $I_{\text{documentation}} \in (0.5, 1)$: Good documentation available
+    \item Result: $I_{\text{total}} < I_{\max}$ but $> 0$
+\end{itemize}
+
+\textbf{Low Interpretability Models (e.g., Deep Neural Networks):}
+\begin{itemize}
+    \item $I_{\text{transparency}} \approx 0$: Black box structure
+    \item $I_{\text{inference}} \approx 0$: No statistical inference framework
+    \item $I_{\text{explanation}} \ll 1$: Limited explanation method compatibility
+    \item $I_{\text{documentation}} \in (0, 0.5)$: Emerging field, limited documentation
+    \item Result: $I_{\text{total}} \ll I_{\max}$
+\end{itemize}
+
+\paragraph{Transparency vs Interpretability}
+
+While often used interchangeably, we distinguish:
+\begin{itemize}
+    \item \textbf{Transparency:} The model's internal structure and parameters can be directly understood (Component 1)
+    \item \textbf{Interpretability:} The model's predictions and behavior can be explained to stakeholders (Components 1-4 combined)
+\end{itemize}
+
+A model can be interpretable without being fully transparent (e.g., Random Forest with SHAP explanations), but transparency is a stronger property that typically leads to higher interpretability scores.
+
+\section{Results}
+
+\subsection{Overall Performance Summary}
+
+Table~\ref{tab:overall_summary} presents the aggregate results across all problem domains.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Statistical} & \textbf{ML/DL} \\
+\midrule
+Avg Performance (R²/Acc) & 0.547 & \textcolor{mlcolor}{0.818} \\
+Avg Training Time & \textcolor{statcolor}{0.037s} & 0.763s \\
+Efficiency (Performance/Cost) & \textcolor{accentcolor}{High} & Medium \\
+Interpretability & \textcolor{accentcolor}{88.3/100} & 37.4/100 \\
+\bottomrule
+\end{tabular}
+\caption{Overall Performance Summary}
+\label{tab:overall_summary}
+\end{table}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item ML/DL models achieve 1.5x higher average performance (0.818 vs 0.547)
+    \item Statistical models are 20.6x faster in training (0.037s vs 0.763s)
+    \item Statistical models are 2.4x more interpretable (88.3/100 vs 37.4/100)
+    \item Efficiency advantage strongly favors statistical models
+\end{itemize}
+
+\subsection{Regression Analysis Results}
+
+Table~\ref{tab:regression_results} shows detailed regression results.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{OLS R²} & \textbf{ML LR R²} & \textbf{OLS Time} & \textbf{ML Time} \\
+\midrule
+California Housing & 0.575 & 0.575 & 0.0001s & 0.0005s \\
+Diabetes & 0.453 & 0.453 & 0.0001s & 0.0005s \\
+Wine Quality & 0.787 & 0.787 & 0.0001s & 0.0005s \\
+Energy Consumption & 0.811 & \textcolor{mlcolor}{0.970} & 0.0001s & 0.0005s \\
+\bottomrule
+\end{tabular}
+\caption{Regression Analysis Results}
+\label{tab:regression_results}
+\end{table}
+
+\textbf{Findings:}
+\begin{itemize}
+    \item \textbf{Linear Datasets:} OLS and ML Linear Regression achieve identical performance (California Housing, Diabetes, Wine Quality)
+    \item \textbf{Complex Patterns:} ML models excel on Energy Consumption dataset (0.970 vs 0.811)
+    \item \textbf{Speed Advantage:} OLS is 5x faster (0.0001s vs 0.0005s)
+    \item \textbf{Statistical Inference:} Only OLS provides p-values, confidence intervals, and model diagnostics
+\end{itemize}
+
+\subsection{Classification Analysis Results}
+
+Table~\ref{tab:classification_results} presents classification performance.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{Logistic Acc.} & \textbf{RF Acc.} & \textbf{Logistic Time} & \textbf{RF Time} \\
+\midrule
+Iris & \textcolor{accentcolor}{1.000} & \textcolor{accentcolor}{1.000} & 0.002s & 0.15s \\
+Wine Classification & 0.956 & \textcolor{mlcolor}{0.982} & 0.002s & 0.15s \\
+Breast Cancer & 0.956 & \textcolor{mlcolor}{0.965} & 0.002s & 0.15s \\
+Credit Default & \textcolor{accentcolor}{0.999} & \textcolor{accentcolor}{0.999} & 0.002s & 0.15s \\
+\bottomrule
+\end{tabular}
+\caption{Classification Analysis Results}
+\label{tab:classification_results}
+\end{table}
+
+\textbf{Findings:}
+\begin{itemize}
+    \item \textbf{Linearly Separable:} Both approaches achieve perfect accuracy (Iris, Credit Default)
+    \item \textbf{Complex Boundaries:} Random Forest superior on Wine Classification and Breast Cancer
+    \item \textbf{Speed:} Logistic Regression 75x faster (0.002s vs 0.15s)
+    \item \textbf{Interpretability:} Logistic Regression provides odds ratios and p-values
+\end{itemize}
+
+\subsection{Factorial Analysis Results}
+
+Table~\ref{tab:factorial_results} shows ANOVA vs SVM comparison.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{ANOVA R²} & \textbf{SVM R²} & \textbf{ANOVA Time} & \textbf{SVM Time} \\
+\midrule
+Treatment Effects & 0.417 & \textcolor{mlcolor}{0.513} & 0.0005s & 2.91s \\
+Educational Outcomes & -0.002 & \textcolor{mlcolor}{0.284} & 0.001s & 0.19s \\
+Agricultural Experiment & 0.464 & \textcolor{mlcolor}{0.745} & 0.001s & 0.23s \\
+Drug Efficacy Study & 0.728 & \textcolor{mlcolor}{0.880} & 0.001s & 0.25s \\
+\bottomrule
+\end{tabular}
+\caption{Factorial Analysis Results (ANOVA vs SVM)}
+\label{tab:factorial_results}
+\end{table}
+
+\textbf{Findings:}
+\begin{itemize}
+    \item \textbf{Prediction Accuracy:} SVM consistently outperforms ANOVA (average 0.606 vs 0.402)
+    \item \textbf{Speed:} ANOVA is 100-1000x faster
+    \item \textbf{Interpretability:} ANOVA provides F-statistics, p-values, and interaction effects
+    \item \textbf{Use Case:} ANOVA for hypothesis testing, SVM for prediction
+\end{itemize}
+
+\subsection{Time Series Analysis Results}
+
+Table~\ref{tab:timeseries_results} presents ARIMA vs LSTM comparison.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Dataset} & \textbf{ARIMA R²} & \textbf{LSTM R²} & \textbf{ARIMA Time} & \textbf{LSTM Time} \\
+\midrule
+Energy Consumption & 0.450 & \textcolor{dlcolor}{0.890} & 0.18s & 2.5s \\
+Temperature & \textcolor{statcolor}{0.972} & 0.965 & 0.18s & 2.5s \\
+Sales Forecasting & \textcolor{statcolor}{0.972} & 0.969 & 0.18s & 2.5s \\
+\bottomrule
+\end{tabular}
+\caption{Time Series Analysis Results (ARIMA vs LSTM)}
+\label{tab:timeseries_results}
+\end{table}
+
+\textbf{Findings:}
+\begin{itemize}
+    \item \textbf{Complex Patterns:} LSTM excels on Energy Consumption (0.890 vs 0.450)
+    \item \textbf{Stationary Data:} ARIMA performs excellently on Temperature and Sales (0.972)
+    \item \textbf{Speed:} ARIMA is 14x faster (0.18s vs 2.5s)
+    \item \textbf{Interpretability:} ARIMA provides interpretable coefficients and diagnostics
+\end{itemize}
+
+\subsection{Performance vs Cost Analysis}
+
+Figure~\ref{fig:cost_performance} visualizes the fundamental trade-off between model performance and training cost.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{../CostVsPerformance.png}
+\caption{Performance vs Training Cost Trade-off. Statistical models (light blue) cluster in the low-cost, moderate-performance region. ML models (purple) show moderate cost with higher performance. Deep Learning models (orange) achieve highest performance at highest cost. The ideal solution (top-left) represents high performance with low cost.}
+\label{fig:cost_performance}
+\end{figure}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item \textcolor{statcolor}{Statistical models} occupy the low-cost, moderate-performance quadrant
+    \item \textcolor{mlcolor}{ML models} demonstrate better performance-cost balance
+    \item \textcolor{dlcolor}{Deep Learning} achieves highest performance but at highest cost
+    \item \textbf{Ideal Solution:} Top-left corner (high performance, low cost) - target for future research
+\end{itemize}
+
+\subsection{Efficiency Analysis}
+
+Table~\ref{tab:efficiency} ranks models by efficiency (Performance/Cost ratio).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Ranking} & \textbf{Model} & \textbf{Efficiency} \\
+\midrule
+1 & OLS Regression (Stat) & \textcolor{accentcolor}{6435.64} \\
+2 & ANOVA (Stat) & \textcolor{accentcolor}{5445.54} \\
+3 & Linear Regression (ML) & 1297.41 \\
+4 & Logistic Regression (Stat) & 439.78 \\
+5 & Poisson Regression (Stat) & 349.65 \\
+\ldots & \ldots & \ldots \\
+Last & RNN/LSTM (DL) & 0.36 \\
+\bottomrule
+\end{tabular}
+\caption{Efficiency Rankings (Performance/Cost)}
+\label{tab:efficiency}
+\end{table}
+
+\textbf{Insights:}
+\begin{itemize}
+    \item Statistical models dominate efficiency rankings (top 4 positions)
+    \item OLS Regression achieves 17,800x higher efficiency than LSTM
+    \item Efficiency advantage makes statistical models ideal for real-time applications
+\end{itemize}
+
+\subsection{Winners by Category}
+
+Table~\ref{tab:winners} identifies best-performing models across different criteria.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Category} & \textbf{Winner} & \textbf{Performance} \\
+\midrule
+Best Overall Accuracy & Random Forest (ML) & 0.920 \\
+Fastest Training & OLS Regression (Stat) & 0.0001s \\
+Most Interpretable & OLS Regression (Stat) & 100/100 \\
+Best Efficiency & OLS Regression (Stat) & 6435.64 \\
+Best Time Series (Simple) & ARIMA (Stat) & R² = 0.972 \\
+Best Time Series (Complex) & LSTM (DL) & R² = 0.890 \\
+\bottomrule
+\end{tabular}
+\caption{Winners by Category}
+\label{tab:winners}
+\end{table}
+
+\section{Discussion}
+
+\subsection{The Fundamental Trade-offs}
+
+Our results confirm the existence of three fundamental trade-offs in model selection:
+
+\subsubsection{Performance vs Interpretability}
+
+The traditional inverse relationship is clearly evident (Figure~\ref{fig:interpretability_tradeoff}). Statistical models achieve high interpretability (88.3/100) but moderate performance (0.547), while ML/DL models achieve high performance (0.818) but lower interpretability (37.4/100).
+
+However, the field of \textbf{Interpretable ML} is actively working to bridge this gap. Research on Transparent AI \cite{transparent_ai_2025} demonstrates that interpretability can be integrated into ML workflows without sacrificing all performance gains.
+
+\subsubsection{Performance vs Cost}
+
+Figure~\ref{fig:cost_performance} illustrates the performance-cost trade-off. Statistical models provide excellent cost efficiency, while ML/DL models offer superior performance at higher computational cost.
+
+\subsubsection{Interpretability vs Cost}
+
+Interestingly, interpretability and cost are not necessarily in conflict. Statistical models achieve both high interpretability and low cost, making them ideal for applications requiring transparency and real-time performance.
+
+\subsection{When to Choose Statistical Models}
+
+Based on our findings, statistical models are recommended when:
+
+\begin{enumerate}
+    \item \textbf{Interpretability is Critical:} Need for p-values, confidence intervals, and statistical inference (e.g., regulatory compliance, scientific research)
+    \item \textbf{Regulatory Compliance:} Transparent decision-making required (healthcare, finance, public policy)
+    \item \textbf{Hypothesis Testing:} Understanding causal relationships and testing theories
+    \item \textbf{Small to Medium Datasets:} Optimal performance on limited data (statistical models often outperform ML on small datasets)
+    \item \textbf{Real-time Applications:} Fast training and prediction needed (20-100x faster)
+    \item \textbf{Research and Development:} Need to understand underlying relationships
+\end{enumerate}
+
+\textbf{Best Statistical Models:} OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox Regression
+
+\subsection{When to Choose ML/DL Models}
+
+ML/DL models are recommended when:
+
+\begin{enumerate}
+    \item \textbf{Maximum Accuracy is Priority:} Need best predictive performance (1.5x higher on average)
+    \item \textbf{Large, Complex Datasets:} High-dimensional or non-linear patterns
+    \item \textbf{Production Systems:} Computational resources available for training
+    \item \textbf{Pattern Discovery:} Exploratory analysis on complex data
+    \item \textbf{Non-linear Relationships:} When linear assumptions fail
+    \item \textbf{Sequential/Temporal Data:} LSTM/RNN for time series with complex patterns
+\end{enumerate}
+
+\textbf{Best ML/DL Models:} Random Forest, SVM, LSTM/RNN, Gradient Boosting
+
+\subsection{Implications for Transparent AI}
+
+Our findings align with the principles outlined in Transparent AI research \cite{transparent_ai_2025}:
+
+\begin{itemize}
+    \item \textbf{Early Integration:} Model selection should consider interpretability requirements from the start
+    \item \textbf{Stakeholder Needs:} Different audiences require different explanation types - statistical models excel for domain experts, while ML models may require post-hoc explanation methods
+    \item \textbf{Regulatory Alignment:} Statistical models provide natural compliance with transparency requirements
+    \item \textbf{Hybrid Approaches:} Future research should explore combining statistical inference with ML performance
+\end{itemize}
+
+\subsection{Limitations and Future Work}
+
+\subsubsection{Limitations}
+
+\begin{itemize}
+    \item \textbf{Dataset Selection:} Limited to 13 datasets - broader evaluation needed
+    \item \textbf{Hyperparameter Tuning:} ML models may benefit from more extensive tuning
+    \item \textbf{Interpretability Metrics:} Our interpretability score is composite - domain-specific evaluation needed
+    \item \textbf{Post-hoc Explanations:} We did not evaluate SHAP, LIME, or other explanation methods for ML models
+\end{itemize}
+
+\subsubsection{Future Research Directions}
+
+\begin{enumerate}
+    \item \textbf{Hybrid Models:} Develop models combining statistical inference with ML performance
+    \item \textbf{Interpretable ML:} Evaluate inherently interpretable ML models (EBMs, GAMs, NAMs)
+    \item \textbf{Post-hoc Explanations:} Comprehensive evaluation of SHAP, LIME, and other methods
+    \item \textbf{Domain-Specific Studies:} Healthcare, finance, and other high-stakes applications
+    \item \textbf{Regulatory Frameworks:} Alignment with EU AI Act, Canada AIDA, and other regulations
+\end{enumerate}
+
+\section{Conclusions}
+
+\subsection{Key Takeaways}
+
+\begin{enumerate}
+    \item \textbf{No Universal Winner:} Both approaches have distinct advantages - the choice depends on specific requirements
+    
+    \item \textbf{Statistical Models Excel In:}
+    \begin{itemize}
+        \item Interpretability (88.3/100 vs 37.4/100) - 2.4x advantage
+        \item Speed (20-100x faster training)
+        \item Efficiency (6435.64 vs 0.36 efficiency scores)
+        \item Regulatory compliance and hypothesis testing
+    \end{itemize}
+    
+    \item \textbf{ML/DL Models Excel In:}
+    \begin{itemize}
+        \item Complex dataset performance (0.818 vs 0.547 avg) - 1.5x advantage
+        \item Scalability to large data
+        \item Capturing non-linear patterns
+        \item Handling complex temporal dependencies
+    \end{itemize}
+    
+    \item \textbf{The Optimal Choice Depends On:}
+    \begin{itemize}
+        \item Primary requirement (accuracy vs interpretability vs speed)
+        \item Dataset characteristics (size, complexity, linearity)
+        \item Computational constraints
+        \item Regulatory requirements
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Strategic Recommendations}
+
+Rather than choosing one approach over the other, organizations should:
+
+\begin{enumerate}
+    \item \textbf{Develop Expertise in Both:} Build capabilities in both statistical and ML methodologies
+    \item \textbf{Context-Aware Selection:} Choose models based on specific project requirements
+    \item \textbf{Hybrid Approaches:} Explore combining statistical inference with ML performance
+    \item \textbf{Interpretability Integration:} Embed interpretability considerations from initial design
+    \item \textbf{Regulatory Alignment:} Ensure model selection aligns with compliance requirements
+\end{enumerate}
+
+\subsection{Contribution to Transparent AI}
+
+This study contributes to the growing body of research on Transparent AI by:
+
+\begin{itemize}
+    \item Providing empirical evidence on performance-interpretability trade-offs
+    \item Quantifying the efficiency advantages of statistical models
+    \item Demonstrating when each approach is most appropriate
+    \item Connecting findings to regulatory requirements and stakeholder needs
+    \item Identifying opportunities for hybrid approaches
+\end{itemize}
+
+As AI systems increasingly inform critical decisions, the ability to balance performance, cost, and interpretability becomes essential. This study provides evidence-based guidance for practitioners navigating these complex trade-offs in the age of Transparent AI.
+
+\section{Acknowledgments}
+
+We thank the Master Paris-Saclay Applied Statistics program for supporting this research. We also acknowledge the open-source communities developing statistical and machine learning tools that made this comparative study possible.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+
+\bibitem{transparent_ai_2025}
+Ramachandram, D., Joshi, H., Zhu, J., Gandhi, D., Hartman, L., \& Raval, A. (2025).
+\textit{Transparent AI: The Case for Interpretability and Explainability}.
+arXiv:2507.23535v1 [cs.LG]
+
+\bibitem{rudin2019}
+Rudin, C., \& Radin, J. (2019).
+Why Are We Using Black Box Models in AI When We Don't Need To? A Lesson From An Explainable AI Competition.
+\textit{Harvard Data Science Review}.
+
+\bibitem{arrieta2020}
+Arrieta, A. B., et al. (2020).
+Explainable Artificial Intelligence (XAI): Concepts, Taxonomies, Opportunities and Challenges.
+\textit{Information Fusion}, 58, 82-115.
+
+\bibitem{hastie2009}
+Hastie, T., Tibshirani, R., \& Friedman, J. (2009).
+\textit{The Elements of Statistical Learning}.
+Springer.
+
+\bibitem{james2013}
+James, G., Witten, D., Hastie, T., \& Tibshirani, R. (2013).
+\textit{An Introduction to Statistical Learning}.
+Springer.
+
+\bibitem{murphy2012}
+Murphy, K. P. (2012).
+\textit{Machine Learning: A Probabilistic Perspective}.
+MIT Press.
+
+\bibitem{cox1972}
+Cox, D. R. (1972).
+Regression Models and Life-Tables.
+\textit{Journal of the Royal Statistical Society}, Series B, 34(2), 187-220.
+
+\bibitem{kaplan1958}
+Kaplan, E. L., \& Meier, P. (1958).
+Nonparametric Estimation from Incomplete Observations.
+\textit{Journal of the American Statistical Association}, 53(282), 457-481.
+
+\end{thebibliography}
+
+\end{document}
+

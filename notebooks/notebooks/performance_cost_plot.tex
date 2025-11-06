@@ -1,0 +1,155 @@
+% LaTeX TikZ Plot: Model Performance vs Training Cost
+% Similar to interpretability plot but with Performance vs Training Cost
+% Uses actual numerical data from model comparisons
+
+\documentclass[tikz,border=3mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,arrows.meta,positioning,calc}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    scale=1.2,
+    every node/.style={font=\small},
+    point/.style={circle, draw=black, fill=#1, minimum size=6pt, inner sep=0pt},
+    label/.style={font=\tiny, align=center}
+]
+
+% Define colors
+\definecolor{statistical}{RGB}{46, 134, 171}   % Blue
+\definecolor{ml}{RGB}{162, 59, 114}            % Purple  
+\definecolor{mldl}{RGB}{241, 143, 1}          % Orange
+\definecolor{ideal}{RGB}{0, 210, 211}          % Cyan
+\definecolor{curve}{RGB}{108, 92, 231}          % Purple for curve
+\definecolor{arrow}{RGB}{231, 76, 60}         % Red for arrow
+
+% Axes
+\draw[->, thick, black] (-0.5, 0) -- (6.5, 0) node[right] {\textbf{Training Cost (log scale, seconds)}};
+\draw[->, thick, black] (0, -0.5) -- (0, 6.5) node[above] {\textbf{Model Performance}};
+
+% Grid
+\foreach \x in {0, 1, 2, 3, 4, 5, 6}
+    \draw[gray!30, dashed] (\x, 0) -- (\x, 6);
+\foreach \y in {0, 1, 2, 3, 4, 5, 6}
+    \draw[gray!30, dashed] (0, \y) -- (6, \y);
+
+% X-axis labels (log scale of training time in seconds)
+% Positions: log10(time + 1e-6) scaled to 0-6
+% log10(0.0001) ≈ -4, log10(0.001) ≈ -3, log10(0.01) ≈ -2, log10(0.1) ≈ -1, log10(1) = 0, log10(10) = 1
+% Scale: (log_value + 6) to map to 0-6 range
+\foreach \x/\label in {0/0.000001, 1/0.00001, 2/0.0001, 3/0.001, 4/0.01, 5/0.1, 6/1}
+    \node[below] at (\x, 0) {\tiny \label};
+
+% Y-axis labels (performance from 0.2 to 1.0)
+\foreach \y/\label in {0/0.2, 1/0.35, 2/0.5, 3/0.65, 4/0.8, 5/0.95, 6/1.0}
+    \node[left] at (0, \y) {\tiny \label};
+
+% Model positions (log scale mapping)
+% Position = (log10(time) + 6) * scale_factor
+% Performance maps directly: 0.2->0, 1.0->6, so: (perf - 0.2) / 0.8 * 6
+
+% Statistical Models (Blue)
+% OLS Regression: time=0.0001, perf=0.65
+% log10(0.0001) = -4, scaled: (-4 + 6) = 2
+% perf: (0.65 - 0.2) / 0.8 * 6 = 3.375
+\node[point=statistical] (ols) at (2, 3.375) {};
+\node[above right=0.1cm of ols, label] {OLS\\Regression};
+
+% ANOVA: time=0.0001, perf=0.55
+% log10(0.0001) = -4, scaled: 2
+% perf: (0.55 - 0.2) / 0.8 * 6 = 2.625
+\node[point=statistical] (anova) at (2, 2.625) {};
+\node[below right=0.1cm of anova, label] {ANOVA};
+
+% Linear Regression (ML): time=0.0005, perf=0.65
+% log10(0.0005) ≈ -3.3, scaled: (-3.3 + 6) = 2.7
+% perf: 3.375
+\node[point=ml] (lr) at (2.7, 3.375) {};
+\node[above right=0.1cm of lr, label] {Linear\\Reg. (ML)};
+
+% Poisson Regression: time=0.001, perf=0.35
+% log10(0.001) = -3, scaled: 3
+% perf: (0.35 - 0.2) / 0.8 * 6 = 1.125
+\node[point=statistical] (poisson) at (3, 1.125) {};
+\node[below right=0.1cm of poisson, label] {Poisson\\Regression};
+
+% Logistic Regression: time=0.002, perf=0.88
+% log10(0.002) ≈ -2.7, scaled: 3.3
+% perf: (0.88 - 0.2) / 0.8 * 6 = 5.1
+\node[point=statistical] (logistic) at (3.3, 5.1) {};
+\node[above right=0.1cm of logistic, label] {Logistic\\Regression};
+
+% Cox Regression: time=0.04, perf=0.40
+% log10(0.04) ≈ -1.4, scaled: 4.6
+% perf: (0.40 - 0.2) / 0.8 * 6 = 1.5
+\node[point=statistical] (cox) at (4.6, 1.5) {};
+\node[below right=0.1cm of cox, label] {Cox\\Regression};
+
+% ARIMA: time=0.18, perf=0.45
+% log10(0.18) ≈ -0.74, scaled: 5.26
+% perf: (0.45 - 0.2) / 0.8 * 6 = 1.875
+\node[point=statistical] (arima) at (5.26, 1.875) {};
+\node[below right=0.1cm of arima, label] {ARIMA};
+
+% ML Models (Purple)
+% Random Forest: time=0.15, perf=0.92
+% log10(0.15) ≈ -0.82, scaled: 5.18
+% perf: (0.92 - 0.2) / 0.8 * 6 = 5.4
+\node[point=ml] (rf) at (5.18, 5.4) {};
+\node[above right=0.1cm of rf, label] {Random\\Forest};
+
+% SVM (SVR): time=0.4, perf=0.85
+% log10(0.4) ≈ -0.4, scaled: 5.6
+% perf: (0.85 - 0.2) / 0.8 * 6 = 4.875
+\node[point=ml] (svm) at (5.6, 4.875) {};
+\node[above right=0.1cm of svm, label] {SVM\\(SVR)};
+
+% Gradient Boosting: time=0.5, perf=0.85
+% log10(0.5) ≈ -0.3, scaled: 5.7
+% perf: 4.875
+\node[point=ml] (gb) at (5.7, 4.875) {};
+\node[above right=0.1cm of gb, label] {Gradient\\Boosting};
+
+% Deep Learning (Orange)
+% RNN/LSTM: time=2.5, perf=0.89
+% log10(2.5) ≈ 0.4, scaled: 6.4 (clamp to 6)
+% perf: (0.89 - 0.2) / 0.8 * 6 = 5.175
+\node[point=mldl] (rnn) at (6, 5.175) {};
+\node[above left=0.1cm of rnn, label] {RNN/\\LSTM};
+
+% Smooth curve showing trade-off (approximate)
+% Draw a smooth curve through the points
+\draw[curve, dashed, very thick] 
+    (2, 2.5) .. controls (3, 3) and (4, 4) .. 
+    (5, 5) .. controls (5.5, 5.2) .. (6, 5.1);
+
+% Ideal Solution point
+\node[point=ideal, star, star points=5, minimum size=8pt] (ideal) at (1.5, 5.8) {};
+\node[above=0.2cm of ideal, label, font=\small\bfseries] {Ideal Solution};
+
+% Research arrow pointing to ideal
+\draw[arrow, very thick, ->] (4.5, 3.5) -- (2, 5.5);
+\node[above=0.1cm] at (3.25, 4.5) {\tiny\bfseries Efficient ML Research};
+
+% Axis labels with Low/High
+\node[below] at (6, -0.3) {\small\textbf{High}};
+\node[above] at (0, 6.3) {\small\textbf{High}};
+\node[below] at (0, -0.3) {\small\textbf{Low}};
+\node[left] at (-0.3, 0) {\small\textbf{Low}};
+
+% Legend
+\begin{scope}[xshift=5cm, yshift=1cm]
+    \node[point=statistical] (l1) at (0, 0) {};
+    \node[right=0.1cm of l1, label] {Statistical};
+    
+    \node[point=ml] (l2) at (0, -0.5) {};
+    \node[right=0.1cm of l2, label] {ML Models};
+    
+    \node[point=mldl] (l3) at (0, -1) {};
+    \node[right=0.1cm of l3, label] {Deep Learning};
+\end{scope}
+
+\end{tikzpicture}
+
+\end{document}
+

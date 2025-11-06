@@ -1,0 +1,172 @@
+% LaTeX TikZ Plot: Model Performance vs Training Cost
+% Based on actual numerical data from model_comparison.csv
+% This version uses more accurate positioning based on actual values
+
+\documentclass[tikz,border=5mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    scale=1.0,
+    every node/.style={font=\small},
+    point/.style={circle, draw=black, fill=#1, minimum size=7pt, inner sep=0pt, line width=1pt},
+    label/.style={font=\tiny, align=center, text width=1.5cm}
+]
+
+% Define colors
+\definecolor{statistical}{RGB}{46, 134, 171}   % Blue
+\definecolor{ml}{RGB}{162, 59, 114}            % Purple  
+\definecolor{mldl}{RGB}{241, 143, 1}          % Orange
+\definecolor{ideal}{RGB}{0, 210, 211}          % Cyan
+\definecolor{curve}{RGB}{108, 92, 231}          % Purple for curve
+\definecolor{arrow}{RGB}{231, 76, 60}         % Red for arrow
+
+% Coordinate system: 
+% X-axis: log10(training_time) mapped to 0-10 range: (log10(time) + 6) * 1.5
+% Y-axis: performance mapped to 0-10 range: (perf - 0.2) / 0.8 * 10
+
+% Helper function for x-position: log10(time) -> x coordinate
+% For time=0.0001: log10(0.0001) = -4, x = (-4 + 6) * 1.5 = 3
+% For time=2.5: log10(2.5) ≈ 0.4, x = (0.4 + 6) * 1.5 = 9.6
+
+% Helper function for y-position: performance -> y coordinate  
+% For perf=0.35: y = (0.35 - 0.2) / 0.8 * 10 = 1.875
+% For perf=0.92: y = (0.92 - 0.2) / 0.8 * 10 = 9
+
+% Axes
+\draw[->, very thick, black] (-0.5, 0) -- (10.5, 0) node[right, font=\large\bfseries] {Training Cost (log scale, seconds)};
+\draw[->, very thick, black] (0, -0.5) -- (0, 10.5) node[above, font=\large\bfseries] {Model Performance};
+
+% Grid (light gray)
+\foreach \x in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    \draw[gray!20, dashed, line width=0.3pt] (\x, 0) -- (\x, 10);
+\foreach \y in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    \draw[gray!20, dashed, line width=0.3pt] (0, \y) -- (10, \y);
+
+% X-axis tick labels (actual time values)
+% Position = (log10(time) + 6) * 1.5
+\foreach \time/\x in {0.000001/-6, 0.00001/-5, 0.0001/-4, 0.001/-3, 0.01/-2, 0.1/-1, 1/0, 10/1}
+    \node[below, font=\footnotesize] at ({\x + 6) * 1.5}, -0.3) {\time};
+
+% Y-axis tick labels (performance values)
+\foreach \perf/\y in {0.2/0, 0.35/1.875, 0.5/3.75, 0.65/5.625, 0.8/7.5, 0.95/9.375}
+    \node[left, font=\footnotesize] at (-0.3, \y) {\perf};
+
+% Statistical Models (Blue) - Plot with actual coordinates
+% OLS Regression: time=0.0001, perf=0.65
+% x = (log10(0.0001) + 6) * 1.5 = (-4 + 6) * 1.5 = 3
+% y = (0.65 - 0.2) / 0.8 * 10 = 5.625
+\coordinate (OLS) at (3, 5.625);
+\node[point=statistical] at (OLS) {};
+\node[above right=0.15cm of OLS, label, anchor=west] {OLS\\Regression\\\tiny (0.0001s, 0.65)};
+
+% ANOVA: time=0.0001, perf=0.55
+% x = 3, y = (0.55 - 0.2) / 0.8 * 10 = 4.375
+\coordinate (ANOVA) at (3, 4.375);
+\node[point=statistical] at (ANOVA) {};
+\node[below right=0.15cm of ANOVA, label, anchor=west] {ANOVA\\\tiny (0.0001s, 0.55)};
+
+% Linear Regression (ML): time=0.0005, perf=0.65
+% log10(0.0005) ≈ -3.3, x = (-3.3 + 6) * 1.5 = 4.05
+% y = 5.625
+\coordinate (LR) at (4.05, 5.625);
+\node[point=ml] at (LR) {};
+\node[above right=0.15cm of LR, label, anchor=west] {Linear Reg.\\\tiny (0.0005s, 0.65)};
+
+% Poisson Regression: time=0.001, perf=0.35
+% x = (-3 + 6) * 1.5 = 4.5
+% y = (0.35 - 0.2) / 0.8 * 10 = 1.875
+\coordinate (Poisson) at (4.5, 1.875);
+\node[point=statistical] at (Poisson) {};
+\node[below right=0.15cm of Poisson, label, anchor=west] {Poisson\\\tiny (0.001s, 0.35)};
+
+% Logistic Regression: time=0.002, perf=0.88
+% log10(0.002) ≈ -2.7, x = (-2.7 + 6) * 1.5 = 4.95
+% y = (0.88 - 0.2) / 0.8 * 10 = 8.5
+\coordinate (Logistic) at (4.95, 8.5);
+\node[point=statistical] at (Logistic) {};
+\node[above right=0.15cm of Logistic, label, anchor=west] {Logistic\\\tiny (0.002s, 0.88)};
+
+% Cox Regression: time=0.04, perf=0.40
+% log10(0.04) ≈ -1.4, x = (-1.4 + 6) * 1.5 = 6.9
+% y = (0.40 - 0.2) / 0.8 * 10 = 2.5
+\coordinate (Cox) at (6.9, 2.5);
+\node[point=statistical] at (Cox) {};
+\node[below right=0.15cm of Cox, label, anchor=west] {Cox\\\tiny (0.04s, 0.40)};
+
+% ARIMA: time=0.18, perf=0.45
+% log10(0.18) ≈ -0.74, x = (-0.74 + 6) * 1.5 = 7.89
+% y = (0.45 - 0.2) / 0.8 * 10 = 3.125
+\coordinate (ARIMA) at (7.89, 3.125);
+\node[point=statistical] at (ARIMA) {};
+\node[below right=0.15cm of ARIMA, label, anchor=west] {ARIMA\\\tiny (0.18s, 0.45)};
+
+% ML Models (Purple)
+% Random Forest: time=0.15, perf=0.92
+% log10(0.15) ≈ -0.82, x = (-0.82 + 6) * 1.5 = 7.77
+% y = (0.92 - 0.2) / 0.8 * 10 = 9
+\coordinate (RF) at (7.77, 9);
+\node[point=ml] at (RF) {};
+\node[above right=0.15cm of RF, label, anchor=west] {Random\\Forest\\\tiny (0.15s, 0.92)};
+
+% SVM (SVR): time=0.4, perf=0.85
+% log10(0.4) ≈ -0.4, x = (-0.4 + 6) * 1.5 = 8.4
+% y = (0.85 - 0.2) / 0.8 * 10 = 8.125
+\coordinate (SVM) at (8.4, 8.125);
+\node[point=ml] at (SVM) {};
+\node[above right=0.15cm of SVM, label, anchor=west] {SVM (SVR)\\\tiny (0.4s, 0.85)};
+
+% Gradient Boosting: time=0.5, perf=0.85
+% log10(0.5) ≈ -0.3, x = (-0.3 + 6) * 1.5 = 8.55
+% y = 8.125
+\coordinate (GB) at (8.55, 8.125);
+\node[point=ml] at (GB) {};
+\node[above right=0.15cm of GB, label, anchor=west] {Gradient\\Boosting\\\tiny (0.5s, 0.85)};
+
+% Deep Learning (Orange)
+% RNN/LSTM: time=2.5, perf=0.89
+% log10(2.5) ≈ 0.4, x = (0.4 + 6) * 1.5 = 9.6
+% y = (0.89 - 0.2) / 0.8 * 10 = 8.625
+\coordinate (RNN) at (9.6, 8.625);
+\node[point=mldl] at (RNN) {};
+\node[above left=0.15cm of RNN, label, anchor=east] {RNN/LSTM\\\tiny (2.5s, 0.89)};
+
+% Smooth curve showing trade-off (connect key points)
+\draw[curve, dashed, very thick, line width=2.5pt] 
+    (3, 4.5) .. controls (4, 5) and (5, 6) .. 
+    (6, 7) .. controls (7, 8) and (8, 8.5) .. 
+    (9.5, 8.6);
+
+% Ideal Solution point (high performance, low cost)
+\coordinate (Ideal) at (2, 9.5);
+\node[point=ideal, star, star points=5, minimum size=10pt] at (Ideal) {};
+\node[above=0.25cm of Ideal, font=\small\bfseries] {Ideal Solution};
+
+% Research arrow pointing to ideal
+\draw[arrow, very thick, ->, line width=3pt] (7, 6) .. controls (5, 7.5) and (3.5, 8.5) .. (2.2, 9.3);
+\node[above=0.2cm] at (4.5, 8) {\small\bfseries Efficient ML Research};
+
+% Axis labels with Low/High
+\node[below, font=\small\bfseries] at (10, -0.4) {High};
+\node[above, font=\small\bfseries] at (0, 10.4) {High};
+\node[below, font=\small\bfseries] at (0, -0.4) {Low};
+\node[left, font=\small\bfseries] at (-0.4, 0) {Low};
+
+% Legend
+\begin{scope}[xshift=1cm, yshift=2cm]
+    \node[point=statistical] (l1) at (0, 0) {};
+    \node[right=0.2cm of l1, font=\footnotesize] {Statistical Models};
+    
+    \node[point=ml] (l2) at (0, -0.6) {};
+    \node[right=0.2cm of l2, font=\footnotesize] {ML Models};
+    
+    \node[point=mldl] (l3) at (0, -1.2) {};
+    \node[right=0.2cm of l3, font=\footnotesize] {Deep Learning};
+\end{scope}
+
+\end{tikzpicture}
+
+\end{document}
+

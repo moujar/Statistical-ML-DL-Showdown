@@ -1,0 +1,633 @@
+\documentclass[final,t]{beamer}
+\mode<presentation>
+\usetheme{Berlin}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amsthm,amssymb,latexsym}
+\usepackage{times}\usefonttheme{professionalfonts}
+\boldmath
+\usepackage[orientation=portrait,size=a0,scale=1.4,debug]{beamerposter}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+\title{\huge Transparent AI: The Case for Interpretability and Explainability}
+\author{Dhanesh Ramachandram, Himanshu Joshi, Judy Zhu, Dhari Gandhi, Lucas Hartman, and Ananya Raval}
+\institute{Vector Institute for Artificial Intelligence, Toronto}
+\date{August 1, 2025}
+
+\begin{document}
+\begin{frame}[t]
+\begin{columns}[t]
+
+% Left Column
+\begin{column}{.48\linewidth}
+
+%% ABSTRACT
+\begin{block}{\Large Abstract}
+As AI systems increasingly inform high-stakes decisions across sectors, \textbf{transparency has become foundational} to responsible AI implementation. This paper presents:
+\begin{itemize}[leftmargin=*]
+\item Key insights from practical interpretability applications across diverse domains
+\item Actionable strategies for organizations at varying stages of AI maturity
+\item Integration of interpretability as a \textbf{core design principle} rather than retrospective add-on
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+
+%% MOTIVATION
+\begin{block}{\Large Motivation: Why Interpretability Matters}
+\textbf{Consider this scenario:}
+\begin{itemize}[leftmargin=*]
+\item AI diagnostic tool: 2\% error rate, no explanation
+\item Human physician: 15\% error rate, fully explainable
+\item \textcolor{red}{\textbf{Which would you trust?}}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Critical Applications:}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Healthcare:} Clinicians need to understand AI predictions to integrate with clinical judgment
+\item \textbf{Finance:} Transparent credit decisions required for regulatory compliance
+\item \textbf{Public Sector:} Citizens expect clear explanations for decisions affecting their lives
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+
+%% KEY CONCEPTS
+\begin{block}{\Large Fundamentals: Interpretability vs. Explainability}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\Large}]
+% Main boxes
+\node[draw, rectangle, rounded corners, fill=blue!20, minimum width=8cm, minimum height=2.5cm, align=center] (interp) at (0,4) {\textbf{Interpretability}\\[0.3cm]``How does the model\\function internally?''};
+
+\node[draw, rectangle, rounded corners, fill=green!20, minimum width=8cm, minimum height=2.5cm, align=center] (explain) at (0,0) {\textbf{Explainability}\\[0.3cm]``Why did the model make\\this particular decision?''};
+
+% Arrow
+\draw[->, very thick] (interp) -- (explain);
+
+% Side annotations
+\node[align=left, font=\large] at (-6,4) {Glass-box models:\\Decision trees\\Linear regression};
+
+\node[align=left, font=\large] at (-6,0) {Post-hoc techniques:\\SHAP, LIME\\for black-box models};
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.3cm}
+\textbf{The Trade-off Challenge:}
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+% Axes
+\draw[->, very thick] (0,0) -- (10,0) node[right, font=\Large] {Model Complexity \& Performance};
+\draw[->, very thick] (0,0) -- (0,6) node[above, font=\Large] {Interpretability};
+
+% Curve
+\draw[very thick, blue] (1,5) .. controls (3,4) and (5,2.5) .. (9,1);
+
+% Points
+\filldraw[red] (1,5) circle (4pt) node[above right, font=\large] {Decision Trees};
+\filldraw[red] (3,4) circle (4pt) node[above, font=\large] {Linear Models};
+\filldraw[red] (5,2.5) circle (4pt) node[above, font=\large] {GAMs};
+\filldraw[red] (7,1.5) circle (4pt) node[above, font=\large] {Ensemble};
+\filldraw[red] (9,1) circle (4pt) node[below left, font=\large] {Deep Learning};
+
+% Ideal region
+\filldraw[green, opacity=0.3] (7,4) circle (1.5cm);
+\node[font=\Large\bfseries, color=green!50!black] at (7,4) {Ideal\\Solution};
+
+\end{tikzpicture}
+\end{center}
+\end{block}
+
+\vspace{0.5cm}
+
+%% POLICY LANDSCAPE
+\begin{block}{\Large Policy \& Regulatory Landscape}
+\textbf{Global AI Regulations Converge on Interpretability:}
+
+\vspace{0.3cm}
+\begin{tabular}{p{4cm}p{16cm}}
+\textbf{EU AI Act} & Mandates transparency for high-risk AI systems and grants individuals right to meaningful explanations \\[0.3cm]
+\textbf{Canada AIDA} & Emphasizes risk-based governance with interpretability assessments during development \\[0.3cm]
+\textbf{US AI Bill of Rights} & Establishes interpretability as fundamental civil right requiring notice and explanation \\[0.3cm]
+\textbf{FDA Guidance} & Requires clear documentation of AI/ML medical device decision-making \\
+\end{tabular}
+
+\vspace{0.3cm}
+\colorbox{yellow!30}{\parbox{0.95\linewidth}{\large\textbf{Key Challenge:} Few regulations define what constitutes ``sufficient'' explanation or specify evaluation metrics}}
+\end{block}
+
+\end{column}
+
+% Right Column
+\begin{column}{.48\linewidth}
+
+%% STAKEHOLDER PERSPECTIVES
+\begin{block}{\Large Stakeholder-Specific Needs}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, every node/.style={font=\large}]
+% Central circle
+\node[draw, circle, fill=orange!30, minimum size=3cm, align=center, font=\Large\bfseries] (center) at (0,0) {Interpretable\\AI};
+
+% Stakeholder nodes
+\node[draw, rectangle, rounded corners, fill=blue!20, minimum width=3.5cm, minimum height=1.5cm, align=center] (ds) at (-6,4) {\textbf{Data Scientists}\\Technical rigor\\Performance balance};
+
+\node[draw, rectangle, rounded corners, fill=green!20, minimum width=3.5cm, minimum height=1.5cm, align=center] (bl) at (6,4) {\textbf{Business Leaders}\\Risk assessment\\Resource allocation};
+
+\node[draw, rectangle, rounded corners, fill=red!20, minimum width=3.5cm, minimum height=1.5cm, align=center] (reg) at (-6,-4) {\textbf{Regulators}\\Compliance\\Standards};
+
+\node[draw, rectangle, rounded corners, fill=purple!20, minimum width=3.5cm, minimum height=1.5cm, align=center] (user) at (6,-4) {\textbf{End Users}\\Trust calibration\\Actionability};
+
+% Arrows
+\draw[->, very thick] (center) -- (ds);
+\draw[->, very thick] (center) -- (bl);
+\draw[->, very thick] (center) -- (reg);
+\draw[->, very thick] (center) -- (user);
+
+\end{tikzpicture}
+\end{center}
+\end{block}
+
+\vspace{0.5cm}
+
+%% AI LIFECYCLE INTEGRATION
+\begin{block}{\Large Integrating Interpretability Across AI Lifecycle}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\Large}]
+% Timeline
+\draw[->, ultra thick] (0,0) -- (18,0);
+
+% Phases
+\node[draw, rectangle, rounded corners, fill=blue!30, minimum width=4cm, minimum height=2.5cm, align=center] at (2,0) {\textbf{Design Phase}\\[0.2cm]Choose models\\Define requirements\\Feature engineering};
+
+\node[draw, rectangle, rounded corners, fill=green!30, minimum width=4cm, minimum height=2.5cm, align=center] at (8,0) {\textbf{Deployment}\\[0.2cm]Production architecture\\User interfaces\\Quality assurance};
+
+\node[draw, rectangle, rounded corners, fill=orange!30, minimum width=4cm, minimum height=2.5cm, align=center] at (14,0) {\textbf{Monitoring}\\[0.2cm]Explanation quality\\Drift detection\\Compliance};
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.3cm}
+\colorbox{blue!20}{\parbox{0.95\linewidth}{\large\textbf{Critical Insight:} Interpretability must be embedded from initial design, not retrofitted}}
+\end{block}
+
+\vspace{0.5cm}
+
+%% CROSS-INDUSTRY LEARNINGS
+\begin{block}{\Large Cross-Industry Learnings \& Applications}
+
+\textbf{Key Observations from Case Studies:}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\large}]
+% Domain boxes
+\node[draw, rectangle, rounded corners, fill=red!20, minimum width=3.5cm, minimum height=2cm, align=center] at (0,6) {\textbf{Healthcare}\\GAMs, PDPs\\Clinical trust\\Sparse data challenges};
+
+\node[draw, rectangle, rounded corners, fill=green!20, minimum width=3.5cm, minimum height=2cm, align=center] at (6,6) {\textbf{Finance}\\SHAP, EBMs\\Compliance\\Imbalanced data};
+
+\node[draw, rectangle, rounded corners, fill=blue!20, minimum width=3.5cm, minimum height=2cm, align=center] at (12,6) {\textbf{LLMs/GenAI}\\Token attribution\\Opacity challenges\\Maturing field};
+
+\node[draw, rectangle, rounded corners, fill=orange!20, minimum width=3.5cm, minimum height=2cm, align=center] at (3,2) {\textbf{Infrastructure}\\Root cause analysis\\ESG reporting\\Real-time constraints};
+
+\node[draw, rectangle, rounded corners, fill=purple!20, minimum width=3.5cm, minimum height=2cm, align=center] at (9,2) {\textbf{HR/Education}\\Fairness\\Transparency\\Stakeholder communication};
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.5cm}
+
+\textbf{Recurring Themes:}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Early Integration Critical:} Projects defining interpretability goals early achieved better alignment
+\item \textbf{Inherently Interpretable Models Preferred:} EBMs, GAMs, NAMs easier for stakeholders to understand
+\item \textbf{Post-hoc Limitations:} SHAP and LIME struggled with stability in complex use cases
+\item \textbf{Socio-Technical Challenge:} Success driven by process, communication, and alignment—not just technical execution
+\end{itemize}
+\end{block}
+
+\vspace{0.5cm}
+
+%% EVALUATION FRAMEWORK
+\begin{block}{\Large Evaluation Framework}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\Large}]
+% Main categories
+\node[draw, rectangle, rounded corners, fill=blue!30, minimum width=5cm, minimum height=1.8cm, align=center] (quant) at (0,4) {\textbf{Quantitative}\\Fidelity, Stability\\Completeness};
+
+\node[draw, rectangle, rounded corners, fill=green!30, minimum width=5cm, minimum height=1.8cm, align=center] (human) at (0,0) {\textbf{Human-Centered}\\Task performance\\Trust calibration\\Mental models};
+
+\node[draw, rectangle, rounded corners, fill=orange!30, minimum width=5cm, minimum height=1.8cm, align=center] (co12) at (9,2) {\textbf{Co-12 Properties}\\Correctness\\Completeness\\Consistency\\Compactness\\Context\\Coherence};
+
+% Arrows
+\draw[->, very thick] (quant) -- (co12);
+\draw[->, very thick] (human) -- (co12);
+
+\end{tikzpicture}
+\end{center}
+\end{block}
+
+\vspace{0.5cm}
+
+%% RECOMMENDATIONS
+\begin{block}{\Large Key Recommendations}
+\begin{enumerate}[leftmargin=*, font=\Large\bfseries]
+\item \textbf{Prioritize inherently interpretable models} over post-hoc explanations when performance allows
+\item \textbf{Establish comprehensive evaluation frameworks} beyond traditional accuracy metrics
+\item \textbf{Adapt interpretability strategies} to specific domain contexts and constraints
+\item \textbf{Invest in stakeholder training} to properly evaluate and act on AI explanations
+\item \textbf{Build interpretability into development workflows} from the design phase
+\item \textbf{Develop communication infrastructure} (dashboards, visualizations, reports) for transparency
+\end{enumerate}
+\end{block}
+
+\vspace{0.5cm}
+
+%% CONCLUSION
+\begin{block}{\Large Conclusion}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Interpretability is not optional} for high-stakes AI deployment
+\item \textbf{Success requires coordinated efforts} across technical, organizational, and human dimensions
+\item \textbf{Organizations that embrace transparency as fundamental design principle} will achieve better compliance and unlock human-AI collaboration potential
+\item \textbf{Proposed web portal initiative} to serve as centralized resource for interpretable AI implementation
+\end{itemize}
+
+\vspace{0.3cm}
+\centering
+\colorbox{green!30}{\parbox{0.9\linewidth}{\centering\Large\textbf{The future of AI depends on building systems humans can understand, trust, and effectively collaborate with}}}
+\end{block}
+
+\vspace{0.5cm}
+
+\begin{block}{\Large References \& Contact}
+\small
+Full paper: \texttt{arXiv:2507.23535v1 [cs.LG]}\\
+Vector Institute for Artificial Intelligence, Toronto\\
+Contact: \texttt{https://vectorinstitute.ai}
+\end{block}
+
+\end{column}
+
+\end{columns}
+\end{frame}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+% \documentclass[25pt, a0paper, portrait]{tikzposter}
+
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{multirow}
+% \usepackage{amsmath,amsfonts,amssymb}
+% \usepackage{xcolor}
+% \usepackage{enumitem}
+
+% % Custom colors
+% \definecolor{vectorblue}{RGB}{0, 102, 153}      % Vector Institute blue
+% \definecolor{accentgreen}{RGB}{46, 204, 113}    % Green for highlights
+% \definecolor{warningred}{RGB}{231, 76, 60}      % Red for warnings
+% \definecolor{infoblue}{RGB}{52, 152, 219}       % Info blue
+
+% % Theme settings
+% \usetheme{Basic}
+% \usecolorstyle{Default}
+
+% \title{\textbf{Transparent AI: The Case for Interpretability and Explainability}}
+% \author{Dhanesh Ramachandram, Himanshu Joshi, Judy Zhu, Dhari Gandhi, Lucas Hartman, Ananya Raval}
+% \institute{Vector Institute for Artificial Intelligence, Toronto\\arXiv:2507.23535v1 [cs.LG]}
+
+% \begin{document}
+
+% \maketitle
+
+% \begin{columns}
+% \column{0.33}
+
+% % Left column
+% \block{Motivation \& Background}{
+% \textbf{The Challenge:}
+% \begin{itemize}[leftmargin=*]
+%     \item AI systems increasingly inform \textbf{high-stakes decisions} in healthcare, finance, and public administration
+%     \item \textcolor{warningred}{\textbf{Black box problem:}} Advanced models (deep neural networks) offer exceptional performance but lack transparency
+%     \item Critical need to balance \textbf{model performance} and \textbf{interpretability}
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{The Example:}
+% Consider a medical diagnostic tool with 2\% error rate but no explanation vs. a human physician with 15\% error rate but fully explainable decisions. \textbf{Trust requires understanding.}
+
+% \vspace{0.5cm}
+% \textbf{Key Sectors Requiring Transparency:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textcolor{vectorblue}{\textbf{Healthcare:}} Clinicians need clarity on factors influencing AI predictions for cancer detection
+%     \item \textcolor{vectorblue}{\textbf{Finance:}} Regulatory compliance demands transparent credit decisions (fair lending regulations)
+%     \item \textcolor{vectorblue}{\textbf{Public Sector:}} Citizens expect clear explanations for decisions affecting their lives
+% \end{itemize}
+% }
+
+% \block{Core Definitions}{
+% \textbf{Interpretability vs. Explainability:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textbf{Interpretability:} "How does the model function internally?"
+%     \begin{itemize}
+%         \item Addresses model's internal logic and decision-making processes
+%         \item Inherent in transparent models (decision trees, linear regression)
+%     \end{itemize}
+%     \item \textbf{Explainability:} "Why did the model make a particular decision?"
+%     \begin{itemize}
+%         \item Provides clear reasons for specific decisions
+%         \item Typically applied to complex black-box models (neural networks)
+%     \end{itemize}
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Taxonomy of Methods:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textbf{Model-specific} vs. \textbf{Model-agnostic}
+%     \item \textbf{Local} (individual predictions) vs. \textbf{Global} (overall behavior)
+%     \item \textbf{Post hoc} (applied after training) vs. \textbf{Inherently interpretable} (built-in transparency)
+% \end{itemize}
+% }
+
+% \block{Interpretability-Performance Trade-off}{
+% \textbf{The Fundamental Challenge:}
+% \begin{center}
+% \Large
+% \begin{tabular}{lcc}
+% \toprule
+% \textbf{Model Type} & \textbf{Performance} & \textbf{Interpretability} \\
+% \midrule
+% Deep Learning \& LLMs & \textcolor{accentgreen}{High} & \textcolor{warningred}{Low} \\
+% Ensemble Models & \textcolor{accentgreen}{High} & \textcolor{warningred}{Medium} \\
+% MLPs, SVMs & Medium & Medium \\
+% Bayesian Models & Medium & \textcolor{accentgreen}{High} \\
+% Linear Models & \textcolor{warningred}{Low} & \textcolor{accentgreen}{High} \\
+% \bottomrule
+% \end{tabular}
+% \end{center}
+
+% \vspace{0.3cm}
+% \textbf{The Goal:} Bridge the gap between accuracy and transparency—develop high-performing models that are inherently interpretable.
+% }
+
+% \block{Stakeholder-Specific Guidelines}{
+% \textbf{Four Key Stakeholder Groups:}
+% \begin{enumerate}[leftmargin=*]
+%     \item \textcolor{vectorblue}{\textbf{Data Scientists \& ML Specialists:}}
+%     \begin{itemize}
+%         \item Technical implementation of interpretability methods
+%         \item Model selection and evaluation frameworks
+%     \end{itemize}
+%     \item \textcolor{vectorblue}{\textbf{Business Leaders \& Decision Makers:}}
+%     \begin{itemize}
+%         \item Strategic understanding of interpretability ROI
+%         \item Governance frameworks and change management
+%     \end{itemize}
+%     \item \textcolor{vectorblue}{\textbf{Regulators \& Policy Makers:}}
+%     \begin{itemize}
+%         \item Compliance with transparency requirements
+%         \item Regulatory frameworks and standards
+%     \end{itemize}
+%     \item \textcolor{vectorblue}{\textbf{End Users:}}
+%     \begin{itemize}
+%         \item Clear, understandable explanations
+%         \item Trust and effective human-AI collaboration
+%     \end{itemize}
+% \end{enumerate}
+% }
+
+% \column{0.33}
+
+% % Middle column
+% \block{AI Development Workflow Integration}{
+% \textbf{Design Phase:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textcolor{infoblue}{\textbf{Problem Formulation:}} Identify interpretability requirements early
+%     \item \textcolor{infoblue}{\textbf{Model Selection:}} Choose architecture balancing performance and transparency
+%     \item \textcolor{infoblue}{\textbf{Data Strategy:}} Prepare data with interpretability in mind
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Deployment Phase:}
+% \begin{itemize}[leftmargin=*]
+%     \item Generate explanations in production systems
+%     \item Ensure explanations are timely and accessible
+%     \item Validate explanation quality and usefulness
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Monitoring \& Maintenance:}
+% \begin{itemize}[leftmargin=*]
+%     \item Continuous evaluation of interpretability quality
+%     \item Feedback loops for explanation improvement
+%     \item Regular audits and compliance checks
+% \end{itemize}
+% }
+
+% \block{Standardized Reporting Framework}{
+% \textbf{Essential Elements to Document:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textbf{Model Architecture:} Structure, parameters, training details
+%     \item \textbf{Interpretability Methods:} Techniques used, rationale for selection
+%     \item \textbf{Explanation Quality:} Evaluation metrics, validation results
+%     \item \textbf{Limitations:} Known constraints, edge cases, uncertainties
+%     \item \textbf{Stakeholder Needs:} Addressed requirements, use case alignment
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Case Study: Medical Imaging Diagnostic Support}
+% \begin{itemize}[leftmargin=*]
+%     \item Demonstrated successful implementation of reporting framework
+%     \item Integration of interpretability into clinical workflows
+%     \item Validation of explanation quality with domain experts
+% \end{itemize}
+% }
+
+% \block{Evaluation Methods}{
+% \textbf{Key Evaluation Dimensions:}
+% \begin{enumerate}[leftmargin=*]
+%     \item \textbf{Faithfulness:} Do explanations accurately reflect model behavior?
+%     \item \textbf{Completeness:} Are explanations comprehensive enough?
+%     \item \textbf{Stability:} Are explanations consistent across similar inputs?
+%     \item \textbf{Understandability:} Can users comprehend the explanations?
+%     \item \textbf{Usefulness:} Do explanations support user decision-making?
+% \end{enumerate}
+
+% \vspace{0.3cm}
+% \textbf{Challenges:}
+% \begin{itemize}[leftmargin=*]
+%     \item Quantitative evaluation remains difficult
+%     \item Human factors and cognitive limitations
+%     \item Need for domain-specific evaluation criteria
+% \end{itemize}
+% }
+
+% \block{Cross-Industry Applications}{
+% \textbf{Key Findings Across Domains:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textcolor{accentgreen}{\textbf{Healthcare:}} Interpretability enables clinicians to integrate AI with clinical judgment
+%     \item \textcolor{accentgreen}{\textbf{Finance:}} Required for regulatory compliance (58\% of XAI studies lack adequate transparency)
+%     \item \textcolor{accentgreen}{\textbf{Public Sector:}} Essential for public accountability and trust
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Cross-Sector Observations:}
+% \begin{itemize}[leftmargin=*]
+%     \item Technical excellence alone is insufficient
+%     \item Understanding stakeholder mental models is critical
+%     \item Teams achieving meaningful outcomes invest in workflow integration
+%     \item Context-specific explanations outperform generic approaches
+% \end{itemize}
+% }
+
+% \column{0.33}
+
+% % Right column
+% \block{Challenges \& Limitations}{
+% \textbf{Technical Challenges:}
+% \begin{itemize}[leftmargin=*]
+%     \item Complexity of modern deep learning architectures
+%     \item Computational overhead of explanation generation
+%     \item Scalability to large-scale systems
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Interpretability-Performance Trade-off:}
+% \begin{itemize}[leftmargin=*]
+%     \item Often inverse relationship between accuracy and interpretability
+%     \item Need for context-aware balance
+%     \item Emerging research on inherently interpretable high-performing models
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Human Factors:}
+% \begin{itemize}[leftmargin=*]
+%     \item Cognitive limitations in processing complex explanations
+%     \item Varied stakeholder needs and backgrounds
+%     \item Importance of explanation presentation format
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Organizational Barriers:}
+% \begin{itemize}[leftmargin=*]
+%     \item Resource constraints and expertise gaps
+%     \item Change management challenges
+%     \item Lack of standardized frameworks
+% \end{itemize}
+% }
+
+% \block{The Web Portal Initiative}{
+% \textbf{Proposed Centralized Resource:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textcolor{vectorblue}{\textbf{Interactive Technique Selection Tools:}}
+%     \begin{itemize}
+%         \item Guide practitioners to appropriate methods
+%         \item Based on use case and requirements
+%     \end{itemize}
+%     \item \textcolor{vectorblue}{\textbf{Comprehensive Case Study Database:}}
+%     \begin{itemize}
+%         \item Real-world implementation examples
+%         \item Cross-industry learnings and best practices
+%     \end{itemize}
+%     \item \textcolor{vectorblue}{\textbf{Regulatory Compliance Guidance:}}
+%     \begin{itemize}
+%         \item Sector-specific requirements
+%         \item Compliance frameworks and checklists
+%     \end{itemize}
+% \end{itemize}
+% }
+
+% \block{Industry Adoption Roadmap}{
+% \textbf{Key Components:}
+% \begin{enumerate}[leftmargin=*]
+%     \item \textbf{Training Programs:} Targeted education for technical and business stakeholders
+%     \item \textbf{Pilot Projects:} Guided implementation in high-priority applications
+%     \item \textbf{Knowledge Sharing:} Cross-functional learning and communities of practice
+%     \item \textbf{Technical Workstreams:} Explore advanced challenges (LLMs, multi-modal systems)
+%     \item \textbf{Leadership Initiatives:} Build strategic understanding among executives
+%     \item \textbf{Continuous Improvement:} Regular feedback and iteration mechanisms
+% \end{enumerate}
+
+% \vspace{0.5cm}
+% \textbf{Flexible Framework:}
+% Adaptable to varying maturity levels, resource constraints, and sector-specific demands.
+% }
+
+% \block{Key Recommendations}{
+% \textbf{For Organizations:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textcolor{accentgreen}{✓} Assess current transparency practices
+%     \item \textcolor{accentgreen}{✓} Identify high-priority applications requiring interpretability
+%     \item \textcolor{accentgreen}{✓} Develop implementation roadmaps
+%     \item \textcolor{accentgreen}{✓} Integrate interpretability as a core design principle
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{Critical Insights:}
+% \begin{itemize}[leftmargin=*]
+%     \item \textbf{Start early:} Interpretability should be built-in, not retrofitted
+%     \item \textbf{Understand stakeholders:} Invest in understanding user mental models
+%     \item \textbf{Context matters:} Tailor explanations to domain and use case
+%     \item \textbf{Collaborative effort:} Requires coordination across organizational dimensions
+% \end{itemize}
+% }
+
+% \block{Conclusions}{
+% \textbf{The Imperative:}
+% Interpretability has transformed from an academic consideration to a \textbf{fundamental requirement} for responsible AI deployment in critical decision-making roles.
+
+% \vspace{0.5cm}
+% \textbf{The Opportunity:}
+% Organizations that embrace interpretability as a fundamental design principle will:
+% \begin{itemize}[leftmargin=*]
+%     \item Achieve better regulatory compliance
+%     \item Unlock the full potential of human-AI collaboration
+%     \item Build trust and accountability
+% \end{itemize}
+
+% \vspace{0.5cm}
+% \textbf{The Future:}
+% The future of AI depends on our collective ability to build systems that humans can \textbf{understand}, \textbf{trust}, and \textbf{effectively collaborate with}.
+
+% \vspace{0.5cm}
+% \textbf{The Journey:}
+% The frameworks presented provide the foundation—\textcolor{vectorblue}{\textbf{the journey begins with commitment and action.}}
+% }
+
+% \block{Citation \& Resources}{
+% \textbf{Paper:}
+% Ramachandram, D., Joshi, H., Zhu, J., Gandhi, D., Hartman, L., \& Raval, A. (2025).\\
+% \textit{Transparent AI: The Case for Interpretability and Explainability}.\\
+% arXiv:2507.23535v1 [cs.LG]
+
+% \vspace{0.5cm}
+% \textbf{Key References:}
+% \begin{itemize}[leftmargin=*]
+%     \item Doshi-Velez \& Kim (2017): Evaluation and generalization in interpretable ML
+%     \item Nauta et al. (2023): Systematic review on evaluating explainable AI
+%     \item Rudin et al. (2022): Interpretable ML: Fundamental principles and grand challenges
+%     \item Molnar (2020): Interpretable Machine Learning
+% \end{itemize}
+% }
+
+% \end{columns}
+
+% \end{document}
+
+

@@ -1,0 +1,9 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Methodology}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Regression Analysis}{5}{0}{2}
+\beamer@subsectionintoc {2}{2}{Factorial Analysis: ANOVA vs SVM}{8}{0}{2}
+\beamer@subsectionintoc {2}{3}{Classification Analysis}{11}{0}{2}
+\beamer@subsectionintoc {2}{4}{Time Series Analysis}{14}{0}{2}
+\beamer@sectionintoc {3}{Results}{18}{0}{3}
+\beamer@sectionintoc {4}{The Trade-offs}{22}{0}{4}
+\beamer@sectionintoc {5}{Conclusions}{24}{0}{5}
