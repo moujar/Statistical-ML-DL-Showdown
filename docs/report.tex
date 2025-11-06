@@ -851,6 +851,30 @@ Figure~\ref{fig:cost_performance} visualizes the fundamental trade-off between m
     \item \textbf{Ideal Solution:} Top-left corner (high performance, low cost) - target for future research
 \end{itemize}
 
+\subsection{Integrated Trade-off Analysis: Performance, Cost, and Interpretability}
+
+Figure~\ref{fig:fused_tradeoff} presents a comprehensive visualization integrating all three fundamental dimensions: model performance, training cost, and interpretability. This fused analysis reveals the complete landscape of trade-offs across different model types.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{../imgs/Fused Trade-off: Performance vs. Cost vs. Interpretability.png}
+\caption{Fused Trade-off: Performance vs. Cost vs. Interpretability. The scatter plot visualizes models across three dimensions: Y-axis represents Model Performance (Accuracy/R²), X-axis represents Training Cost (log scale), and bubble size indicates Interpretability (larger bubbles = higher interpretability). Model types are color-coded: Statistical Models (red), ML Models (blue), and Deep Learning (purple). The visualization reveals distinct clustering patterns: Statistical models (large red bubbles) occupy the low-cost, moderate-performance, high-interpretability region; ML models (small blue bubbles) show higher performance at moderate cost with lower interpretability; Deep Learning models (purple) achieve highest performance at highest cost with lowest interpretability.}
+\label{fig:fused_tradeoff}
+\end{figure}
+
+\textbf{Key Insights from the Fused Analysis:}
+\begin{itemize}
+    \item \textbf{Statistical Models (Red, Large Bubbles):} Cluster in the bottom-left quadrant with high interpretability, low cost, and moderate performance. Models like OLS Regression, Logistic Regression, ANOVA, and Cox Regression demonstrate the advantage of statistical approaches when transparency and efficiency are priorities.
+    
+    \item \textbf{ML Models (Blue, Small Bubbles):} Positioned in mid-to-high performance regions with moderate cost and lower interpretability. Random Forest, SVM, and Gradient Boosting show the performance gains achievable with ML approaches, though at the expense of interpretability.
+    
+    \item \textbf{Deep Learning (Purple):} RNN/LSTM models occupy the extreme top-right region, achieving highest performance at highest computational cost, with minimal interpretability. This represents the performance frontier for complex temporal patterns.
+    
+    \item \textbf{The Interpretability Dimension:} The bubble size visualization clearly shows that interpretability is not uniformly distributed across the performance-cost space. Statistical models achieve both high interpretability and low cost simultaneously, while ML/DL models trade interpretability for performance gains.
+    
+    \item \textbf{Model Selection Guidance:} The visualization provides a practical decision framework: choose statistical models for the bottom-left region (high interpretability, low cost), ML models for the middle region (balanced trade-offs), and Deep Learning for the top-right region (maximum performance when cost and interpretability are secondary concerns).
+\end{itemize}
+
 \subsection{Efficiency Analysis}
 
 Table~\ref{tab:efficiency} ranks models by efficiency (Performance/Cost ratio).
