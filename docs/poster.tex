@@ -1,0 +1,483 @@
+\documentclass[final]{beamer}
+\mode<presentation>{\usetheme{Madrid}}
+\usepackage[orientation=portrait,size=a0,scale=1.4]{beamerposter}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{pifont}  % For checkmark symbols
+
+% Custom colors
+\definecolor{mlcolor}{RGB}{52, 152, 219}      % Blue for ML
+\definecolor{statcolor}{RGB}{231, 76, 60}     % Red for Statistical
+\definecolor{accentcolor}{RGB}{46, 204, 113}  % Green for highlights
+\definecolor{dlcolor}{RGB}{255, 165, 0}       % Orange for Deep Learning
+\definecolor{posterbkg}{RGB}{245, 245, 245}   % Light gray background
+
+\setbeamercolor{block title}{fg=white,bg=mlcolor}
+\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block title alerted}{fg=white,bg=statcolor}
+\setbeamercolor{block body alerted}{fg=black,bg=white}
+
+\title{\textbf{Bridging the Gap: Statistical vs Machine Learning Methods}}
+\subtitle{Performance, Cost, and Interpretability Trade-offs in the Age of Transparent AI}
+\author{Abderrahmane Moujar \and Oudoum Ali Houmed \and Said Abolhassan Razavi}
+\institute{Master Paris-Saclay | Applied Statistics}
+
+\begin{document}
+\begin{frame}[t]
+
+% Title section
+\begin{columns}[t]
+\begin{column}{.98\linewidth}
+\vspace{1cm}
+\centering
+{\huge\textbf{Bridging the Gap: Statistical vs Machine Learning Methods}\\[0.5cm]
+\Large\textbf{Performance, Cost, and Interpretability Trade-offs in the Age of Transparent AI}\\[1cm]}
+{\large Abderrahmane Moujar \quad | \quad Oudoum Ali Houmed \quad | \quad Said Abolhassan Razavi\\[0.3cm]
+Master Paris-Saclay | Applied Statistics}\\[0.5cm]
+\rule{\linewidth}{2pt}\\[1cm]
+\end{column}
+\end{columns}
+
+\vspace{1cm}
+
+% Main content in 3 columns
+\begin{columns}[t]
+
+% Left column
+\begin{column}{.32\linewidth}
+
+% Problem Statement
+\begin{block}{Problem Statement}
+\textbf{The Core Question:}
+How do Machine Learning and Statistical models compare across different problem domains in terms of:
+\begin{itemize}
+    \item \textcolor{mlcolor}{\textbf{Performance}} (accuracy, R², RMSE)
+    \item \textcolor{statcolor}{\textbf{Cost}} (training time, computational resources)
+    \item \textcolor{accentcolor}{\textbf{Interpretability}} (explainability, statistical inference)
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Research Objectives:}
+\begin{enumerate}
+    \item Compare ML and Statistical approaches across multiple problem domains
+    \item Quantify trade-offs between performance, cost, and interpretability
+    \item Provide evidence-based recommendations for model selection
+    \item Connect findings to Interpretable ML research and Transparent AI
+\end{enumerate}
+\end{block}
+
+% Scope
+\begin{block}{Scope of the Study}
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Category} & \textbf{Count} & \textbf{Details} \\
+\midrule
+Problem Domains & 4 & Regression, Classification, Time Series, Factorial Analysis \\
+Datasets & 13 & 150 to 35,000 samples \\
+ML Models & 5 & Linear Regression, Random Forest, SVM, RNN/LSTM, Gradient Boosting \\
+Statistical Models & 5 & OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox/Poisson \\
+Total Comparisons & 13 & Model-Dataset pairs \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5cm}
+\textbf{Problem Domains \& Datasets:}
+\begin{itemize}
+    \item \textbf{Regression:} California Housing, Diabetes, Wine Quality, Energy Consumption
+    \item \textbf{Classification:} Iris, Wine Classification, Breast Cancer, Credit Default
+    \item \textbf{Time Series:} Energy Consumption, Temperature, Sales Forecasting
+    \item \textbf{Factorial Analysis:} Treatment Effects, Educational Outcomes, Agricultural Experiment, Drug Efficacy Study
+\end{itemize}
+\end{block}
+
+% Methodology: Regression
+\begin{block}{Methodology: Regression}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}
+    \item OLS Regression (statsmodels)
+    \item Provides p-values, confidence intervals
+    \item Statistical inference capabilities
+\end{itemize}
+
+\column{0.5\linewidth}
+\textcolor{mlcolor}{\textbf{ML:}}
+\begin{itemize}
+    \item Linear Regression (scikit-learn)
+    \item Optimized for prediction
+    \item Fast training and inference
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Results:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{OLS R²} & \textbf{ML LR R²} \\
+\midrule
+California Housing & 0.575 & 0.575 \\
+Diabetes & 0.453 & 0.453 \\
+Wine Quality & 0.787 & 0.787 \\
+Energy Consumption & 0.811 & \textcolor{mlcolor}{0.970} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{block}
+
+% Methodology: Classification
+\begin{block}{Methodology: Classification}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}
+    \item Logistic Regression (statsmodels)
+    \item Maximum Likelihood Estimation
+    \item Provides odds ratios, p-values
+\end{itemize}
+
+\column{0.5\linewidth}
+\textcolor{mlcolor}{\textbf{ML:}}
+\begin{itemize}
+    \item Random Forest (scikit-learn)
+    \item Ensemble of decision trees
+    \item Feature importance scores
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Results:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{Logistic Acc.} & \textbf{RF Acc.} \\
+\midrule
+Iris & \textcolor{accentcolor}{1.000} & \textcolor{accentcolor}{1.000} \\
+Wine Classification & 0.956 & \textcolor{mlcolor}{0.982} \\
+Breast Cancer & 0.956 & \textcolor{mlcolor}{0.965} \\
+Credit Default & \textcolor{accentcolor}{0.999} & \textcolor{accentcolor}{0.999} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{block}
+
+\end{column}
+
+% Middle column
+\begin{column}{.32\linewidth}
+
+% Factorial Analysis
+\begin{block}{Methodology: Factorial Analysis}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}
+    \item ANOVA (Analysis of Variance)
+    \item Tests null hypothesis
+    \item Provides F-statistics and p-values
+\end{itemize}
+
+\column{0.5\linewidth}
+\textcolor{mlcolor}{\textbf{ML:}}
+\begin{itemize}
+    \item Support Vector Regression (SVM)
+    \item RBF kernel for non-linear relationships
+    \item Hyperparameter tuning via grid search
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Results:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{ANOVA R²} & \textbf{SVM R²} \\
+\midrule
+Treatment Effects & 0.417 & \textcolor{mlcolor}{0.513} \\
+Educational Outcomes & -0.002 & \textcolor{mlcolor}{0.284} \\
+Agricultural Experiment & 0.464 & \textcolor{mlcolor}{0.745} \\
+Drug Efficacy Study & 0.728 & \textcolor{mlcolor}{0.880} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{block}
+
+% Time Series
+\begin{block}{Methodology: Time Series}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}
+    \item ARIMA (AutoRegressive Integrated Moving Average)
+    \item Auto-selection of $(p,d,q)$
+    \item Interpretable coefficients
+    \item Statistical diagnostics
+\end{itemize}
+
+\column{0.5\linewidth}
+\textcolor{dlcolor}{\textbf{Deep Learning:}}
+\begin{itemize}
+    \item RNN/LSTM (PyTorch)
+    \item Captures long-term dependencies
+    \item Handles complex temporal patterns
+    \item Requires more data and computation
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Results:}
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dataset} & \textbf{ARIMA R²} & \textbf{LSTM R²} \\
+\midrule
+Energy Consumption & 0.450 & \textcolor{dlcolor}{0.890} \\
+Temperature & \textcolor{statcolor}{0.972} & 0.965 \\
+Sales Forecasting & \textcolor{statcolor}{0.972} & 0.969 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{block}
+
+% Overall Performance Summary
+\begin{block}{Overall Performance Summary}
+\centering
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Statistical} & \textbf{ML/DL} \\
+\midrule
+Avg Performance (R²/Acc) & 0.547 & \textcolor{mlcolor}{0.818} \\
+Avg Training Time & \textcolor{statcolor}{0.037s} & 0.763s \\
+Efficiency (Perf/Cost) & \textcolor{accentcolor}{High} & Medium \\
+Interpretability & \textcolor{accentcolor}{88.3/100} & 37.4/100 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5cm}
+\textbf{Key Statistics:}
+\begin{itemize}
+    \item Statistical models: 20-100x faster training
+    \item ML/DL models: 1.5x higher average performance
+    \item Interpretability gap: 2.4x difference
+\end{itemize}
+\end{block}
+
+% Performance vs Cost
+\begin{block}{Performance vs Training Cost}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{../CostVsPerformance.png}
+\end{center}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item \textcolor{statcolor}{Statistical models} (blue): Low cost, moderate performance
+    \item \textcolor{mlcolor}{ML models} (purple): Moderate cost, higher performance
+    \item \textcolor{dlcolor}{Deep Learning} (orange): High cost, highest performance
+    \item \textbf{Ideal solution:} Top-left corner (high performance, low cost)
+\end{itemize}
+\end{block}
+
+% Winners by Category
+\begin{block}{Winners by Category}
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+\textbf{Category} & \textbf{Winner} & \textbf{Performance} \\
+\midrule
+Best Overall Accuracy & Random Forest (ML) & 0.920 \\
+Fastest Training & OLS Regression (Stat) & 0.0001s \\
+Most Interpretable & OLS Regression (Stat) & 100/100 \\
+Best Efficiency & OLS Regression (Stat) & 6435.64 \\
+Best Time Series (Simple) & ARIMA (Stat) & R² = 0.972 \\
+Best Time Series (Complex) & LSTM (DL) & R² = 0.890 \\
+\bottomrule
+\end{tabular}
+\end{block}
+
+\end{column}
+
+% Right column
+\begin{column}{.32\linewidth}
+
+% The Trade-offs
+\begin{alertblock}{The Fundamental Trade-offs}
+\begin{columns}[t]
+\column{0.33\linewidth}
+\begin{block}{\textcolor{mlcolor}{Performance}}
+\begin{align*}
+P(\theta) &= \mathbb{E}[\mathcal{M}(Y, \hat{Y})]
+\end{align*}
+Metrics: $R^2$, Accuracy, RMSE
+\end{block}
+
+\column{0.33\linewidth}
+\begin{block}{\textcolor{statcolor}{Cost}}
+\begin{align*}
+C(\theta) &= T_{\text{train}}(\theta) + \lambda M(\theta)
+\end{align*}
+Training time + memory cost
+\end{block}
+
+\column{0.33\linewidth}
+\begin{block}{\textcolor{accentcolor}{Interpretability}}
+\begin{align*}
+I(\theta) &= \text{Explainability Score} \in [0, 100]
+\end{align*}
+Transparency and trust
+\end{block}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{The Optimization Problem:}
+\begin{align*}
+\max_\theta \quad &P(\theta) - \alpha C(\theta) + \beta I(\theta) \\
+\text{s.t. } &\text{constraints}
+\end{align*}
+\end{alertblock}
+
+% Efficiency Analysis
+\begin{block}{Efficiency Analysis}
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+\textbf{Ranking} & \textbf{Model} & \textbf{Efficiency} \\
+\midrule
+1 & OLS Regression (Stat) & \textcolor{accentcolor}{6435.64} \\
+2 & ANOVA (Stat) & \textcolor{accentcolor}{5445.54} \\
+3 & Linear Regression (ML) & 1297.41 \\
+4 & Logistic Regression (Stat) & 439.78 \\
+5 & Poisson Regression (Stat) & 349.65 \\
+\ldots & \ldots & \ldots \\
+Last & RNN/LSTM (DL) & 0.36 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5cm}
+\begin{columns}[t]
+\column{0.5\linewidth}
+\textcolor{statcolor}{\textbf{Statistical Models:}}
+\begin{itemize}
+    \item 20-100x more efficient
+    \item Best for real-time applications
+    \item Low computational cost
+\end{itemize}
+
+\column{0.5\linewidth}
+\textcolor{mlcolor}{\textbf{ML/DL Models:}}
+\begin{itemize}
+    \item Higher performance potential
+    \item Better for complex patterns
+    \item Suitable for batch processing
+\end{itemize}
+\end{columns}
+\end{block}
+
+% Performance vs Interpretability
+\begin{block}{Performance vs Interpretability Trade-off}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{../bridging_gap.png}
+\end{center}
+
+\textbf{The Interpretability-Performance Curve:}
+\begin{itemize}
+    \item Traditional trade-off: Higher performance $\Leftrightarrow$ Lower interpretability
+    \item \textcolor{statcolor}{\textbf{Interpretable ML Research:}} Moving toward the ideal solution
+    \item Goal: Bridge the gap between statistical and ML approaches
+\end{itemize}
+\end{block}
+
+% When to Choose Statistical
+\begin{block}{When to Choose Statistical Models}
+\textcolor{statcolor}{\textbf{Choose Statistical Models When:}}
+\begin{itemize}
+    \item \textcolor{statcolor}{\ding{51}} Interpretability is critical - Need p-values, confidence intervals
+    \item \textcolor{statcolor}{\ding{51}} Regulatory compliance - Transparent decision-making required
+    \item \textcolor{statcolor}{\ding{51}} Hypothesis testing - Understanding causal relationships
+    \item \textcolor{statcolor}{\ding{51}} Small to medium datasets - Optimal performance on limited data
+    \item \textcolor{statcolor}{\ding{51}} Real-time applications - Fast training and prediction needed
+    \item \textcolor{statcolor}{\ding{51}} Research and development - Need to understand underlying relationships
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Best Models:} OLS Regression, Logistic Regression, ANOVA, ARIMA, Cox Regression
+\end{block}
+
+% When to Choose ML/DL
+\begin{block}{When to Choose ML/DL Models}
+\textcolor{mlcolor}{\textbf{Choose ML/DL Models When:}}
+\begin{itemize}
+    \item \textcolor{mlcolor}{\ding{51}} Maximum accuracy is priority - Need best predictive performance
+    \item \textcolor{mlcolor}{\ding{51}} Large, complex datasets - High-dimensional or non-linear patterns
+    \item \textcolor{mlcolor}{\ding{51}} Production systems - Computational resources available
+    \item \textcolor{mlcolor}{\ding{51}} Pattern discovery - Exploratory analysis on complex data
+    \item \textcolor{mlcolor}{\ding{51}} Non-linear relationships - When linear assumptions fail
+    \item \textcolor{dlcolor}{\ding{51}} Sequential/temporal data - LSTM/RNN for time series with complex patterns
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Best Models:} Random Forest, SVM, LSTM/RNN, Gradient Boosting
+\end{block}
+
+% Key Takeaways
+\begin{block}{Key Takeaways}
+\begin{enumerate}
+    \item \textbf{No universal winner} - Both approaches have distinct advantages
+    
+    \item \textbf{Statistical models excel in:}
+    \begin{itemize}
+        \item Interpretability (88.3/100 vs 37.4/100)
+        \item Speed (20-100x faster training)
+        \item Efficiency (6435.64 vs 0.36 efficiency scores)
+        \item Regulatory compliance and hypothesis testing
+    \end{itemize}
+    
+    \item \textbf{ML/DL models excel in:}
+    \begin{itemize}
+        \item Complex dataset performance (0.818 vs 0.547 avg)
+        \item Scalability to large data
+        \item Capturing non-linear patterns
+        \item Handling complex temporal dependencies
+    \end{itemize}
+    
+    \item \textbf{The optimal choice depends on:}
+    \begin{itemize}
+        \item Primary requirement (accuracy vs interpretability vs speed)
+        \item Dataset characteristics (size, complexity, linearity)
+        \item Computational constraints
+        \item Regulatory requirements
+    \end{itemize}
+\end{enumerate}
+\end{block}
+
+\end{column}
+\end{columns}
+
+% Footer
+\vspace{1cm}
+\begin{columns}[t]
+\begin{column}{.98\linewidth}
+\centering
+\rule{\linewidth}{2pt}\\[0.5cm]
+{\large\textbf{This study provides evidence-based insights for strategic decision-making in predictive analytics.}\\[0.3cm]
+\textit{Comprehensive analysis of 13 model-dataset combinations across 4 problem domains.}\\[0.5cm]
+\textbf{References:} Rudin \& Radin (2019), Arrieta et al. (2020), Transparent AI: The Case for Interpretability (arXiv:2507.23535v1)\\[0.5cm]}
+\end{column}
+\end{columns}
+
+\end{frame}
+\end{document}
+
