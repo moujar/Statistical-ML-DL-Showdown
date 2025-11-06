@@ -251,6 +251,45 @@ Sales Forecasting & \textcolor{statcolor}{0.972} & 0.969 \\
 \end{center}
 \end{block}
 
+% Survival Analysis
+\begin{block}{Methodology: Survival Analysis}
+\begin{columns}[t]
+\column{0.33\linewidth}
+\textcolor{statcolor}{\textbf{Statistical:}}
+\begin{itemize}
+    \item Cox Regression (lifelines)
+    \item Poisson Regression (statsmodels)
+    \item Purpose-built for censored data
+    \item Interpretable hazard ratios
+\end{itemize}
+
+\column{0.33\linewidth}
+\textcolor{mlcolor}{\textbf{ML:}}
+\begin{itemize}
+    \item Gradient Boosting (scikit-learn)
+    \item Handles complex patterns
+    \item Requires adaptation for censoring
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Results:}
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dataset} & \textbf{GBM R²} & \textbf{Cox R²} & \textbf{Poisson R²} \\
+\midrule
+Patient Survival & 0.108 & -0.182 & \textcolor{accentcolor}{0.340} \\
+Customer Churn & -0.190 & -3.923 & \textcolor{accentcolor}{-0.022} \\
+Equipment Failure & -0.263 & -0.814 & \textcolor{accentcolor}{0.084} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Key Finding:} Poisson Regression outperforms both Cox and GBM, with 40-400x faster training.
+\end{block}
+
 % Overall Performance Summary
 \begin{block}{Overall Performance Summary}
 \centering
@@ -277,7 +316,7 @@ Interpretability & \textcolor{accentcolor}{88.3/100} & 37.4/100 \\
 % Performance vs Cost
 \begin{block}{Performance vs Training Cost}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{../CostVsPerformance.png}
+\includegraphics[width=0.9\textwidth]{../imgs/CostVsPerformance.png}
 \end{center}
 
 \textbf{Key Observations:}
@@ -286,6 +325,21 @@ Interpretability & \textcolor{accentcolor}{88.3/100} & 37.4/100 \\
     \item \textcolor{mlcolor}{ML models} (purple): Moderate cost, higher performance
     \item \textcolor{dlcolor}{Deep Learning} (orange): High cost, highest performance
     \item \textbf{Ideal solution:} Top-left corner (high performance, low cost)
+\end{itemize}
+\end{block}
+
+% Fused Trade-off Analysis
+\begin{block}{Integrated Trade-off: Performance, Cost, and Interpretability}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{../imgs/Fused Trade-off: Performance vs. Cost vs. Interpretability.png}
+\end{center}
+
+\textbf{Key Insights:}
+\begin{itemize}
+    \item \textcolor{statcolor}{Statistical Models} (red, large bubbles): High interpretability, low cost, moderate performance
+    \item \textcolor{mlcolor}{ML Models} (blue, small bubbles): Higher performance, moderate cost, lower interpretability
+    \item \textcolor{dlcolor}{Deep Learning} (purple): Highest performance, highest cost, lowest interpretability
+    \item \textbf{Bubble size} = Interpretability (larger = more interpretable)
 \end{itemize}
 \end{block}
 
@@ -303,6 +357,7 @@ Most Interpretable & OLS Regression (Stat) & 100/100 \\
 Best Efficiency & OLS Regression (Stat) & 6435.64 \\
 Best Time Series (Simple) & ARIMA (Stat) & R² = 0.972 \\
 Best Time Series (Complex) & LSTM (DL) & R² = 0.890 \\
+Best Survival Analysis & Poisson Regression (Stat) & R² = 0.340 \\
 \bottomrule
 \end{tabular}
 \end{block}
@@ -389,7 +444,7 @@ Last & RNN/LSTM (DL) & 0.36 \\
 % Performance vs Interpretability
 \begin{block}{Performance vs Interpretability Trade-off}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{../bridging_gap.png}
+\includegraphics[width=0.9\textwidth]{../imgs/bridging_gap.png}
 \end{center}
 
 \textbf{The Interpretability-Performance Curve:}
