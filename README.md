@@ -288,29 +288,5 @@ Additional references are available in the `paper/` directory and cited in the f
 
 ---
 
-## 👥 Authors
-
-- **Abderrahmane Moujar 22508668**
-- **Oudoum Ali Houmed 22518703**
-- **Said Abolhassan Razavi 22517914**
-
-**Institution:** Master Paris-Saclay, Applied Statistics
-
----
-
-
-## 📝 Citation
-
-If you use this work, please cite:
-
-```
-Moujar, A., Houmed, O. A., & Razavi, S. A. (2025). 
-Bridging the Gap: Statistical vs Machine Learning Methods - 
-Performance, Cost, and Interpretability Trade-offs in the Age of Transparent AI.
-Master Paris-Saclay, Applied Statistics.
-```
-
----
-
 **Last Updated:** 2025
 
